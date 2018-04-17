@@ -1,0 +1,25 @@
+.opcoes:hover{
+	background-color: #EEEEEE;
+	border-radius: 0.5em;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+body{
+	font-family: Arial;
+	font-size: 12px;
+}
+
+.form-inline > input, .btn{
+	font-size: 12px;
+}
+
+.table-striped tbody{
+	font-size: 12px;
+}
+.table-striped thead{
+	font-size: 14px;
+}
+.table tr{
+	height: 18px;
+}
