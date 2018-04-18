@@ -23,3 +23,10 @@ body{
 .table tr{
 	height: 18px;
 }
+a:focus{
+	border: 0px solid white;
+}
+
+input{
+	font-size: 14px;
+}

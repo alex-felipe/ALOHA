@@ -55,16 +55,24 @@
     <br/>
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h2 class="section-heading" style="font-size: 24px;">GERENCIAMENTO DE DOCENTES</h2>
-        <hr class="my-4">
+        <center>
+          <nav aria-label="breadcrumb" style="width: 75%;">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Docentes</li>
+            </ol>
+          </nav>
+        </center>
+
       </div>
     </div>
-    <div class="container">
-      <form class="form-inline my-2 my-lg-0 float-right">
-        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar docente..." aria-label="Pesquisar docente..." style="width: 201px;">
+    <div class="container col-lg-9">
+      <form class="form-inline my-2 my-lg-0">
+        <h2 class="section-heading float-left" style="font-size: 22px;">GERENCIAMENTO DE DOCENTES</h2>
+        <hr class="my-4"/>
+        <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar docente..." aria-label="Pesquisar docente..." style="width: 201px;">
         <button class="btn btn-outline-primary my-2 my-sm-0" style="border-radius: 0.5em;" type="submit">Pesquisar</button>
       </form>
-      <br/>
       <br/>
       <table class="table table-striped">
         <thead>
@@ -89,7 +97,7 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">DOC001</th>
+            <th scope="row">DOC002</th>
             <td>Dmontier Aragão Pinheiro Júnior</td>
             <td>64 horas</td>
             <td>128 horas</td>
@@ -100,7 +108,7 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">DOC001</th>
+            <th scope="row">DOC003</th>
             <td>Dmontier Aragão Pinheiro Júnior</td>
             <td>64 horas</td>
             <td>128 horas</td>
@@ -111,7 +119,7 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">DOC001</th>
+            <th scope="row">DOC004</th>
             <td>Dmontier Aragão Pinheiro Júnior</td>
             <td>64 horas</td>
             <td>128 horas</td>
@@ -122,7 +130,7 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">DOC001</th>
+            <th scope="row">DOC005</th>
             <td>Dmontier Aragão Pinheiro Júnior</td>
             <td>64 horas</td>
             <td>128 horas</td>
@@ -133,34 +141,13 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">DOC001</th>
+            <th scope="row">DOC006</th>
             <td>Dmontier Aragão Pinheiro Júnior</td>
             <td>64 horas</td>
             <td>128 horas</td>
             <td style="width: 20px;">
               <center>
-                <button class="fa fa-plus-square" style="font-size: 18px;" data-toggle="modal" data-target="#exampleModal"></button>
-
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        ...
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
+                <i class="fa fa-plus-square" style="font-size: 18px;"></i>
               </center>
             </td>
           </tr>
@@ -168,7 +155,7 @@
       </table>
       
 
-    <button class="btn btn-primary my-2 my-sm-0 float-right" style="border-radius: 0.5em;" type="button">Adicionar Docente</button>
+    <a href="adicionar_docente.html" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Adicionar Docente</a>
     </div>
     <br/>
     <nav aria-label="Page navigation example">
@@ -195,7 +182,7 @@
     <!-- Custom scripts for this template -->
     <script src="js/creative.min.js"></script>
     <script type="text/javascript">
-      $('#exampleModal').modal('show')
+        $('#exampleModal').modal('show');
     </script>
   </body>
 
