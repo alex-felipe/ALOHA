@@ -59,7 +59,7 @@
           <nav aria-label="breadcrumb" style="width: 75%;">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Docentes</li>
+              <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Disciplinas</li>
             </ol>
           </nav>
         </center>
@@ -68,9 +68,9 @@
     </div>
     <div class="container col-lg-9">
       <form class="form-inline my-2 my-lg-0">
-        <h2 class="section-heading float-left" style="font-size: 22px;">GERENCIAMENTO DE DOCENTES</h2>
+        <h2 class="section-heading float-left" style="font-size: 22px;">GERENCIAMENTO DE DISCIPLINAS</h2>
         <hr class="my-4"/>
-        <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar docente..." aria-label="Pesquisar docente..." style="width: 201px;">
+        <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar disciplina..." aria-label="Pesquisar docente..." style="width: 201px;">
         <button class="btn btn-outline-primary my-2 my-sm-0" style="border-radius: 0.5em;" type="submit">Pesquisar</button>
       </form>
       <br/>
@@ -79,17 +79,19 @@
           <tr>
             <th scope="col">Código</th>
             <th scope="col">Nome</th>
-            <th scope="col">CR Mínimos</th>
-            <th scope="col">CR Máximos</th>
+            <th scope="col">Curso</th>
+            <th scope="col">Semestre</th>
+            <th scope="col">Vagas</th>
             <th scope="col">Detalhes</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">DOC001</th>
-            <td>Dmontier Aragão Pinheiro Júnior</td>
-            <td>4 Créditos</td>
-            <td>10 Créditos</td>
+            <th scope="row">DISC001</th>
+            <td>Algoritimos em Grafos</td>
+            <td>Engenharia de Software</td>
+            <td>4º Semestre </td>
+            <td style="width: 20px;"> <center>50</center> </td>
             <td style="width: 20px;">
               <center>
                 <button class="fa fa-plus-square" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
@@ -97,10 +99,11 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">DOC002</th>
-            <td>Dmontier Aragão Pinheiro Júnior</td>
-            <td>4 Créditos</td>
-            <td>10 Créditos</td>
+            <th scope="row">DISC002</th>
+            <td>Compiladores</td>
+            <td>Ciêncai da Computação</td>
+            <td>5º Semestre </td>
+            <td style="width: 20px;"> <center>50</center> </td>
             <td style="width: 20px;">
               <center>
                 <button class="fa fa-plus-square" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
@@ -108,10 +111,11 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">DOC003</th>
-            <td>Dmontier Aragão Pinheiro Júnior</td>
-            <td>4 Créditos</td>
-            <td>10 Créditos</td>
+            <th scope="row">DISC003</th>
+            <td>Estrutura de Dados</td>
+            <td>Ciência da Computação</td>
+            <td>2º Semestre </td>
+            <td style="width: 20px;"> <center>50</center> </td>
             <td style="width: 20px;">
               <center>
                 <button class="fa fa-plus-square" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
@@ -119,10 +123,11 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">DOC004</th>
-            <td>Dmontier Aragão Pinheiro Júnior</td>
-            <td>4 Créditos</td>
-            <td>10 Créditos</td>
+            <th scope="row">DISC004</th>
+            <td>Empreendedorismo</td>
+            <td>Engenharia de Software</td>
+            <td>4º Semestre </td>
+            <td style="width: 20px;"> <center>50</center> </td>
             <td style="width: 20px;">
               <center>
                 <button class="fa fa-plus-square" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
@@ -130,10 +135,11 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">DOC005</th>
-            <td>Dmontier Aragão Pinheiro Júnior</td>
-            <td>4 Créditos</td>
-            <td>10 Créditos</td>
+            <th scope="row">DISC005</th>
+            <td>Pesquisa Operacional</td>
+            <td>Engenharia de Produção</td>
+            <td>4º Semestre </td>
+            <td style="width: 20px;"> <center>50</center> </td>
             <td style="width: 20px;">
               <center>
                 <button class="fa fa-plus-square" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
@@ -141,10 +147,11 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">DOC006</th>
-            <td>Dmontier Aragão Pinheiro Júnior</td>
-            <td>4 Créditos</td>
-            <td>10 Créditos</td>
+            <th scope="row">DISC006</th>
+            <td>Redes de Computadores</td>
+            <td>Engenharia de Software</td>
+            <td>4º Semestre </td>
+            <td style="width: 20px;"> <center>50</center> </td>
             <td style="width: 20px;">
               <center>
                 <button class="fa fa-plus-square" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"></button>
@@ -164,7 +171,7 @@
         </div>
       </div>
 
-    <a href="adicionar_docente.html" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Adicionar Docente</a>
+    <a href="adicionar_disciplina.html" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Adicionar Disciplina</a>
     </div>
     <br/>
     <nav aria-label="Page navigation example">
@@ -205,31 +212,16 @@
             </button>
           </div>
           <div class="modal-body">
-            <b>Código</b>: DOC005
-            <br><b>Nome</b>: Dmontier Aragão Pinheiro Júnior
-            <br><b>Créditos minimos</b>: 4 Créditos
-            <br><b>Créditos máximos</b>: 10 Créditos
-            <br><br><center><b>Disciplinas Apto</b></center>
-            <table class="table table-sm">
-              <thead>
-                <th>Disciplina</th>
-                <th>Preferencia</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Pesquisa Operacional</td>
-                  <td> 100</td>
-                </tr>
-                <tr>
-                  <td>Estrutura de dados</td>
-                  <td>50</td>
-                </tr>
-                <tr>
-                  <td>Empreendedorismo</td>
-                  <td>50</td>
-                </tr>
-              </tbody>
-            </table> 
+           
+            <b>Código</b>: DISC001
+            <br><b>Nome</b>: Algoritimos em grafos
+            <br><b>Curso</b>: Engenharia de Software
+            <br><b>Semestre</b>: 4º Semestre  
+            <br><b>Créditos teóricos</b>: 2 Créditos
+            <br><b>Créditos práticos</b>: 2 Créditos
+            <br><b>Vagas</b>: 50
+            
+            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
