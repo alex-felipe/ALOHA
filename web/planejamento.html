@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ALOHA - Sistema de Alocação de Horários Acadêmicos</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-shrink" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">ALOHA UFC</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Opções
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="docentes.html">Docentes</a>
+                      <a class="dropdown-item" href="disciplinas.html">Disciplinas</a>
+                      <a class="dropdown-item" href="salas.html">Salas</a>
+                      <a class="dropdown-item" href="combos.html">Combos</a>
+                      <a class="dropdown-item" href="confifiracoes.html">Configurações</a>
+                    </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos anteriores</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="confifiracoes.html">Configurações</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br/>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <center>
+          <nav aria-label="breadcrumb" style="width: 75%;">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Planejamento</li>
+            </ol>
+          </nav>
+        </center>
+
+      </div>
+    </div>
+    <div class="container col-lg-9">
+      <form class="form-inline my-2 my-lg-0">
+        <h2 class="section-heading float-left" style="font-size: 22px;">PLANEJAMENTOS</h2>
+        <br/>
+        <div class="form-group row" style="padding-left: 250px;">
+          <label for="inputNome" class="col-form-label">Ano: &nbsp;</label>
+          <input type="text" class="form-control" id="inputNome" style="font-size: 12px; width: 60px;" placeholder="2018"/>&nbsp;&nbsp;
+          <label for="inputNome" class="col-form-label">Periodo: &nbsp;</label>
+          <input type="text" class="form-control" id="inputNome" style="font-size: 12px; width: 60px;" placeholder="1"/>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="planejamentos.html" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Ver planejamento</a>&nbsp;&nbsp; ou &nbsp;&nbsp;
+          <a href="adicionar_disciplina.html" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Criar Novo Planejamento</a>
+        </div>
+      </form>
+      <br/>
+      <br/>
+      <a href="#" class="float-right"><i class="fa  fa-file" style="color: black;"></i> Baixar planilha</a>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Sala 01</th>
+            <th scope="col">Segunda</th>
+            <th scope="col">Terça</th>
+            <th scope="col">Quarta</th>
+            <th scope="col">Quinta</th>
+            <th scope="col">Sexta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">08:00 às 10:00</th>
+            <td>COMPUTAÇÃO 1 <br> Introdução à Ciência da Computação <br><b>(Prof. Felipe)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Matemática Básica <br><b>(Profa. Marília)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Introdução à Ciência da Computação <br><b>(Prof. Felipe)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Matemática Básica <br><b>(Profa. Marília)</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">10:00 às 12:00</th>
+            <td>COMPUTAÇÃO 1 <br> Introdução à Ciência da Computação <br><b>(Prof. Felipe)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Matemática Básica <br><b>(Profa. Marília)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Introdução à Ciência da Computação <br><b>(Prof. Felipe)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Matemática Básica <br><b>(Profa. Marília)</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">13:30 às 15:30</th>
+            <td>COMPUTAÇÃO 1 <br> Introdução à Ciência da Computação <br><b>(Prof. Felipe)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Matemática Básica <br><b>(Profa. Marília)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Introdução à Ciência da Computação <br><b>(Prof. Felipe)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Matemática Básica <br><b>(Profa. Marília)</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">15:30 às 17:30</th>
+            <td>COMPUTAÇÃO 1 <br> Introdução à Ciência da Computação <br><b>(Prof. Felipe)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Matemática Básica <br><b>(Profa. Marília)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Introdução à Ciência da Computação <br><b>(Prof. Felipe)</b></td>
+            <td>COMPUTAÇÃO 1 <br> Matemática Básica <br><b>(Profa. Marília)</b></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br/>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <div class="modal fade" id="infoDoc" tabindex="-1" role="dialog" aria-labelledby="infoDoc" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Informações da Disciplina</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           
+            <b>Código</b>: DISC001
+            <br><b>Nome</b>: Algoritimos em grafos
+            <br><b>Curso</b>: Engenharia de Software
+            <br><b>Semestre</b>: 4º Semestre  
+            <br><b>Créditos teóricos</b>: 2 Créditos
+            <br><b>Créditos práticos</b>: 2 Créditos
+            <br><b>Vagas</b>: 50
+            
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Editar informações</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
