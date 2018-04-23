@@ -30,3 +30,6 @@ a:focus{
 input{
 	font-size: 14px;
 }
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
