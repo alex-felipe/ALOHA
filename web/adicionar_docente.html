@@ -167,7 +167,11 @@
 
         <div class="form-group row" style="padding-left: 100px;">        
         Selecione as disciplinas que este docente deseja ministrar. Defina o nível de preferência para cada uma das selecionadas.<br/>
-        <table class="table table-sm" style="width: 450px;">
+        <div class="form-group row" style="padding-left: 100px;">
+          <label for="inputNome" class="col-form-label">Buscar disciplina: &nbsp;</label>
+          <input type="text" class="form-control" id="inputNome" style="font-size: 12px; width: 450px;" placeholder=""/>
+        </div>
+        <table class="table table-sm table-hover" style="width: 700px;">
               <thead>
                 <th>#</th>
                 <th>Disciplina</th>
@@ -175,45 +179,32 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><div class="checkbox checkbox-success"><input type="checkbox" id="checkbox1" class="styled"></div></td>
-                  <td>Algoritimos em Grafos</td>
-                  <td><input type="text" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 80px; height: 20px"></td>
+                <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
+                  <td style="padding-top: 10px;">Estrutura de Dados</td>
+                  <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
                 </tr>
                 <tr>
-                  <td><div class="checkbox checkbox-success"><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                  <td>Compiladores</td>
-                  <td><input type="text" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 80px; height: 20px"></td>
+                <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
+                  <td style="padding-top: 10px;">Fundamentos da Programação</td>
+                  <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
                 </tr>
                 <tr>
-                <td><div class="checkbox checkbox-success"><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                  <td>Estrutura de Dados</td>
-                  <td><input type="text" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 80px; height: 20px"></td>
+                <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
+                  <td style="padding-top: 10px;">Redes de Computadores</td>
+                  <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
                 </tr>
                 <tr>
-                <td><div class="checkbox checkbox-success"><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                  <td>Empreendedorismo</td>     
-                  <td><input type="text" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 80px; height: 20px"></td>
+                <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
+                  <td style="padding-top: 10px;">Sistemas Operacionais</td>
+                  <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
                 </tr>
                 <tr>
-                  <td>
-                    <div class="checkbox checkbox-success"><input type="checkbox" id="checkbox1" class="styled"></div>
-                  </td>
-                  <td>Pesquisa Operacional</td>
-                  <td><input type="text" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 80px; height: 20px"></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="checkbox checkbox-success"><input type="checkbox" id="checkbox1" class="styled">
-                    </div>
-                  </td>
-                  <td>Redes de Computadores</td>       
-                  <td><input type="text" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 80px; height: 20px"></td>
+                <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
+                  <td style="padding-top: 10px;">Linguagens Formais e Autômatos</td>
+                  <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
                 </tr>
               </tbody>
             </table>
-            </div>
-            <div class="form-group row" style="padding-left: 400px; margin-top:-20px">   
-               <input type="text" class="form-control" id="inputNome" style="font-size: 10px; width: 150px; margin-right: 140px; height: 20px" placeholder="Pesquisar..."/>
             </div>
 
       </form>
