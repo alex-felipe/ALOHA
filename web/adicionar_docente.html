@@ -40,22 +40,22 @@
               <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
             </li>
             <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Opções
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a class="dropdown-item" href="docentes.html">Docentes</a>
-                      <a class="dropdown-item" href="disciplinas.html">Disciplinas</a>
-                      <a class="dropdown-item" href="salas.html">Salas</a>
-                      <a class="dropdown-item" href="combos.html">Combos</a>
-                      <a class="dropdown-item" href="planejamentos.html">Planejamentos</a>
-                    </div>
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Opções
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="docentes.html">Docentes</a>
+                <a class="dropdown-item" href="disciplinas.html">Disciplinas</a>
+                <a class="dropdown-item" href="salas.html">Salas</a>
+                <a class="dropdown-item" href="combos.html">Combos</a>
+                <a class="dropdown-item" href="planejamentos.html">Planejamentos</a>
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="confifiracoes.html">Configurações</a>
+              <a class="nav-link js-scroll-trigger" href="configuracoes.html">Configurações</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
@@ -164,14 +164,18 @@
             </div>
           </li>
         </div>
-
-        <div class="form-group row" style="padding-left: 100px;">        
-        Selecione as disciplinas que este docente deseja ministrar. Defina o nível de preferência para cada uma das selecionadas.<br/>
+        <hr size="500"/>
         <div class="form-group row" style="padding-left: 100px;">
-          <label for="inputNome" class="col-form-label">Buscar disciplina: &nbsp;</label>
-          <input type="text" class="form-control" id="inputNome" style="font-size: 12px; width: 450px;" placeholder=""/>
+        <br/>        
+        Selecione as disciplinas que este docente deseja ministrar. Defina o nível de preferência para cada uma das selecionadas.<br/>
+        <br/>
+        <div style="padding-left: 50px; width: 500px;   ">
+          <label for="inputNome" class="">Buscar disciplina: &nbsp;</label>
+          <input type="text" class="form-control " id="inputNome" style="font-size: 12px; width: 200px;" placeholder="Ex: Estrutura de Dados"/> &nbsp;
+          <a href="#" class="btn btn-primary" style="border-radius: 0.5em; ">Buscar</a>
         </div>
-        <table class="table table-sm table-hover" style="width: 700px;">
+        <div>
+          <table class="table table-sm table-hover" style="width: 400px;">
               <thead>
                 <th>#</th>
                 <th>Disciplina</th>
@@ -204,8 +208,9 @@
                   <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
                 </tr>
               </tbody>
-            </table>
-            </div>
+          </table>
+        </div>
+      </div>
 
       </form>
       <br/>
