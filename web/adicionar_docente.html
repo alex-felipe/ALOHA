@@ -168,42 +168,41 @@
         <div class="form-group row" style="padding-left: 100px;">
         <br/>        
         Selecione as disciplinas que este docente deseja ministrar. Defina o nível de preferência para cada uma das selecionadas.<br/>
-        <br/>
-        <div style="padding-left: 50px; width: 500px;   ">
           <label for="inputNome" class="">Buscar disciplina: &nbsp;</label>
           <input type="text" class="form-control " id="inputNome" style="font-size: 12px; width: 200px;" placeholder="Ex: Estrutura de Dados"/> &nbsp;
-          <a href="#" class="btn btn-primary" style="border-radius: 0.5em; ">Buscar</a>
-        </div>
+          <a href="#" class="btn btn-primary" style="border-radius: 0.5em;  ">Buscar</a>
+          <br/>
         <div>
-          <table class="table table-sm table-hover" style="width: 400px;">
+          <table class="table table-sm table-hover" style="width: 400px; float: left; position: absolute;margin-top: 10px;">
               <thead>
-                <th>#</th>
+                <th>Disciplina</th>
+                <th>Opção</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding-top: 10px;">Estrutura de Dados</td>
+                  <td><input type="button" value="Selecionar" class="btn btn-primary btn-sm"></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 10px;">Redes de Computadores</td>
+                  <td><input type="button" value="Selecionar" class="btn btn-primary btn-sm"></td>
+                </tr>
+                  <td style="padding-top: 10px;">Sistemas Operacionais</td>
+                  <td><input type="button" value="Selecionar" class="btn btn-primary btn-sm"></td>
+                </tr>
+              </tbody>
+          </table>
+          <table class="table table-sm table-hover" style="width: 400px; margin-left: 450px;margin-top: 10px; ">
+              <thead>
                 <th>Disciplina</th>
                 <th>Preferência</th>
               </thead>
               <tbody>
                 <tr>
-                <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                  <td style="padding-top: 10px;">Estrutura de Dados</td>
-                  <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
-                </tr>
-                <tr>
-                <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
                   <td style="padding-top: 10px;">Fundamentos da Programação</td>
                   <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
                 </tr>
                 <tr>
-                <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                  <td style="padding-top: 10px;">Redes de Computadores</td>
-                  <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
-                </tr>
-                <tr>
-                <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                  <td style="padding-top: 10px;">Sistemas Operacionais</td>
-                  <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
-                </tr>
-                <tr>
-                <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
                   <td style="padding-top: 10px;">Linguagens Formais e Autômatos</td>
                   <td><input type="number" max="100" min="0" class="form-control" placeholder="0 - 100..." style="font-size: 12px; width: 100px;"></td>
                 </tr>
