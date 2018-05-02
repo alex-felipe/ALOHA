@@ -86,67 +86,105 @@
       </form>
       <br/>
       <form>
-        <table></table>
-        <div class="form-group row" style="padding-left: 100px;">
-          <label for="inputNome" class="col-form-label">Nome: &nbsp;</label>
-          <input type="text" class="form-control" id="inputNome" style="font-size: 12px; width: 405px;" placeholder="Digite o nome da disciplina..."/>
-        </div>
-        <div class="form-group row" style="padding-left: 100px;">
-          <label for="inputNome" class="col-form-label">Curso / Semestre: &nbsp;</label>
-          <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 200px; height: 30px;" >
-            <option selected>Curso</option>
-            <option value="1">Ciência da Computação</option>
-            <option value="2">Engenharia Civil</option>
-            <option value="3">Engenharia de Produção</option>
-            <option value="4">Engenharia de Software</option>
-            <option value="5">Engenharia Mecânica</option>
-          </select>
-          &nbsp;&nbsp;&nbsp;
-          <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 140px; height: 30px;" >
-            <option selected>Semestre</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="3">4</option>
-            <option value="3">5</option>
-            <option value="3">6</option>
-            <option value="3">7</option>
-            <option value="3">8</option>
-            <option value="3">9</option>
-            <option value="3">10</option>
-          </select>
-        </div>
-        <div class="form-group row" style="padding-left: 100px;">
-          <label for="inputNome" class="col-form-label">Quantidade de créditos: &nbsp;</label>
-          <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 100px; height: 30px;" >
-            <option selected>Teóricos</option>
-            <option value="1">2</option>
-            <option value="2">4</option>
-            <option value="3">6</option>
-          </select>
-          &nbsp;&nbsp;&nbsp;
-          <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 100px; height: 30px;" >
-            <option selected>Práticos</option>
-            <option value="1">2</option>
-            <option value="2">4</option>
-            <option value="3">6</option>
-          </select>
-          &nbsp;&nbsp;&nbsp;
-          <label for="inputNome" class="col-form-label">Vagas: &nbsp;</label>
-          <input type="text" class="form-control" id="inputNome" style="font-size: 12px; width: 70px;" placeholder=".." />
-        </div>
-        <div class="form-group row" style="padding-left: 100px;">
-          <label for="inputNome" class="col-form-label">Sala Específica: &nbsp;</label>
-          <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 200px; height: 30px;" >
-            <option selected>Sala</option>
-            <option value="1">Lab. de Quimica</option>
-            <option value="2">Lab. de Fisica</option>
-            <option value="3">Lab. de Informática</option>
-            <option value="3">Sala de Desenho</option>
-          </select>
-          &nbsp;&nbsp;&nbsp;
-          
-        </div>
+        <table>
+          <tr>
+            <td>
+              <label for="inputNome" class="col-form-label">Código da disciplina: &nbsp;</label>
+            </td>
+            <td>
+              <input type="text" class="form-control" id="inputCodDisciplina" style="font-size: 12px; width: 200px;" placeholder="Digite o código da disciplina..."/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="inputNome" class="col-form-label">Nome: &nbsp;</label>
+            </td>
+            <td>
+              <input type="text" class="form-control" id="inputNome" style="font-size: 12px; width: 200px;" placeholder="Digite o nome da disciplina..."/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="inputNome" class="col-form-label">Curso / Semestre: &nbsp;</label>
+            </td>
+            <td>
+              <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 200px; height: 30px;" >
+                <option selected>Curso</option>
+                <option value="1">Ciência da Computação</option>
+                <option value="2">Engenharia Civil</option>
+                <option value="3">Engenharia de Produção</option>
+                <option value="4">Engenharia de Software</option>
+                <option value="5">Engenharia Mecânica</option>
+              </select>
+            </td>
+            <td>
+              <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 140px; height: 30px;" >
+                <option selected>Semestre</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="3">4</option>
+                <option value="3">5</option>
+                <option value="3">6</option>
+                <option value="3">7</option>
+                <option value="3">8</option>
+                <option value="3">9</option>
+                <option value="3">10</option>
+              </select>
+            </td>
+            <td>
+              <input type="button" class="btn btn-primary btn-sm" value="Adicionar curso"/>
+            </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Ciência da Computação</td>
+          <td>5º Semestre</td>
+          <td>
+            <input type="button" value="Remover" class="btn btn-secodary btn-sm">
+          </td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td>
+            <label for="inputNome" class="col-form-label">Quantidade de créditos: &nbsp;</label>
+          </td>
+          <td>
+            <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 100px; height: 30px;" >
+              <option selected>Teóricos</option>
+              <option value="1">2</option>
+              <option value="2">4</option>
+              <option value="3">6</option>
+            </select>
+            <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 100px; height: 30px;" >
+              <option selected>Práticos</option>
+              <option value="1">2</option>
+              <option value="2">4</option>
+              <option value="3">6</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="inputNome" class="col-form-label">Vagas: &nbsp;</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="inputNome" style="font-size: 12px; width: 70px;" placeholder=".." />
+          </td>
+          <td>
+            <label for="inputNome" class="col-form-label">Sala Específica: &nbsp;</label>
+          </td>
+          <td>
+            <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 200px; height: 30px;" >
+              <option selected>Sala</option>
+              <option value="1">Lab. de Quimica</option>
+              <option value="2">Lab. de Fisica</option>
+              <option value="3">Lab. de Informática</option>
+              <option value="3">Sala de Desenho</option>
+            </select>
+          </td>
+        </tr>
+      </table>
         
       </form>
       <br/>
