@@ -92,40 +92,217 @@
         </div>
       </form> 
       <br/>
-      <table class="table table-sm table-hover" style="width: 700px;">
-            <thead>
-              <th>#</th>
-              <th>Disciplina</th>
-              <th>Quantidade de Turmas</th>
-            </thead>
-            <tbody>
-              <tr>
-              <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                <td style="padding-top: 10px;">Estrutura de Dados</td>
-                <td><input type="number" max="100" min="0" class="form-control" placeholder="..." style="font-size: 12px; width: 100px;"></td>
-              </tr>
-              <tr>
-              <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                <td style="padding-top: 10px;">Fundamentos da Programação</td>
-                <td><input type="number" max="100" min="0" class="form-control" placeholder="..." style="font-size: 12px; width: 100px;"></td>
-              </tr>
-              <tr>
-              <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                <td style="padding-top: 10px;">Redes de Computadores</td>
-                <td><input type="number" max="100" min="0" class="form-control" placeholder="..." style="font-size: 12px; width: 100px;"></td>
-              </tr>
-              <tr>
-              <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                <td style="padding-top: 10px;">Sistemas Operacionais</td>
-                <td><input type="number" max="100" min="0" class="form-control" placeholder="..." style="font-size: 12px; width: 100px;"></td>
-              </tr>
-              <tr>
-              <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
-                <td style="padding-top: 10px;">Linguagens Formais e Autômatos</td>
-                <td><input type="number" max="100" min="0" class="form-control" placeholder="..." style="font-size: 12px; width: 100px;"></td>
-              </tr>
-            </tbody>
-          </table>
+          
+          </div>
+          <div class="container col-lg-9">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#disciplinas" role="tab" aria-controls="home" aria-selected="true">Disciplinas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="profile" aria-selected="false">Professores</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#salas" role="tab" aria-controls="contact" aria-selected="false">Salas</a>
+            </li>
+          </ul>
+          </div>
+          <div class="tab-content container" id="myTabContent" >
+            <br>
+            <div class="tab-pane fade show active container" style="margin-left: 200px" id="disciplinas" role="tabpanel" aria-labelledby="home-tab">
+                <table class="table table-striped" style="width: 700px;">
+                      <thead>
+                        <th>#</th>
+                        <th>Disciplina</th>
+                        <th>Quantidade de Turmas</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                        <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
+                          <td style="padding-top: 10px;">Estrutura de Dados</td>
+                          <td><input type="number" max="100" min="0" class="form-control" placeholder="..." style="font-size: 12px; width: 100px;"></td>
+                        </tr>
+                        <tr>
+                        <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
+                          <td style="padding-top: 10px;">Fundamentos da Programação</td>
+                          <td><input type="number" max="100" min="0" class="form-control" placeholder="..." style="font-size: 12px; width: 100px;"></td>
+                        </tr>
+                        <tr>
+                        <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
+                          <td style="padding-top: 10px;">Redes de Computadores</td>
+                          <td><input type="number" max="100" min="0" class="form-control" placeholder="..." style="font-size: 12px; width: 100px;"></td>
+                        </tr>
+                        <tr>
+                        <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
+                          <td style="padding-top: 10px;">Sistemas Operacionais</td>
+                          <td><input type="number" max="100" min="0" class="form-control" placeholder="..." style="font-size: 12px; width: 100px;"></td>
+                        </tr>
+                        <tr>
+                        <td style="padding-top: 10px;"><div class="checkbox checkbox-success" ><input type="checkbox" id="checkbox1" class="styled"><label></label></div></td>
+                          <td style="padding-top: 10px;">Linguagens Formais e Autômatos</td>
+                          <td><input type="number" max="100" min="0" class="form-control" placeholder="..." style="font-size: 12px; width: 100px;"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <a class="btn btn-primary active" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="margin-left: 700px">Next</a>
+            </div>
+            <div class="tab-pane fade container" id="professores" style="margin-left: 200px" role="tabpanel" aria-labelledby="profile-tab">
+              <table class="table table-striped" style="width: 700px;">
+                <thead>
+                  <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Detalhes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">DOC001</th>
+                    <td>Dmontier Aragão Pinheiro Júnior</td>
+                    <td style="width: 20px;">
+                      <center>
+                       <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">DOC002</th>
+                    <td>Dmontier Aragão Pinheiro Júnior</td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">DOC003</th>
+                    <td>Dmontier Aragão Pinheiro Júnior</td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">DOC004</th>
+                    <td>Dmontier Aragão Pinheiro Júnior</td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">DOC005</th>
+                    <td>Dmontier Aragão Pinheiro Júnior</td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">DOC006</th>
+                    <td>Dmontier Aragão Pinheiro Júnior</td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <a class="btn btn-primary active" id="home-tab" data-toggle="tab" href="#salas" role="tab" aria-controls="home" aria-selected="true" style="margin-left: 700px">Next</a>
+            </div>
+            <div class="tab-pane fade container"  style="margin-left: 200px"  id="salas" role="tabpanel" aria-labelledby="contact-tab">
+              <table class="table table-striped" style="width: 700px">
+                <thead>
+                  <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Bloco</th>
+                    <th scope="col">Capacidade</th>
+                    <th scope="col">Remover</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">SL001</th>
+                    <td>Sala 01</td>
+                    <td>Sala</td>
+                    <td>Bloco 1</td>
+                    <td style="width: 20px;"> <center>50</center> </td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">SL002</th>
+                    <td>Sala 02</td>
+                    <td>Sala</td>
+                    <td>Bloco 1</td>
+                    <td style="width: 20px;"> <center>50</center> </td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">SL003</th>
+                    <td>Sala 03</td>
+                    <td>Sala</td>
+                    <td>Bloco 1</td>
+                    <td style="width: 20px;"> <center>50</center> </td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">SL004</th>
+                    <td>Sala 04</td>
+                    <td>Sala</td>
+                    <td>Bloco 2</td>
+                    <td style="width: 20px;"> <center>50</center> </td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">SL005</th>
+                    <td>Sala Auxiliar II</td>
+                    <td>Sala</td>
+                    <td>Bloco 1</td>
+                    <td style="width: 20px;"> <center>25</center> </td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">SL006</th>
+                    <td>Laboratório I</td>
+                    <td>Laboratório</td>
+                    <td>Bloco 1</td>
+                    <td style="width: 20px;"> <center>25</center> </td>
+                    <td style="width: 20px;">
+                      <center>
+                        <button class="fa fa-trash" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                      </center>
+                    </td>
+                  </tr>          
+                </tbody>
+              </table>
+              <a class="btn btn-primary active" id="home-tab" data-toggle="tab" href="planejamentos.html" role="tab" aria-controls="home" aria-selected="true" style="margin-left: 700px">Finalizar</a>
+            </div>
           </div>
       <br/>
       <br/>
@@ -146,34 +323,7 @@
     <!-- Custom scripts for this template -->
     <script src="js/creative.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <div class="modal fade" id="infoDoc" tabindex="-1" role="dialog" aria-labelledby="infoDoc" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Informações da Disciplina</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-           
-            <b>Código</b>: DISC001
-            <br><b>Nome</b>: Algoritimos em grafos
-            <br><b>Curso</b>: Engenharia de Software
-            <br><b>Semestre</b>: 4º Semestre  
-            <br><b>Créditos teóricos</b>: 2 Créditos
-            <br><b>Créditos práticos</b>: 2 Créditos
-            <br><b>Vagas</b>: 50
-            
-            
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary">Editar informações</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </body>
 
 </html>
