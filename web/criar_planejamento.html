@@ -104,6 +104,15 @@
             <li class="nav-item">
               <a class="nav-link" id="contact-tab" data-toggle="tab" href="#salas" role="tab" aria-controls="contact" aria-selected="false">Salas</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" id="verAMPL-tab" data-toggle="tab" href="#verAMPL" role="tab" aria-controls="verAMPL" aria-selected="false">Ver AMPL</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="enviarResp-tab" data-toggle="tab" href="#enviarResp" role="tab" aria-controls="enviarResp" aria-selected="false">Enviar Respostas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="finalizar-tab" data-toggle="tab" href="#finalizar" role="tab" aria-controls="finalizar" aria-selected="false">Gerar Planejamento</a>
+            </li>
           </ul>
           </div>
           <div class="tab-content container" id="myTabContent" >
@@ -143,7 +152,9 @@
                         </tr>
                       </tbody>
                     </table>
-                    <a class="btn btn-primary active" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="margin-left: 700px">Next</a>
+                    <br>
+
+                    <a class="btn btn-primary" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="border-radius: 0.5em; margin-left: 700px">Próximo</a>
             </div>
             <div class="tab-pane fade container" id="professores" style="margin-left: 200px" role="tabpanel" aria-labelledby="profile-tab">
               <table class="table table-striped" style="width: 700px;">
@@ -211,7 +222,7 @@
                   </tr>
                 </tbody>
               </table>
-              <a class="btn btn-primary active" id="home-tab" data-toggle="tab" href="#salas" role="tab" aria-controls="home" aria-selected="true" style="margin-left: 700px">Next</a>
+                <a class="btn btn-primary" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="border-radius: 0.5em; margin-left: 700px">Próximo</a>
             </div>
             <div class="tab-pane fade container"  style="margin-left: 200px"  id="salas" role="tabpanel" aria-labelledby="contact-tab">
               <table class="table table-striped" style="width: 700px">
@@ -300,7 +311,33 @@
                   </tr>          
                 </tbody>
               </table>
+
               <a class="btn btn-primary active" id="home-tab" data-toggle="tab" href="planejamentos.html" role="tab" aria-controls="home" aria-selected="true" style="margin-left: 700px">Exportar modelo</a>
+                <a class="btn btn-primary" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="border-radius: 0.5em; margin-left: 700px">Próximo</a>
+            </div>
+            <div class="tab-pane fade container" id="verAMPL" role="tabpanel" aria-labelledby="verAMPL-tab">
+                <div style="margin: 100px 0px 0px 400px">
+                <a class="btn btn-primary" style="border-radius: 0.5em; color: white ">
+                <i class="fa fa-download"></i>&nbsp;&nbsp;Fazer download de AMPL</a>
+                </div>
+                <a class="btn btn-primary" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="border-radius: 0.5em; margin: 235px 0px 0px 900px">Próximo</a>
+            </div>
+            <div class="tab-pane fade container"  id="enviarResp" role="tabpanel" aria-labelledby="enviarResp-tab">
+              <form>
+                <div class="form-group" style="margin: 100px 0px 0px 350px">
+                  <label for="exampleFormControlFile1">Enviar resposta do AMPL resolvido</label>
+                  <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+              </form>
+              <a class="btn btn-primary" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="border-radius: 0.5em; margin: 200px 0px 0px 900px">Próximo</a>
+            </div>
+            <div class="tab-pane fade container" id="finalizar" role="tabpanel" aria-labelledby="finalizar-tab">
+                <div style="margin: 100px 0px 0px 400px">
+                <a class="btn btn-primary" style="border-radius: 0.5em; color: white ">
+                <i class="fa fa-download"></i>&nbsp;&nbsp;Fazer download da planilha</a>
+                </div>
+                
+>>>>>>> Stashed changes
             </div>
           </div>
       <br/>
