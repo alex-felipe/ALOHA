@@ -107,50 +107,50 @@
               <label for="inputNome" class="col-form-label">Curso / Semestre: &nbsp;</label>
             </td>
             <td>
-              <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 200px; height: 30px;" >
-                <option selected>Curso</option>
-                <option value="1">Ciência da Computação</option>
-                <option value="2">Engenharia Civil</option>
-                <option value="3">Engenharia de Produção</option>
-                <option value="4">Engenharia de Software</option>
-                <option value="5">Engenharia Mecânica</option>
+              <select class="custom-select" id="cursoInput" style="font-size: 12px; width: 200px; height: 30px;" >
+                <option selected disabled >Curso</option>
+                <option>Ciência da Computação</option>
+                <option>Engenharia Civil</option>
+                <option>Engenharia de Produção</option>
+                <option>Engenharia de Software</option>
+                <option>Engenharia Mecânica</option>
               </select>
             </td>
             <td>
-              <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 140px; height: 30px;" >
-                <option selected>Semestre</option>
+              <select class="custom-select" id="semestreInput" style="font-size: 12px; width: 140px; height: 30px;" >
+                <option selected disabled>Semestre</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-                <option value="3">4</option>
-                <option value="3">5</option>
-                <option value="3">6</option>
-                <option value="3">7</option>
-                <option value="3">8</option>
-                <option value="3">9</option>
-                <option value="3">10</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
               </select>
             </td>
             <td>
-              <input type="button" class="btn btn-primary btn-sm" value="Adicionar curso"/>
+              <input type="button" class="btn btn-primary btn-sm" value="Adicionar curso" onclick="adiciona()" />
             </td>
         </tr>
-        <tr>
-          <td></td>
-          <td>Ciência da Computação</td>
-          <td>5º Semestre</td>
-          <td>
-            <input type="button" value="Remover" class="btn btn-secodary btn-sm">
-          </td>
+        <tr >
+          <br/>
+          <table id="listaCursosSemestre" style="margin-left: 120px;">
+            
+          </table>
         </tr>
-        <tr></tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
         <tr>
           <td>
             <label for="inputNome" class="col-form-label">Quantidade de créditos: &nbsp;</label>
           </td>
           <td>
             <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 100px; height: 30px;" >
-              <option selected>Teóricos</option>
+              <option selected disabled>Teóricos</option>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -160,7 +160,7 @@
               <option value="6">6</option>
             </select>
             <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 100px; height: 30px;" >
-              <option selected>Práticos</option>
+              <option selected disabled>Práticos</option>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -173,7 +173,7 @@
         </tr>
         <tr>
           <td>
-            <label for="inputNome" class="col-form-label">Vagas: &nbsp;</label>
+            <label for="inputNome">Vagas: &nbsp;</label>
           </td>
           <td>
             <input type="number" class="form-control" id="inputNome" style="font-size: 12px; width: 70px;" placeholder=".." />
@@ -208,7 +208,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.min.js"></script>
-    
+    <script src="js/adicionaCursoScript.js"></script>    
   </body>
 
 </html>
