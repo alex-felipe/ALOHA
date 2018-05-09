@@ -96,28 +96,28 @@
           <div class="container col-lg-9">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#disciplinas" role="tab" aria-controls="home" aria-selected="true">Disciplinas</a>
+              <a class="nav-link active" id="tab_link_1" data-toggle="tab" href="#disciplinas" role="tab" aria-controls="home" aria-selected="true">Disciplinas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="profile" aria-selected="false">Professores</a>
+              <a class="nav-link" id="tab_link_2" data-toggle="tab" href="#professores" role="tab" aria-controls="profile" aria-selected="false">Professores</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#salas" role="tab" aria-controls="contact" aria-selected="false">Salas</a>
+              <a class="nav-link" id="tab_link_3" data-toggle="tab" href="#salas" role="tab" aria-controls="contact" aria-selected="false">Salas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="verAMPL-tab" data-toggle="tab" href="#verAMPL" role="tab" aria-controls="verAMPL" aria-selected="false">Ver AMPL</a>
+              <a class="nav-link" id="tab_link_4" data-toggle="tab" href="#verAMPL" role="tab" aria-controls="verAMPL" aria-selected="false">Ver AMPL</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="enviarResp-tab" data-toggle="tab" href="#enviarResp" role="tab" aria-controls="enviarResp" aria-selected="false">Enviar Respostas</a>
+              <a class="nav-link" id="tab_link_5" data-toggle="tab" href="#enviarResp" role="tab" aria-controls="enviarResp" aria-selected="false">Enviar Respostas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="finalizar-tab" data-toggle="tab" href="#finalizar" role="tab" aria-controls="finalizar" aria-selected="false">Gerar Planejamento</a>
+              <a class="nav-link" id="tab_link_6" data-toggle="tab" href="#finalizar" role="tab" aria-controls="finalizar" aria-selected="false">Gerar Planejamento</a>
             </li>
           </ul>
           </div>
           <div class="tab-content container" id="myTabContent" >
             <br>
-            <div class="tab-pane fade show active container" style="margin-left: 200px" id="disciplinas" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade show active container" style="margin-left: 200px" id="tab_1" role="tabpanel" aria-labelledby="home-tab">
                 <table class="table table-striped" style="width: 700px;">
                       <thead>
                         <th>#</th>
@@ -153,10 +153,9 @@
                       </tbody>
                     </table>
                     <br>
-
-                    <a class="btn btn-primary" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="border-radius: 0.5em; margin-left: 700px">Próximo</a>
+                    <input type="button" class="btn btn-primary" style="border-radius: 0.5em; margin-left: 700px" value="Próximo" onclick="passa_tab(1)" />
             </div>
-            <div class="tab-pane fade container" id="professores" style="margin-left: 200px" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane fade container" id="tab_2" style="margin-left: 200px" role="tabpanel" aria-labelledby="profile-tab">
               <table class="table table-striped" style="width: 700px;">
                 <thead>
                   <tr>
@@ -222,9 +221,10 @@
                   </tr>
                 </tbody>
               </table>
-                <a class="btn btn-primary" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="border-radius: 0.5em; margin-left: 700px">Próximo</a>
+              <input type="button" class="btn btn-primary" style="border-radius: 0.5em;" value="Voltar" onclick="volta_tab(2)" />
+              <input type="button" class="btn btn-primary" style="border-radius: 0.5em; margin-left: 700px" value="Próximo" onclick="passa_tab(2)" />
             </div>
-            <div class="tab-pane fade container"  style="margin-left: 200px"  id="salas" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="tab-pane fade container"  style="margin-left: 200px"  id="tab_3" role="tabpanel" aria-labelledby="contact-tab">
               <table class="table table-striped" style="width: 700px">
                 <thead>
                   <tr>
@@ -311,33 +311,33 @@
                   </tr>          
                 </tbody>
               </table>
-
-              <a class="btn btn-primary active" id="home-tab" data-toggle="tab" href="planejamentos.html" role="tab" aria-controls="home" aria-selected="true" style="margin-left: 700px">Exportar modelo</a>
-                <a class="btn btn-primary" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="border-radius: 0.5em; margin-left: 700px">Próximo</a>
+              <input type="button" class="btn btn-primary" style="border-radius: 0.5em;" value="Voltar" onclick="volta_tab(3)" />
+              <input type="button" class="btn btn-primary" style="border-radius: 0.5em; margin-left: 700px" value="Próximo" onclick="passa_tab(3)" />
             </div>
-            <div class="tab-pane fade container" id="verAMPL" role="tabpanel" aria-labelledby="verAMPL-tab">
+            <div class="tab-pane fade container" id="tab_4" role="tabpanel" aria-labelledby="verAMPL-tab">
                 <div style="margin: 100px 0px 0px 400px">
                 <a class="btn btn-primary" style="border-radius: 0.5em; color: white ">
                 <i class="fa fa-download"></i>&nbsp;&nbsp;Fazer download de AMPL</a>
                 </div>
-                <a class="btn btn-primary" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="border-radius: 0.5em; margin: 235px 0px 0px 900px">Próximo</a>
+                <input type="button" class="btn btn-primary" style="border-radius: 0.5em;" value="Voltar" onclick="volta_tab(4)" />
+                <input type="button" class="btn btn-primary" style="border-radius: 0.5em; margin-left: 700px" value="Próximo" onclick="passa_tab(4)" />
             </div>
-            <div class="tab-pane fade container"  id="enviarResp" role="tabpanel" aria-labelledby="enviarResp-tab">
+            <div class="tab-pane fade container"  id="tab_5" role="tabpanel" aria-labelledby="enviarResp-tab">
               <form>
                 <div class="form-group" style="margin: 100px 0px 0px 350px">
                   <label for="exampleFormControlFile1">Enviar resposta do AMPL resolvido</label>
                   <input type="file" class="form-control-file" id="exampleFormControlFile1">
                 </div>
               </form>
-              <a class="btn btn-primary" id="home-tab" data-toggle="tab" href="#professores" role="tab" aria-controls="home" aria-selected="true" style="border-radius: 0.5em; margin: 200px 0px 0px 900px">Próximo</a>
+              <input type="button" class="btn btn-primary" style="border-radius: 0.5em;" value="Voltar" onclick="volta_tab(5)" />
+              <input type="button" class="btn btn-primary" style="border-radius: 0.5em; margin-left: 700px" value="Próximo" onclick="passa_tab(5)" />
             </div>
-            <div class="tab-pane fade container" id="finalizar" role="tabpanel" aria-labelledby="finalizar-tab">
+            <div class="tab-pane fade container" id="tab_6" role="tabpanel" aria-labelledby="finalizar-tab">
                 <div style="margin: 100px 0px 0px 400px">
                 <a class="btn btn-primary" style="border-radius: 0.5em; color: white ">
                 <i class="fa fa-download"></i>&nbsp;&nbsp;Fazer download da planilha</a>
                 </div>
-                
->>>>>>> Stashed changes
+                <input type="button" class="btn btn-primary" style="border-radius: 0.5em;" value="Voltar" onclick="volta_tab(6)" />
             </div>
           </div>
       <br/>
@@ -359,7 +359,24 @@
     <!-- Custom scripts for this template -->
     <script src="js/creative.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
+    <script type="text/javascript">
+      function passa_tab(id){
+        if(id <= 6 && id >= 1){
+          document.getElementById("tab_"+ (id)).className = "tab-pane fade container"
+          document.getElementById("tab_link_"+ (id)).className = "nav-link"
+          document.getElementById("tab_"+ (id + 1)).className = "tab-pane fade show active container"
+          document.getElementById("tab_link_"+ (id + 1)).className = "nav-link active"
+        }
+      }
+      function volta_tab(id){
+        if(id > 1 && id <= 6){
+          document.getElementById("tab_"+ (id)).className = "tab-pane fade container"
+          document.getElementById("tab_link_"+ (id)).className = "nav-link"
+          document.getElementById("tab_"+ (id - 1)).className = "tab-pane fade show active container"
+          document.getElementById("tab_link_"+ (id - 1)).className = "nav-link active"
+        }
+      }
+    </script>
   </body>
 
 </html>
