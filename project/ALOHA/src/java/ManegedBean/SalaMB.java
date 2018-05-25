@@ -1,25 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ManegedBean;
 
+import Model.Sala;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-/**
- *
- * @author marcosca
- */
+
 @ManagedBean
 @SessionScoped
 public class SalaMB {
-
-    /**
-     * Creates a new instance of SalaMB
-     */
+    private Sala sala;
+    private List<Sala> salas;
     public SalaMB() {
+        sala = new Sala();
+        salas = new ArrayList<Sala>();
     }
+
+    public void adicionar(){
+        salas.add(sala);
+        sala = new Sala();
+    }
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
+
+    public List<Sala> getSalas() {
+        return salas;
+    }
+
+    public void setSalas(List<Sala> salas) {
+        this.salas = salas;
+    }
+    
     
 }
