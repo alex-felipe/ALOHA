@@ -1,5 +1,5 @@
 
-package Model;
+package br.ufc.russas.aloha.model;
 
 public class Preferencia {
     private Docente professor;

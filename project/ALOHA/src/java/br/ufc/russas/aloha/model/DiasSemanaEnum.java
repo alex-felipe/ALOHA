@@ -1,5 +1,5 @@
 
-package Model;
+package br.ufc.russas.aloha.model;
 
 
 public enum DiasSemanaEnum {

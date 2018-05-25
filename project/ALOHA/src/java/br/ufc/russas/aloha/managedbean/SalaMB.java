@@ -1,7 +1,7 @@
 
-package ManegedBean;
+package br.ufc.russas.aloha.managedbean;
 
-import Model.Sala;
+import br.ufc.russas.aloha.model.Sala;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;

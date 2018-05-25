@@ -5,7 +5,7 @@
  */
 package br.ufc.russas.aloha.dao;
 
-import Model.Sala;
+import br.ufc.russas.aloha.model.Sala;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -27,7 +27,7 @@ public class SalaDAO extends ConexaoSQL{
         ps.setString(2, sala.getTipo());
         ps.setInt(3, sala.getCapacidade());
         ps.setString(4, sala.getBloco());
-        ps.setString(5, sala.getCodigo());
+        ps.setString(5, sala.getCodigoModelo());
         
         return ps.executeUpdate() == 1;
     }  
