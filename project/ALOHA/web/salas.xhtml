@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>ALOHA - Sistema de Alocação de Horários Acadêmicos</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Custom fonts for this template -->
+        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'/>
+
+        <!-- Plugin CSS -->
+        <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+        <link href="css/creative.css" rel="stylesheet"/>
+        <link href="css/style.css" rel="stylesheet"/>
+    </h:head>
+    <h:body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-shrink" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">ALOHA UFC</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gerenciamento
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="salas.html">Salas</a>
+                                <a class="dropdown-item" href="combos.html">Combos</a>
+                                <a class="dropdown-item" href="disciplinas.html">Disciplinas</a>
+                                <a class="dropdown-item" href="docentes.html">Docentes</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="configuracoes.html">Configurações</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br/>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <center>
+                    <nav aria-label="breadcrumb" style="width: 75%;">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Salas</li>
+                        </ol>
+                    </nav>
+                </center>
+
+            </div>
+        </div>
+        <div class="container col-lg-9">
+            <form class="form-inline my-2 my-lg-0">
+                <h2 class="section-heading float-left" style="font-size: 22px;">GERENCIAMENTO DE SALAS</h2>
+                <hr class="my-4"/>
+                <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar sala..." aria-label="Pesquisar sala..." style="width: 201px;"/>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" style="border-radius: 0.5em;" type="submit">Pesquisar</button>
+            </form>
+            <br/>
+            <p:dataTable id="basicDT" value="#{salaMB.salas}" var="sala">
+                <p:column headerText="Nome">
+                    <h:outputText value="#{sala.nome}" />
+                </p:column>
+                <p:column headerText="Tipo">
+                    <h:outputText value="#{sala.tipo}" />
+                </p:column>
+                <p:column headerText="Bloco">
+                    <h:outputText value="#{sala.bloco}" />
+                </p:column>
+                <p:column headerText="Capacidade">
+                    <h:outputText value="#{sala.capacidade}" />
+                </p:column>
+                <p:column headerText="Detalhes">
+                    <button class="fa fa-plus-square" style="font-size: 18px; border: 0px solid white; cursor: pointer; background-color: rgba(0,0,0,0);" data-toggle="modal" data-target="#infoDoc"/>
+                </p:column>
+                    
+            </p:dataTable>
+                        
+            
+            <div class="btn-group">
+
+                <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Exibir: 10 linhas
+                </button>
+                <div class="dropdown-menu" style="font-size: 12px;">
+                    <a class="dropdown-item" href="#">50</a>
+                    <a class="dropdown-item" href="#">100</a>
+                </div>
+            </div>
+
+            <a href="adicionar_sala.html" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Adicionar Sala</a>
+        </div>
+        <br/>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Anterior</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Próximo</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+        <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+        <!-- Custom scripts for this template -->
+        <script src="js/creative.min.js"></script>
+
+        <!-- Custom scripts for this template -->
+        <script src="js/creative.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <div class="modal fade" id="infoDoc" tabindex="-1" role="dialog" aria-labelledby="infoDoc" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Informações da  salas</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <b>Código</b>: SL001
+                        <br/><b>Nome</b>: Sala 01
+                            <br/><b>Tipo</b>: Sala
+                                <br/><b>Bloco</b>: Bloco 1  
+                                    <br/><b>Capacidade</b>: 50          
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <a href="editar_sala.html"><button type="button" class="btn btn-primary">Editar informações</button></a>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+    </h:body>
+</html>
+

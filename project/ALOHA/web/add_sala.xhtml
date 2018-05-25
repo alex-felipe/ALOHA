@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>ALOHA - Sistema de Alocação de Horários Acadêmicos</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'/>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    </h:head>
+    <h:body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-shrink" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">ALOHA UFC</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive" >
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Gerenciamento
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="salas.html">Salas</a>
+                <a class="dropdown-item" href="combos.html">Combos</a>
+                <a class="dropdown-item" href="disciplinas.html">Disciplinas</a>
+                <a class="dropdown-item" href="docentes.html">Docentes</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="confifiracoes.html">Configurações</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br/>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <center>
+          <nav aria-label="breadcrumb" style="width: 75%;">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+              <li class="breadcrumb-item"><a href="salas.html">Gerenciamento de Salas</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Adicionar Sala</li>
+            </ol>
+          </nav>
+        </center>
+
+      </div>
+    </div>
+    <div class="container col-lg-9">
+      <form class="form-inline my-2 my-lg-0">
+        <h2 class="section-heading float-left" style="font-size: 22px;">ADICIONAR SALA</h2>
+      </form>
+      <br/>
+      <form>
+        <div class="form-group row" style="padding-left: 100px;">
+          <label for="inputNome" class="col-form-label">Nome: &nbsp;</label>
+          <p:inputText value="#{salaMB.sala.capacidade}" placeholder="Digite o nome da sala"></p:inputText>
+        </div>
+        <div class="form-group row" style="padding-left: 100px;">
+          <label for="inputNome" class="col-form-label">Tipo: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 200px; height: 30px;" >
+            <option>Selecione uma opção..</option>
+            <option value="1">Sala</option>
+            <option value="2">Laboratório</option>
+          </select>
+        </div>
+        <div class="form-group row" style="padding-left: 100px;">
+          <label for="inputNome" class="col-form-label">Bloco: &nbsp;&nbsp;&nbsp;</label>
+          <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 200px; height: 30px;" >
+            <option >Selecione uma opção..</option>
+            <option value="1">Bloco 1</option>
+            <option value="2">Bloco 2</option>
+          </select>
+        </div>
+        <div class="form-group row" style="padding-left: 100px;">
+          <label for="inputNome" class="col-form-label">Capacidade: &nbsp;</label>
+          <input type="number" class="form-control" id="inputNome" style="font-size: 12px; width: 100px;" value="0"/>
+        </div>
+        
+      </form>
+      <br/>
+      <a href="salas.html" class="btn btn-secodary" style="border-radius: 0.5em; left: 74%; position: absolute;">Cancelar</a>
+      <a href="salas.html" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Adicionar Sala</a>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+    </h:body>
+</html>
+

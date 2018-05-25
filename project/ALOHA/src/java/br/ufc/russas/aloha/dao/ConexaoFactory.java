@@ -13,8 +13,8 @@ import java.sql.*;
  */
 public class ConexaoFactory {
     private Connection conexao;
-    private final String ip_servidor = "192.168.0.121";
-    public Connection abreConexao(){
+    private static final String ip_servidor = "127.0.0.1";
+    /*public Connection abreConexao(){
         if(conexao != null){
             fechaConexao();
         }
@@ -40,5 +40,20 @@ public class ConexaoFactory {
             }            
         }
 
+    }*/
+    
+    public static Connection getConnection() throws SQLException {
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String caminhoServidor = "jdbc:mysql://"+ ip_servidor +"/ALOHA";
+            con = DriverManager.getConnection(caminhoServidor, "root", "");
+            
+        } catch (ClassNotFoundException e1) {
+            System.out.println(e1.getMessage());
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return con;
     }
 }

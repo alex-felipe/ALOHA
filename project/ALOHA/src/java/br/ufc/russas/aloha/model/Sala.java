@@ -8,17 +8,29 @@ public class Sala {
     private int id;
     //Código para o arquivo .dat
     private String codigoModelo;    
-    private int capacidade;
     private String nome;
     private String tipo;
+    private int capacidade;
     private String bloco;
 
-    public Sala(int capacidade, String nome, String tipo, String bloco) {
-        this.capacidade = capacidade;
+    public Sala(String nome, String tipo, int capacidade, String bloco) {
         this.nome = nome;
         this.tipo = tipo;
+        this.capacidade = capacidade;
         this.bloco = bloco;
     }
+
+    
+
+    public Sala(int id, String codigoModelo, String nome, String tipo, int capacidade, String bloco) {
+        this(nome, tipo, capacidade, bloco);
+        this.id = id;
+        this.codigoModelo = codigoModelo;
+        
+    }
+    
+    
+    
 
     public Sala() {
     }
