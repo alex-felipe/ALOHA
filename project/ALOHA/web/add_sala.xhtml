@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="utf-8"/>
@@ -96,17 +98,20 @@
             <option value="2">Laboratório</option>
           </select>
         </div>
-        <div class="form-group row" style="padding-left: 100px;">
+        <div  style="padding-left: 100px;">
           <label for="inputNome" class="col-form-label">Bloco: &nbsp;&nbsp;&nbsp;</label>
-          <select class="custom-select" id="inlineFormCustomSelectPref" style="font-size: 12px; width: 200px; height: 30px;" >
-            <option >Selecione uma opção..</option>
-            <option value="1">Bloco 1</option>
-            <option value="2">Bloco 2</option>
-          </select>
+          <p:selectOneMenu value="#{salaMB.sala.bloco}">
+              <f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+              <f:selectItem itemLabel="Bloco A" itemValue="Bloco A" />
+              <f:selectItem itemLabel="Bloco B" itemValue="Bloco A" />
+              <f:selectItem itemLabel="Bloco C" itemValue="Bloco C" />
+              <f:selectItem itemLabel="Bloco D" itemValue="Bloco D" />
+          </p:selectOneMenu>
         </div>
         <div class="form-group row" style="padding-left: 100px;">
           <label for="inputNome" class="col-form-label">Capacidade: &nbsp;</label>
-          <input type="number" class="form-control" id="inputNome" style="font-size: 12px; width: 100px;" value="0"/>
+          <p:spinner id="basic"  value="#{salaMB.sala.nome}"/>
+          
         </div>
         
       </form>
