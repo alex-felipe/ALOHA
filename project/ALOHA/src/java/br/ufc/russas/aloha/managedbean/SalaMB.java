@@ -1,11 +1,8 @@
 
 package br.ufc.russas.aloha.managedbean;
 
-import br.ufc.russas.aloha.dao.ConexaoFactory;
 import br.ufc.russas.aloha.dao.SalaDAO;
 import br.ufc.russas.aloha.model.Sala;
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

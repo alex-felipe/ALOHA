@@ -6,13 +6,22 @@ import java.util.List;
 
 
 public class Combo {
+    private int id;
     private List<DiasSemanaEnum> dias;
 
     public Combo(){
-        this.dias = new ArrayList<DiasSemanaEnum>();
+        this.dias = new ArrayList<>();
     }
     public Combo(List dias) {
         this.dias = dias;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List getDias() {

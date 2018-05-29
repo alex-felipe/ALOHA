@@ -13,6 +13,11 @@ public class Sala {
     private int capacidade;
     private String bloco;
 
+        
+   
+    public Sala() {
+    }
+
     public Sala(String nome, String tipo, int capacidade, String bloco) {
         this.nome = nome;
         this.tipo = tipo;
@@ -28,14 +33,7 @@ public class Sala {
         this.codigoModelo = codigoModelo;
         
     }
-    
-    
-    
-
-    public Sala() {
-    }
-
-        
+            
     public String geraCodigo(){
         String cod;
         if(id<10) cod = this.nome.substring(0,3)+"000"+this.id;
@@ -43,7 +41,29 @@ public class Sala {
         else if(id<1000) cod = this.nome.substring(0,2)+"0"+this.id;
         else cod = this.nome.substring(0,2)+this.id;
         return cod;
+        
     }
+    
+    /* O código será composto por:
+        * 1) As 3 primeiras letras do nome da sala
+        * 2) Identificador da sala no banco de dados
+        * RESTRIÇÃO: Tamanho do indentificador será sempre 7
+        * - Completar com 0's a esquerda do identificador quando possuirem menos que 4 digitos
+     */
+    public String getCodigo(){
+       StringBuilder builder = new StringBuilder();
+       builder.append(getNome().substring(0, 2)); // Retira as 3 primeiras letras do nome
+       // Insere a quantidade de 0's restantes para formar o código
+       if (getId() < 10) {
+           builder.append("000");
+       } else if (getId() < 100) {
+           builder.append("00");
+       } else if (getId() < 1000) {
+           builder.append("0");
+       }
+       builder.append(getId()); // Adiciona o identificador
+       return builder.toString();
+   }
     
     public String getCodigoModelo() {
         return codigoModelo;
