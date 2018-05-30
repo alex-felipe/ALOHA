@@ -32,4 +32,20 @@ public class Combo {
         this.dias = dias;
     }
     
+    public String getDiasEstendido(){
+        StringBuilder stb = new StringBuilder();
+        for(DiasSemanaEnum dia: dias){
+            switch(dia){
+                case DOMINGO: stb.append("Domingo"); break;
+                case SEGUNDA: stb.append("Segunda-feira"); break;
+                case TERCA: stb.append("Terça-feira"); break;
+                case QUARTA: stb.append("Quarta-feira"); break;
+                case QUINTA: stb.append("Quinta-feira"); break;
+                case SEXTA: stb.append("Sexta-feira"); break;
+                case SABADO: stb.append("Sabádo"); break;      
+            }
+            stb.append("; ");
+        }
+        return stb.toString();
+    }
 }
