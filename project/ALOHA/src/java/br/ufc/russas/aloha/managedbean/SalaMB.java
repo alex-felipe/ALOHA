@@ -17,11 +17,13 @@ public class SalaMB {
     public SalaMB() {
         this.salaEntidy = new SalaDAO();
         this.sala = new Sala();
-        //this.salas = salaEntidy.selectALL();  
+        this.salas = salaEntidy.selectALL();  
     }
 
     public void adicionar(){
         //salas.add(sala);
+        sala.setCodigoModelo(sala.geraCodigo());
+        System.out.println(sala.getCodigoModelo());
         salaEntidy.insert(sala);
         sala = new Sala();
         this.salas = salaEntidy.selectALL();

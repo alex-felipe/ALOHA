@@ -80,13 +80,13 @@
             <h2 class="section-heading float-left" style="font-size: 22px;">ADICIONAR SALA</h2>
             <br/><br/><br/>
             <div style="margin-left: 100px">
-                <h:form id="cadSala">
-                    <div class="row">
+                <h:form id="frm">
+                    
                         <p:outputLabel class="col-form-label">Nome: &nbsp;</p:outputLabel>
-                        <p:inputText value="#{salaMB.sala.capacidade}" placeholder="Digite o nome da sala"></p:inputText>
-                    </div>
+                        <p:inputText value="#{salaMB.sala.nome}" placeholder="Digite o nome da sala"></p:inputText>
+                    
                     <br/>
-                    <div class="row">
+                    
                         
                         <p:outputLabel class="col-form-label">Tipo: &nbsp;</p:outputLabel>
                         <p:selectOneMenu value="#{salaMB.sala.tipo}">
@@ -94,10 +94,10 @@
                             <f:selectItem itemLabel="Sala" itemValue="Sala" />
                             <f:selectItem itemLabel="Laboratório" itemValue="Laboratorio" />
                         </p:selectOneMenu>
-                    </div>
+                    
                     <br/>
-                    <div  class="row">
-                        <
+                    
+                        
                         <p:outputLabel class="col-form-label">Bloco: &nbsp;</p:outputLabel>
                         <p:selectOneMenu value="#{salaMB.sala.bloco}">
                             <f:selectItem itemLabel="Selecione uma opção" itemValue="sle" />
@@ -106,15 +106,15 @@
                             <f:selectItem itemLabel="Bloco C" itemValue="Bloco C" />
                             <f:selectItem itemLabel="Bloco D" itemValue="Bloco D" />
                         </p:selectOneMenu>
-                    </div>
+                    
                     <br/>
-                    <div class="row">
+                    
 
                         <p:outputLabel class="col-form-label">Capacidade: &nbsp;</p:outputLabel>
-                        <p:spinner id="basic"  value="#{salaMB.sala.nome}"/>
+                        <p:spinner id="basic"  value="#{salaMB.sala.capacidade}"/>
 
-                    </div>
-
+                    
+                     <p:commandButton value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>>
                 </h:form>
             </div>
         </div>
