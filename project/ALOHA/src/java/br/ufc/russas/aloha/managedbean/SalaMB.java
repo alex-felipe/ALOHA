@@ -17,7 +17,7 @@ public class SalaMB {
     public SalaMB() {
         this.salaEntidy = new SalaDAO();
         this.sala = new Sala();
-        this.salas = salaEntidy.selectALL();  
+        //this.salas = salaEntidy.selectALL();  
     }
 
     public void adicionar(){

@@ -14,7 +14,7 @@
         </h:head>
 
         <h:body>
-
+            
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
@@ -39,7 +39,40 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    Welcome to PrimeFaces
+                    <h:form>
+                    <div>
+                        <p:outputLabel>Nome: &nbsp;</p:outputLabel>
+                        <p:inputText value="#{salaMB.sala.capacidade}" placeholder="Digite o nome da sala"></p:inputText>
+                    </div>
+                    <br/>
+                    <div class="row" >
+                        <p:outputLabel>Tipo: &nbsp;</p:outputLabel>
+                        <p:selectOneMenu value="#{salaMB.sala.tipo}" style="width: 200px">
+                            <f:selectItem itemLabel="Selecione tipo" itemValue="" />
+                            <f:selectItem itemLabel="Sala" itemValue="Sala" />
+                            <f:selectItem itemLabel="Laboratório" itemValue="Laboratorio" />
+                        </p:selectOneMenu>
+                    </div>
+                    <br/>
+                    <div  class="row">
+                        <p:outputLabel class="col-form-label">Bloco: &nbsp;</p:outputLabel>
+                        <p:selectOneMenu value="#{salaMB.sala.bloco}">
+                            <f:selectItem itemLabel="Selecione uma opção" itemValue="sle" />
+                            <f:selectItem itemLabel="Bloco A" itemValue="Bloco A" />
+                            <f:selectItem itemLabel="Bloco B" itemValue="Bloco A" />
+                            <f:selectItem itemLabel="Bloco C" itemValue="Bloco C" />
+                            <f:selectItem itemLabel="Bloco D" itemValue="Bloco D" />
+                        </p:selectOneMenu>
+                    </div>
+                    <br/>
+                    <div class="row">
+
+                        <p:outputLabel class="col-form-label">Capacidade: &nbsp;</p:outputLabel>
+                        <p:spinner id="basic"  value="#{salaMB.sala.nome}"/>
+
+                    </div>
+
+                </h:form>
                 </p:layoutUnit>
 
             </p:layout>
