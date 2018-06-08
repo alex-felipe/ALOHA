@@ -22,6 +22,8 @@ public class SalaMB {
 
     public void adicionar(){
         //salas.add(sala);
+        sala.setCodigoModelo(sala.geraCodigo());
+        System.out.println(sala.getCodigoModelo());
         salaEntidy.insert(sala);
         sala = new Sala();
         this.salas = salaEntidy.selectALL();
