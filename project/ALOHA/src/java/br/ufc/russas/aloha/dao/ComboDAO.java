@@ -17,7 +17,7 @@ public class ComboDAO {
         Connection con = null;
         try {
             con = ConexaoFactory.getConnection();
-            String sql = "INSERT INTO combo (id) VALUES (?, ?)" ; 
+            String sql = "INSERT INTO combo_dia (id) VALUES (?, ?)" ; 
             PreparedStatement ps = con.prepareStatement(sql);
             //ps.setString(1, combo.getId());
             return ps.executeUpdate() == 1;
