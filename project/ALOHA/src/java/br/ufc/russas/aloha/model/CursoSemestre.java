@@ -6,6 +6,15 @@ public class CursoSemestre {
     private String curso;
     private int semestre;
 
+    public CursoSemestre(int id, String curso, int semestre) {
+        this.id = id;
+        this.curso = curso;
+        this.semestre = semestre;
+    }
+
+    
+    
+    
     public int getId() {
         return id;
     }

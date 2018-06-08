@@ -6,15 +6,15 @@ import java.util.List;
 public class Disciplina {
 
     //Implementar os tratamentos
-    private String id;
-    private String codigo_modelo;
+    private int id;
+    private String codigoModelo;
     private String codigo;
     private String nome;
     private int crPraticos;
     private int crTeoricos;
     private int vagas;
-    private String tipo_sala;
-    private List<CursoSemestre> cursos_semestres;
+    private String tipoSala;
+    private List<CursoSemestre> cursosSemestres;
     
 
     public Disciplina() {
@@ -34,6 +34,20 @@ public class Disciplina {
         setVagas(vagas);
     }
 
+    public Disciplina(int id, String codigoModelo, String codigo, String nome, int crPraticos, int crTeoricos, int vagas, String tipoSala) {
+        this.id = id;
+        this.codigoModelo = codigoModelo;
+        this.codigo = codigo;
+        this.nome = nome;
+        this.crPraticos = crPraticos;
+        this.crTeoricos = crTeoricos;
+        this.vagas = vagas;
+        this.tipoSala = tipoSala;
+        
+    }
+    
+    
+
     public String getCodigo() {
         return codigo;
     }
@@ -41,6 +55,39 @@ public class Disciplina {
     public void setCodigo(String codigo) {
         if(codigo !=null)this.codigo = codigo;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCodigoModelo() {
+        return codigoModelo;
+    }
+
+    public void setCodigoModelo(String codigoModelo) {
+        this.codigoModelo = codigoModelo;
+    }
+
+    public String getTipoSala() {
+        return tipoSala;
+    }
+
+    public void setTipoSala(String tipoSala) {
+        this.tipoSala = tipoSala;
+    }
+
+    public List<CursoSemestre> getCursosSemestres() {
+        return cursosSemestres;
+    }
+
+    public void setCursosSemestres(List<CursoSemestre> cursosSemestres) {
+        this.cursosSemestres = cursosSemestres;
+    }
+    
 
     public String getNome() {
         return nome;

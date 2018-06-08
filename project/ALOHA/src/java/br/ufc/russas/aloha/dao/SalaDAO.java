@@ -22,7 +22,7 @@ public class SalaDAO {
         Connection con = null;
         try {
             con = ConexaoFactory.getConnection();
-            String sql = "INSERT INTO sala (codigoModelo, nome, tipo, capacidade, bloco ) VALUES (?, ?, ?, ?, ?)" ; 
+            String sql = "INSERT INTO sala (codigo_modelo, nome, tipo, capacidade, bloco ) VALUES (?, ?, ?, ?, ?)" ; 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, sala.getCodigoModelo());
             ps.setString(2, sala.getNome());
@@ -87,7 +87,7 @@ public class SalaDAO {
     }
     
     private Sala map(ResultSet rs) throws SQLException {
-        Sala u = new Sala(rs.getInt("id"), rs.getString("codigoModelo"), rs.getString("nome"), rs.getString("tipo"), rs.getInt("capacidade"), rs.getString("bloco"));
+        Sala u = new Sala(rs.getInt("id"), rs.getString("codigo_modelo"), rs.getString("nome"), rs.getString("tipo"), rs.getInt("capacidade"), rs.getString("bloco"));
         return u;
     }
     
