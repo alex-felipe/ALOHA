@@ -2,18 +2,18 @@
 package br.ufc.russas.aloha.model;
 
 public class Preferencia {
-    private Docente professor;
+    private Docente docente;
     private Disciplina disciplina;
     private int preferencia;
 
     public Preferencia(){
-        professor = new Docente();
+        docente = new Docente();
         disciplina = new Disciplina();
     }
     
     public Preferencia(Docente professor, Disciplina disciplina, int preferencia) {
         this();
-        this.professor = professor;
+        this.docente = professor;
         this.disciplina = disciplina;
         this.preferencia = preferencia;
     }

@@ -1,14 +1,21 @@
 
 package br.ufc.russas.aloha.model;
 
+import java.util.List;
+
 public class Disciplina {
 
+    //Implementar os tratamentos
     private String id;
+    private String codigo_modelo;
     private String codigo;
     private String nome;
     private int crPraticos;
     private int crTeoricos;
     private int vagas;
+    private String tipo_sala;
+    private List<CursoSemestre> cursos_semestres;
+    
 
     public Disciplina() {
     
