@@ -45,6 +45,7 @@ public class ComboDAO {
             while (rs.next()) {
                 Combo combo = new Combo();
                 combo.setId(rs.getInt("id"));
+                combo.setCodigo_modelo(rs.getString("codigo_modelo"));
                 combo.setDias(selectDiasDaSemanaDoCombo(combo));
                 listaCombos.add(combo);
             }
@@ -68,7 +69,7 @@ public class ComboDAO {
         Connection con = null;
         try {
             con = ConexaoFactory.getConnection();
-            String sql = "SELECT id_dia FROM combo_dia WHERE id_combo = ?";
+            String sql = "SELECT id_dia FROM combo_dias WHERE id_combo = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, id_combo);
             ResultSet rs = pst.executeQuery();

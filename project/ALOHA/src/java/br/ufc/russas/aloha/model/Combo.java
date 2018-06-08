@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Combo {
     private int id;
+    private String codigo_modelo;
     private List<DiasSemanaEnum> dias;
 
     public Combo(){
@@ -23,7 +24,15 @@ public class Combo {
     public void setId(int id) {
         this.id = id;
     }
-
+    
+    public String getCodigo_modelo(){
+        return this.codigo_modelo;
+    }
+    
+    public void setCodigo_modelo(String codigo_modelo){
+        this.codigo_modelo = codigo_modelo;
+    }
+    
     public List getDias() {
         return dias;
     }

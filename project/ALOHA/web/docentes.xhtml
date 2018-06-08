@@ -71,7 +71,7 @@
                     <nav aria-label="breadcrumb" style="width: 75%;">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Salas</li>
+                            <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Docentes</li>
                         </ol>
                     </nav>
                 </center>
@@ -80,64 +80,54 @@
         </div>
         <div class="container col-lg-9">
             <form class="form-inline my-2 my-lg-0">
-                <h2 class="section-heading float-left" style="font-size: 22px;">GERENCIAMENTO DE SALAS</h2>
+                <h2 class="section-heading float-left" style="font-size: 22px;">GERENCIAMENTO DE DOCENTES</h2>
                 <hr class="my-4"/>
-                <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar sala..." aria-label="Pesquisar sala..." style="width: 201px;"/>
+                <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar docente..." aria-label="Pesquisar docente..." style="width: 201px;"/>
                 <button class="btn btn-outline-primary my-2 my-sm-0" style="border-radius: 0.5em;" type="submit">Pesquisar</button>
             </form>
             <br/>
+            
             <h:form id="form" prependId="false">
-                <p:dataTable value="#{salaMB.salas}" var="sala" paginator="true"
+                <p:dataTable value="#{docenteMB.listaDocentes}" var="docente" paginator="true"
                                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                       rowsPerPageTemplate="5,10,15">
                     <p:column headerText="Código" width="90">
-                        <h:outputText value="#{sala.codigoModelo}" />
+                        <h:outputText value="#{docente.codigo_modelo}" />
                     </p:column>
                     <p:column headerText="Nome">
-                        <h:outputText value="#{sala.nome}" />
+                        <h:outputText value="#{docente.nome}" />
                     </p:column>
-                    <p:column headerText="Tipo">
-                        <h:outputText value="#{sala.tipo}" />
+                    <p:column headerText="Créditos Mínimos">
+                        <h:outputText value="#{docente.crMax}" />
                     </p:column>
-                    <p:column headerText="Bloco">
-                        <h:outputText value="#{sala.bloco}" />
-                    </p:column>
-                    <p:column headerText="Capacidade" width="100">
-                        <h:outputText value="#{sala.capacidade}" />
+                    <p:column headerText="Créditos Máximos">
+                        <h:outputText value="#{docente.crMin}" />
                     </p:column>
                     <p:column headerText="Detalhes" style="text-align: center" width="90">
-                          
-                        <p:commandButton  process="@this" icon="ui-icon-search" update=":dSala" oncomplete="PF('salaDialog').show();">
-                            <f:setPropertyActionListener value="#{sala}" target="#{salaMB.sala}" />
+                        <p:commandButton  process="@this" icon="ui-icon-search" update=":dCombo" oncomplete="PF('comboDialog').show();">
+                            <f:setPropertyActionListener value="#{docente}" target="#{docenteMB.docente}" />
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
-             </h:form>  
-                <h:form id="dSala" prependId="false">
-                      
-                <p:dialog  appendTo="@(body)" header="Informações da sala" widgetVar="salaDialog" modal="true" showEffect="fade" hideEffect="fade" width="600px" height="500px" rendered="#{not empty salaMB.sala}">
+                <p:commandButton  process="@this" icon="ui-icon-plus" value="Adicionar docente" onclick="window.open('adicionar_combo.xhtml')">                 
+                </p:commandButton>
+            </h:form>  
+            <h:form id="dCombo" prependId="false">
+                <p:dialog  appendTo="@(body)" header="Informações da sala" widgetVar="comboDialog" modal="true" showEffect="fade" hideEffect="fade" width="600px" height="500px" rendered="#{not empty comboMB.combo}">
                     <p:outputPanel id="salaDialog" style="text-align:center;">
                         <p:panelGrid  columns="2" rendered="#{not empty salaMB.sala}" columnClasses="label,value">
-                            
-                            <h:outputText value="Código:" />
-                            <h:outputText value="#{sala.codigoModelo}" />
+                            <h:outputText value="Combo:" />
+                            <h:outputText value="#{combo.codigo_modelo}" />
 
-                            <h:outputText value="Nome:" />
-                            <h:outputText value="#{sala.nome}" />
-
-                            <h:outputText value="Capacidade:" />
-                            <h:outputText value="#{sala.tipo}" />
-
-                            <h:outputText value="Bloco:" />
-                            <h:outputText value="#{sala.bloco}" />
-                            
-                            <h:outputText value="Capacidade:" />
-                            <h:outputText value="#{sala.capacidade}" />
+                            <h:outputText value="Dias da Semana:" />
+                            <h:outputText value="#{combo.dias}" />
                         </p:panelGrid>
                     </p:outputPanel>
                 </p:dialog>
-               </h:form>
-            <a href="adicionar_sala.html" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Adicionar Sala</a>
+            </h:form>
+            
+            <br/>
+            
         </div>
         <br/>
 

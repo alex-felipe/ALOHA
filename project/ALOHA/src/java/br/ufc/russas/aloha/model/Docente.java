@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Docente {
+    
+    private int id;
+    private String codigo_modelo;
     private String nome;
     private int crMin;
     private int crMax;
@@ -37,6 +40,23 @@ public class Docente {
         combos.add(combo);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCodigo_modelo() {
+        return codigo_modelo;
+    }
+
+    public void setCodigo_modelo(String codigo_modelo) {
+        this.codigo_modelo = codigo_modelo;
+    }
+
+    
     public String getNome() {
         return nome;
     }

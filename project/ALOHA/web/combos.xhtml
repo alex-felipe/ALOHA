@@ -45,10 +45,10 @@
                                 Gerenciamento
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="salas.html">Salas</a>
-                                <a class="dropdown-item" href="combos.html">Combos</a>
-                                <a class="dropdown-item" href="disciplinas.html">Disciplinas</a>
-                                <a class="dropdown-item" href="docentes.html">Docentes</a>
+                                <a class="dropdown-item" href="salas.xhtml">Salas</a>
+                                <a class="dropdown-item" href="combos.xhtml">Combos</a>
+                                <a class="dropdown-item" href="disciplinas.xhtml">Disciplinas</a>
+                                <a class="dropdown-item" href="docentes.xhtml">Docentes</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -92,7 +92,7 @@
                                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                       rowsPerPageTemplate="5,10,15">
                     <p:column headerText="Código" width="90">
-                        <h:outputText value="#{combo.id}" />
+                        <h:outputText value="#{combo.codigo_modelo}" />
                     </p:column>
                     <p:column headerText="Dias da Semana">
                         <h:outputText value="#{combo.diasEstendido}" />
@@ -111,7 +111,7 @@
                     <p:outputPanel id="salaDialog" style="text-align:center;">
                         <p:panelGrid  columns="2" rendered="#{not empty salaMB.sala}" columnClasses="label,value">
                             <h:outputText value="Combo:" />
-                            <h:outputText value="#{combo.id}" />
+                            <h:outputText value="#{combo.codigo_modelo}" />
 
                             <h:outputText value="Dias da Semana:" />
                             <h:outputText value="#{combo.dias}" />
