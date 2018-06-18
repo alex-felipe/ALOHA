@@ -14,13 +14,33 @@ public class ComboDAO {
     public ComboDAO() {
     }
     public boolean insert(Combo combo) {
+        combo.setId(this.gerarIdCombo());
+        combo.setCodigo_modelo(combo.getCodigo());
         Connection con = null;
         try {
             con = ConexaoFactory.getConnection();
-            String sql = "INSERT INTO combo_dia (id) VALUES (?, ?)" ; 
-            PreparedStatement ps = con.prepareStatement(sql);
-            //ps.setString(1, combo.getId());
-            return ps.executeUpdate() == 1;
+            String sql = "INSERT INTO combo (codigo_modelo) VALUES (?)" ; 
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, combo.getCodigo_modelo());
+            if(pst.executeUpdate() == 1){
+                sql = "SELECT * FROM combo WHERE codigo_modelo = ?";
+                pst = con.prepareStatement(sql);
+                pst.setString(1, combo.getCodigo_modelo());
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    combo.setId(rs.getInt("id"));
+                }
+                System.out.println("OK");
+                ArrayList<DiasSemanaEnum> listaDias = new ArrayList<>(combo.getDias());
+                for(DiasSemanaEnum dia: listaDias){
+                    sql = "INSERT INTO combo_dias (id_combo, id_dia) VALUES (?, ?)";
+                    pst = con.prepareStatement(sql);
+                    pst.setInt(1, combo.getId());
+                    pst.setInt(2, DiasSemanaEnum.get(dia));
+                    pst.executeUpdate();
+                }
+                return true;
+            }
         } catch (SQLException e) {
             throw new DAOException("Falha na execução da consulta SQL", e);
         } finally {
@@ -32,6 +52,7 @@ public class ComboDAO {
                 throw new DAOException("Não foi possível fechar a conexão.", e);
             }
         }
+        return false;
     }
 
     public ArrayList<Combo> selectALL(){
@@ -90,17 +111,39 @@ public class ComboDAO {
         return listaDias;       
     }
     
+    public int gerarIdCombo() {
+        Connection con = null;
+        int numero = 0;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT count(*) from combo";
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                numero = rs.getInt("count(*)") + 1;
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Operação não realizada com sucesso.", e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException("Não foi possível fechar a conexão.", e);
+            }
+        }
+        return numero;
+    }
     public static void main(String[] args) throws SQLException {
         ComboDAO cbd = new ComboDAO();
-        ArrayList<Combo> resultados = cbd.selectALL();
-        for(Combo c: resultados){
-            System.out.print(c.getId() + ": ");
-            ArrayList<DiasSemanaEnum> dse = new ArrayList(c.getDias());
-             System.out.print("[");
-            for(DiasSemanaEnum d: dse){
-                System.out.print(d + ",");
-            }
-            System.out.print("]");
-        }
+        ArrayList<DiasSemanaEnum> dias = new ArrayList<>();
+        dias.add(DiasSemanaEnum.DOMINGO);
+        dias.add(DiasSemanaEnum.TERCA);
+        dias.add(DiasSemanaEnum.QUINTA);
+        Combo c = new Combo();
+        c.setCodigo_modelo("COMBO002");
+        c.setDias(dias);
+        System.out.println(cbd.insert(c));
     }
 }
