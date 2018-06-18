@@ -1,6 +1,7 @@
 
 package br.ufc.russas.aloha.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Disciplina {
@@ -18,7 +19,7 @@ public class Disciplina {
     
 
     public Disciplina() {
-    
+        this.cursosSemestres = new ArrayList<CursoSemestre>();
     }
 
     public Disciplina(String codigo, String nome, int crPraticos, int crTeoricos, int vagas) {

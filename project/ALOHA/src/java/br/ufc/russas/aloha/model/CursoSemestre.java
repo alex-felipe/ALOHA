@@ -12,6 +12,10 @@ public class CursoSemestre {
         this.semestre = semestre;
     }
 
+    public CursoSemestre() {
+    }
+    
+
     
     
     

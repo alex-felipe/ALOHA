@@ -73,7 +73,7 @@ public class DisciplinaDAO {
     //(`codigo_modelo`, `codigo_disciplina`, `nome`, `cr_praticos`, `cr_teoricos`, `vagas`, `tipo_sala`
     private Disciplina map(ResultSet rs) throws SQLException {
         Disciplina d = new Disciplina(rs.getInt("id"), rs.getString("codigo_modelo"),rs.getString("codigo_disciplina"), 
-                rs.getString("nome"), rs.getInt("cr_praticos"), rs.getInt("cr_teoricos"), rs.getInt("vagas"), rs.getString("bloco"));
+                rs.getString("nome"), rs.getInt("cr_praticos"), rs.getInt("cr_teoricos"), rs.getInt("vagas"), rs.getString("tipo_sala"));
         return d;
     }
 
