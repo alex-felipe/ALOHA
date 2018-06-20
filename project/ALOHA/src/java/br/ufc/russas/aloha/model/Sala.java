@@ -44,26 +44,7 @@ public class Sala {
         
     }
     
-    /* O código será composto por:
-        * 1) As 3 primeiras letras do nome da sala
-        * 2) Identificador da sala no banco de dados
-        * RESTRIÇÃO: Tamanho do indentificador será sempre 7
-        * - Completar com 0's a esquerda do identificador quando possuirem menos que 4 digitos
-     */
-    public String getCodigo(){
-       StringBuilder builder = new StringBuilder();
-       builder.append(getNome().substring(0, 2)); // Retira as 3 primeiras letras do nome
-       // Insere a quantidade de 0's restantes para formar o código
-       if (getId() < 10) {
-           builder.append("000");
-       } else if (getId() < 100) {
-           builder.append("00");
-       } else if (getId() < 1000) {
-           builder.append("0");
-       }
-       builder.append(getId()); // Adiciona o identificador
-       return builder.toString();
-   }
+
     
     public String getCodigoModelo() {
         return codigoModelo;
