@@ -47,7 +47,21 @@ public class Disciplina {
         
     }
     
-    
+    public String geraCodigo() {
+        String cod;
+        if (id < 10) {
+            cod = "DISC" + "0000" + this.id;
+        } else if (id < 100) {
+            cod = "DISC" + "000" + this.id;
+        } else if (id < 1000) {
+            cod = "DISC" + "00" + this.id;
+        } else if (id< 10000){
+            cod = "DISC" + "0" + this.id;
+        }else{
+            cod = "DISC" + this.id;
+        }
+        return cod;
+    }
 
     public String getCodigo() {
         return codigo;

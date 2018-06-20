@@ -48,6 +48,12 @@ public class DisciplinaMB {
         this.cursoSemCurrent = cursoSemCurrent;
     }
     
+    public void adicionar(){
+        disciplinaDAO.insert(this.disciplina);
+        this.disciplina = new Disciplina();
+        this.disciplinas = disciplinaDAO.selectALL();
+    }
+    
 
     public void inserirCursoSemetre(){
         if(this.cursoSemCurrent.getCurso() !=null && this.cursoSemCurrent.getSemestre()>0){

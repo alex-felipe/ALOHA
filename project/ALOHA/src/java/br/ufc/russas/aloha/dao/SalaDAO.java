@@ -45,20 +45,7 @@ public class SalaDAO {
             
         }
     }
-    /*
-    public boolean insert(Sala sala) throws SQLException{
-        
-        PreparedStatement ps = super.getConexao().prepareStatement(sql);
-        
-        ps.setString(1, sala.getCodigoModelo());
-        ps.setString(2, sala.getNome());
-        ps.setString(3, sala.getTipo());
-        ps.setInt(4, sala.getCapacidade());
-        ps.setString(5, sala.getBloco());
-        
-        return ps.executeUpdate() == 1;
-    }
-*/
+
     public ArrayList<Sala> selectALL(){
         //int id, String codigoModelo, String nome, String tipo, int capacidade, String bloco
         Connection con = null;

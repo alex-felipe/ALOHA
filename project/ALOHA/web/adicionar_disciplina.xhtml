@@ -33,27 +33,27 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive" >
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                            <a class="nav-link js-scroll-trigger" href="index.xhtml">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Gerenciamento
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="salas.html">Salas</a>
-                                <a class="dropdown-item" href="combos.html">Combos</a>
-                                <a class="dropdown-item" href="disciplinas.html">Disciplinas</a>
-                                <a class="dropdown-item" href="docentes.html">Docentes</a>
+                                <a class="dropdown-item" href="salas.xhtml">Salas</a>
+                                <a class="dropdown-item" href="combos.xhtml">Combos</a>
+                                <a class="dropdown-item" href="disciplinas.xhtml">Disciplinas</a>
+                                <a class="dropdown-item" href="docentes.xhtml">Docentes</a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.xhtml">Planejamentos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="confifiracoes.html">Configurações</a>
+                            <a class="nav-link js-scroll-trigger" href="confifiracoes.xhtml">Configurações</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+                            <a class="nav-link js-scroll-trigger" href="sobre.xhtml">Sobre</a>
                         </li>
 
                     </ul>
@@ -66,8 +66,8 @@
                 <center>
                     <nav aria-label="breadcrumb" style="width: 75%;">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="salas.html">Gerenciamento de Salas</a></li>
+                            <li class="breadcrumb-item"><a href="index.xhtml">Inicio</a></li>
+                            <li class="breadcrumb-item"><a href="salas.xhtml">Gerenciamento de Salas</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Adicionar Sala</li>
                         </ol>
                     </nav>
@@ -94,7 +94,7 @@
                     <div>
                     <div class="form-group row" >
                             <p:outputLabel >Curso/Semestre: &nbsp;</p:outputLabel>
-                            <p:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.curso}"  id="cursoInput" style="font-size: 12px; width: 200px; height: 30px;">
+                            <p:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.curso}"  id="cursoInput" style="width: 100px; ">
                                 <f:selectItem itemLabel="Curso" itemValue="" />
                                 <f:selectItem itemLabel="Ciência da Computação" itemValue="Ciência da Computação" />
                                 <f:selectItem itemLabel="Engenharia Civil" itemValue="Engenharia Civil" />
@@ -103,7 +103,7 @@
                                 <f:selectItem itemLabel="Engenharia de Mecânica" itemValue="Engenharia Mecânica" />
                             </p:selectOneMenu>
                             &nbsp;&nbsp;
-                            <p:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.semestre}"  id="semInput" style="font-size: 12px; width: 200px; height: 30px;">
+                            <p:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.semestre}"  id="semInput" style="font-size: 12px; width: 100px; height: 30px;">
                                 <f:selectItem itemLabel="Semestre" itemValue="0" />
                                 <f:selectItem itemLabel="1" itemValue="1" />
                                 <f:selectItem itemLabel="2" itemValue="2" />
@@ -116,25 +116,38 @@
                                 <f:selectItem itemLabel="9" itemValue="9" />
                                 <f:selectItem itemLabel="10" itemValue="10" />
                             </p:selectOneMenu>
+                             &nbsp;&nbsp;
                             <p:commandButton value="Adicionar" action="#{disciplinaMB.inserirCursoSemetre()}" update=":frm" ></p:commandButton>
                     </div> 
-                       
-                    <p:dataTable id="basicDT" value="#{disciplinaMB.disciplina.cursosSemestres}" style="width: 200px;" class="table table-striped" var="cs">
-                        <p:column headerText="Curso">
-                            <h:outputText value="#{cs.curso}" />
-                        </p:column>
-                        <p:column headerText="Semestre">
-                            <h:outputText value="#{cs.semestre}" />
-                        </p:column>
-                                   
-                    </p:dataTable>
+                        <div class="form-group row" >
+                            <p:dataTable tableStyleClass="table"  value="#{disciplinaMB.disciplina.cursosSemestres}" style="width: 300px; margin-left: 100px;"  var="cs">
+                                <p:column headerText="Curso" style="width: 200px;">
+                                    <h:outputText value="#{cs.curso}" />
+                                </p:column>
+                                <p:column headerText="Semestre" style="width: 100px;">
+                                    <h:outputText value="#{cs.semestre}" />
+                                </p:column>
+
+                            </p:dataTable>
+                        </div>
                        
                         
                     </div>
                     <div class="form-group row" >  
                     <p:outputLabel>Quatidade de Créditos: &nbsp;</p:outputLabel>
-                    <p:selectOneMenu value="#{disciplinaMB.disciplina.crTeoricos}">
+                    <p:selectOneMenu value="#{disciplinaMB.disciplina.crTeoricos}" effect="none" >
                         <f:selectItem itemLabel="Teóricos" itemValue="" />
+                        <f:selectItem itemLabel="1" itemValue="1" />
+                        <f:selectItem itemLabel="2" itemValue="2" />
+                        <f:selectItem itemLabel="3" itemValue="3" />
+                        <f:selectItem itemLabel="4" itemValue="4" />
+                        <f:selectItem itemLabel="5" itemValue="5" />
+                        <f:selectItem itemLabel="6" itemValue="6" />
+                        
+                    </p:selectOneMenu>
+                    &nbsp;
+                    <p:selectOneMenu value="#{disciplinaMB.disciplina.crPraticos}">
+                        <f:selectItem itemLabel="Práticos" itemValue="" />
                         <f:selectItem itemLabel="1" itemValue="1" />
                         <f:selectItem itemLabel="2" itemValue="2" />
                         <f:selectItem itemLabel="3" itemValue="3" />
@@ -145,20 +158,30 @@
                     </p:selectOneMenu>
                     
                     </div>
-                    
-                    <br/>
                     <div class="form-group row" >  
-                        <p:outputLabel class="col-form-label"> Capacidade: &nbsp;</p:outputLabel>
-                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 200px;"  value="#{salaMB.sala.capacidade}"/>
+                        <p:outputLabel class="col-form-label"> Vagas: &nbsp;</p:outputLabel>
+                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 70px;"  value="#{disciplinaMB.disciplina.vagas}"/>
+                        &nbsp;
+                        <p:outputLabel class="col-form-label"> Sala Especifica: &nbsp;</p:outputLabel>
+                        <p:selectOneMenu value="#{disciplinaMB.disciplina.tipoSala}">
+                            <f:selectItem itemLabel="Sala" itemValue="" />
+                            <f:selectItem itemLabel="Laboratório de Química" itemValue="Laboratório de Química" />
+                            <f:selectItem itemLabel="Laboratório de Informática" itemValue="Laboratório de Informática" />
+                            <f:selectItem itemLabel="Laboratório de Física" itemValue="Laboratório de Física" />
+                            <f:selectItem itemLabel="Sala de Desenho" itemValue="Sala de Desenho" />
+                        
+                         </p:selectOneMenu>
                     </div>  
-
-                    <p:commandButton value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>>
+                    <div class="form-group row" >  
+                    <a href="disciplinas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 70%; position: absolute;">Cancelar</a>
+                    <p:commandButton value="Salvar" actionListener="#{disciplinaMB.adicionar()}" update=":frm" style="border-radius: 0.5em; left: 80%; position: absolute;"></p:commandButton>
+                    </div>  
                 </h:form>
             </div>
         </div>
-        <br/>
-        <a href="salas.html" class="btn btn-secodary" style="border-radius: 0.5em; left: 74%; position: absolute;">Cancelar</a>
-        <a href="salas.html" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Adicionar Sala</a>
+       
+
+       
 
 
 

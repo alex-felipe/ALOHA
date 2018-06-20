@@ -11,10 +11,11 @@ import java.util.List;
 
 public class DisciplinaDAO {
 
-    public boolean insert(Disciplina disciplina) throws SQLException {
-        //sala.setId(this.gerarIdSala());
-        //sala.setCodigoModelo(sala.geraCodigo());
+    public boolean insert(Disciplina disciplina){
+        disciplina.setId(this.gerarIdDisciplina());
+        disciplina.setCodigoModelo(disciplina.geraCodigo());
         Connection con = null;
+        int tmp;
         try {
             con = ConexaoFactory.getConnection();
             String sql = "INSERT INTO `disciplina` (`codigo_modelo`, `codigo_disciplina`, `nome`, `cr_praticos`, `cr_teoricos`, `vagas`, `tipo_sala`) VALUES (?, ?, ?, ?, ?,?,?)";
@@ -26,8 +27,17 @@ public class DisciplinaDAO {
             ps.setInt(5, disciplina.getCrTeoricos());
             ps.setInt(6, disciplina.getVagas());
             ps.setString(7, disciplina.getTipoSala());
+            tmp = ps.executeUpdate();
+            for(CursoSemestre cs: disciplina.getCursosSemestres()){
+                sql = "INSERT INTO `disciplina_curso_semestre` (`id_disciplina`, `curso`, `semestre`) VALUES (?, ?, ?)";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, disciplina.getId());
+                ps.setString(2, cs.getCurso());
+                ps.setInt(3, cs.getSemestre());
+                tmp = ps.executeUpdate();
+            }
 
-            return ps.executeUpdate() == 1;
+            return tmp == 1;
         } catch (SQLException e) {
             throw new DAOException("Operação não realizada com sucesso.", e);
 
@@ -103,4 +113,30 @@ public class DisciplinaDAO {
         }
         return listaCursoSemestre;
     }
+    
+    public int gerarIdDisciplina() {
+        Connection con = null;
+        int numero = 0;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "select count(*) from disciplina";
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                numero = rs.getInt("count(*)") + 1;
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Operação não realizada com sucesso.", e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException("Não foi possível fechar a conexão.", e);
+            }
+        }
+        return numero;
+    }
+    
 }
