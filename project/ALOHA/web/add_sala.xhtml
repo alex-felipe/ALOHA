@@ -96,8 +96,6 @@
                         </p:selectOneMenu>
                     
                     <br/>
-                    
-                        
                         <p:outputLabel class="col-form-label">Bloco: &nbsp;</p:outputLabel>
                         <p:selectOneMenu value="#{salaMB.sala.bloco}">
                             <f:selectItem itemLabel="Selecione uma opção" itemValue="" />
@@ -114,13 +112,14 @@
                         <p:spinner id="basic"  value="#{salaMB.sala.capacidade}"/>
 
                     
-                     <p:commandButton value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>>
+                     
                 </h:form>
+                <p:commandButton class="btn btn-primary float-right" value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>>
             </div>
         </div>
         <br/>
-        <a href="salas.html" class="btn btn-secodary" style="border-radius: 0.5em; left: 74%; position: absolute;">Cancelar</a>
-        <a href="salas.html" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Adicionar Sala</a>
+        <a href="salas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 74%; position: absolute;">Cancelar</a>
+        
         
         
 
