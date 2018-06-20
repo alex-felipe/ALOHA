@@ -1,4 +1,3 @@
-
 package br.ufc.russas.aloha.model;
 
 import java.util.ArrayList;
@@ -9,7 +8,8 @@ public class Combo {
     private int id;
     private String codigo_modelo;
     private List<DiasSemanaEnum> dias;
-
+    private String[] dias_semana;
+    
     public Combo(){
         this.dias = new ArrayList<>();
     }
@@ -39,6 +39,10 @@ public class Combo {
 
     public void setDias(List dias) {
         this.dias = dias;
+    }
+    
+    public String[] getDias_Semana(){
+        return dias_semana;
     }
     
     /* O código será composto por:

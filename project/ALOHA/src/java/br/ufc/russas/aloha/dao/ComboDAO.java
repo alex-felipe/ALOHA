@@ -14,7 +14,7 @@ public class ComboDAO {
     public ComboDAO() {
     }
     public boolean insert(Combo combo) {
-        combo.setId(this.gerarIdCombo());
+        combo.setId(this.geraIdCombo());
         combo.setCodigo_modelo(combo.getCodigo());
         Connection con = null;
         try {
@@ -31,12 +31,12 @@ public class ComboDAO {
                     combo.setId(rs.getInt("id"));
                 }
                 System.out.println("OK");
-                ArrayList<DiasSemanaEnum> listaDias = new ArrayList<>(combo.getDias());
-                for(DiasSemanaEnum dia: listaDias){
+                ArrayList<String> listaDias = new ArrayList<>(combo.getDias());
+                for(String dia: listaDias){
                     sql = "INSERT INTO combo_dias (id_combo, id_dia) VALUES (?, ?)";
                     pst = con.prepareStatement(sql);
                     pst.setInt(1, combo.getId());
-                    pst.setInt(2, DiasSemanaEnum.get(dia));
+                    pst.setString(2, dia);
                     pst.executeUpdate();
                 }
                 return true;
@@ -111,7 +111,7 @@ public class ComboDAO {
         return listaDias;       
     }
     
-    public int gerarIdCombo() {
+    public int geraIdCombo() {
         Connection con = null;
         int numero = 0;
         try {
