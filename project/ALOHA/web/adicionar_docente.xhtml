@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>ALOHA - Sistema de Alocação de Horários Acadêmicos</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+        <link href="css/creative.css" rel="stylesheet"/>
+        <link href="css/style.css" rel="stylesheet"/>
+
+    </h:head>
+    <h:body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-shrink" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">ALOHA UFC</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive" >
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gerenciamento
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="salas.xhtml">Salas</a>
+                                <a class="dropdown-item" href="combos.xhtml">Combos</a>
+                                <a class="dropdown-item" href="disciplinas.xhtml">Disciplinas</a>
+                                <a class="dropdown-item" href="docentes.xhtml">Docentes</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.xhtml">Planejamentos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="configuracoes.xhtml">Configurações</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="sobre.xhtml">Sobre</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br/>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <center>
+                    <nav aria-label="breadcrumb" style="width: 75%;">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.xhtml">Inicio</a></li>
+                            <li class="breadcrumb-item"><a href="docentes.xhtml">Gerenciamento de Docentes</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Adicionar Docente</li>
+                        </ol>
+                    </nav>
+                </center>
+            </div>
+        </div>
+
+        <div class="container col-lg-9">
+            <h2 class="section-heading float-left" style="font-size: 22px;">ADICIONAR DOCENTE</h2>
+            <br/><br/><br/>
+            <div style="margin-left: 100px">
+                <h:form id="frm">
+                    <div class="form-group row">
+                        <p:outputLabel class="col-form-label">Nome: &nbsp;</p:outputLabel>
+                        <p:inputText class="form-control" style="font-size: 12px; width: 450px;" value="#{docenteMB.docente.nome}" placeholder="Digite o nome do docente..." ></p:inputText>
+                    </div>                        
+                    <div class="form-group row" >  
+                        <p:outputLabel>Quantidade de Créditos Máxima: &nbsp;</p:outputLabel>
+                        <p:selectOneMenu value="#{docenteMB.docente.crMax}">
+                            <f:selectItem itemLabel="Teóricos" itemValue="" />
+                            <f:selectItem itemLabel="2" itemValue="2" />
+                            <f:selectItem itemLabel="4" itemValue="4" />
+                            <f:selectItem itemLabel="6" itemValue="6" />
+                            <f:selectItem itemLabel="8" itemValue="8" />
+                            <f:selectItem itemLabel="10" itemValue="10" />
+                            <f:selectItem itemLabel="12" itemValue="12" />
+                            <f:selectItem itemLabel="14" itemValue="14" />
+                            <f:selectItem itemLabel="16" itemValue="16" />
+                            <f:selectItem itemLabel="18" itemValue="18" />
+                            <f:selectItem itemLabel="20" itemValue="20" />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="form-group row" >  
+                        <p:outputLabel>Quantidade de Créditos Mínima &nbsp;</p:outputLabel>
+                        <p:selectOneMenu value="#{docenteMB.docente.crMin}">
+                            <f:selectItem itemLabel="Teóricos" itemValue="" />
+                            <f:selectItem itemLabel="2" itemValue="2" />
+                            <f:selectItem itemLabel="4" itemValue="4" />
+                            <f:selectItem itemLabel="6" itemValue="6" />
+                            <f:selectItem itemLabel="8" itemValue="8" />
+                            <f:selectItem itemLabel="10" itemValue="10" />
+                            <f:selectItem itemLabel="12" itemValue="12" />
+                            <f:selectItem itemLabel="14" itemValue="14" />
+                            <f:selectItem itemLabel="16" itemValue="16" />
+                            <f:selectItem itemLabel="18" itemValue="18" />
+                            <f:selectItem itemLabel="20" itemValue="20" />
+                        </p:selectOneMenu>
+                    </div>
+                 
+                    <p:commandButton value="Salvar" actionListener="#{docenteMB.adiciona()}"  update=":frm"> </p:commandButton>
+                </h:form>
+            </div>
+        </div>
+        <br/>
+        <!-- Custom scripts for this template -->
+        <script src="js/creative.min.js"></script>
+    </h:body>
+</html>
+

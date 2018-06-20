@@ -1,9 +1,7 @@
 
 package br.ufc.russas.aloha.managedbean;
 
-import br.ufc.russas.aloha.dao.ComboDAO;
 import br.ufc.russas.aloha.dao.DocenteDAO;
-import br.ufc.russas.aloha.model.Combo;
 import br.ufc.russas.aloha.model.Docente;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -23,9 +21,9 @@ public class DocenteMB {
     }
 
     public void adiciona(){
-        //salas.add(sala);
-        //docenteDAO.insert(docente);
-        //docente = new Combo();
+        System.out.println("aldjalskdj");
+        docenteDAO.insert(docente);
+        docente = new Docente();
         this.listaDocentes = docenteDAO.selectALL();
     }
     public Docente getDocente() {
