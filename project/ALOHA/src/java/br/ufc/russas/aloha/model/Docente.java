@@ -25,10 +25,6 @@ public class Docente {
         this.crMax = crMax;
     }
     
-    public void selecionarCombos(List dias){
-        
-    }
-    
     /* O código será composto por:
         * 1) As 3 primeiras letras do nome do combo
         * 2) Identificador do combo no banco de dados
@@ -72,7 +68,6 @@ public class Docente {
     public void setCodigo_modelo(String codigo_modelo) {
         this.codigo_modelo = codigo_modelo;
     }
-
     
     public String getNome() {
         return nome;
