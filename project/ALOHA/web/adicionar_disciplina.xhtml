@@ -80,30 +80,30 @@
             <h2 class="section-heading float-left" style="font-size: 22px;">ADICIONAR DISCIPLINA</h2>
             <br/><br/><br/>
             <div style="margin-left: 100px">
-                <h:form id="frm">
+                <h:form id="frm" >
                     
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label">Código Disciplina: &nbsp;</p:outputLabel>
-                        <p:inputText class="form-control" style="font-size: 12px; width: 200px;" value="#{disciplinaMB.disciplina.codigo}" placeholder="Digite o código da disciplina" ></p:inputText>
+                        <p:inputText class="form-control" style="font-size: 12px; width: 200px; position: absolute; left: 30%" value="#{disciplinaMB.disciplina.codigo}" placeholder="Digite o código da disciplina" ></p:inputText>
                     </div>
                     
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label">Nome: &nbsp;</p:outputLabel>
-                        <p:inputText class="form-control" style="font-size: 12px; width: 200px;" value="#{disciplinaMB.disciplina.nome}" placeholder="Digite o nome da disciplina"></p:inputText>
+                        <p:inputText class="form-control" style="font-size: 12px; width: 200px; position: absolute; left: 30%" value="#{disciplinaMB.disciplina.nome}" placeholder="Digite o nome da disciplina"></p:inputText>
                     </div>
                     <div>
                     <div class="form-group row" >
                             <p:outputLabel >Curso/Semestre: &nbsp;</p:outputLabel>
-                            <p:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.curso}"  id="cursoInput" style="width: 100px; ">
+                            <h:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.curso}"  class="custom-select" style="font-size: 12px; width: 200px; height: 30px;position: absolute; left: 30%">
                                 <f:selectItem itemLabel="Curso" itemValue="" />
                                 <f:selectItem itemLabel="Ciência da Computação" itemValue="Ciência da Computação" />
                                 <f:selectItem itemLabel="Engenharia Civil" itemValue="Engenharia Civil" />
                                 <f:selectItem itemLabel="Engenharia de Produção" itemValue="Engenharia de Produção" />
                                 <f:selectItem itemLabel="Engenharia de Software" itemValue="Engenharia de Software" />
                                 <f:selectItem itemLabel="Engenharia de Mecânica" itemValue="Engenharia Mecânica" />
-                            </p:selectOneMenu>
+                            </h:selectOneMenu>
                             &nbsp;&nbsp;
-                            <p:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.semestre}"  id="semInput" style="font-size: 12px; width: 100px; height: 30px;">
+                            <h:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.semestre}"  class="custom-select" style="font-size: 12px; width: 100px; height: 30px;position: absolute; left: 50%">
                                 <f:selectItem itemLabel="Semestre" itemValue="0" />
                                 <f:selectItem itemLabel="1" itemValue="1" />
                                 <f:selectItem itemLabel="2" itemValue="2" />
@@ -115,12 +115,13 @@
                                 <f:selectItem itemLabel="8" itemValue="8" />
                                 <f:selectItem itemLabel="9" itemValue="9" />
                                 <f:selectItem itemLabel="10" itemValue="10" />
-                            </p:selectOneMenu>
+                            </h:selectOneMenu>
                              &nbsp;&nbsp;
-                            <p:commandButton value="Adicionar" action="#{disciplinaMB.inserirCursoSemetre()}" update=":frm" ></p:commandButton>
+                             <p:commandButton value="Adicionar" action="#{disciplinaMB.inserirCursoSemetre()}" update=":frm" style="position: absolute; left: 61%" ></p:commandButton>
                     </div> 
+                        
                         <div class="form-group row" >
-                            <p:dataTable tableStyleClass="table"  value="#{disciplinaMB.disciplina.cursosSemestres}" style="width: 300px; margin-left: 100px;"  var="cs">
+                            <p:dataTable tableStyleClass="table"  value="#{disciplinaMB.disciplina.cursosSemestres}" style="width: 300px; margin-left: 250px;"  var="cs">
                                 <p:column headerText="Curso" style="width: 200px;">
                                     <h:outputText value="#{cs.curso}" />
                                 </p:column>
@@ -135,7 +136,7 @@
                     </div>
                     <div class="form-group row" >  
                     <p:outputLabel>Quatidade de Créditos: &nbsp;</p:outputLabel>
-                    <p:selectOneMenu value="#{disciplinaMB.disciplina.crTeoricos}" effect="none" >
+                    <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px; position: absolute; left: 30%" value="#{disciplinaMB.disciplina.crTeoricos}">
                         <f:selectItem itemLabel="Teóricos" itemValue="" />
                         <f:selectItem itemLabel="1" itemValue="1" />
                         <f:selectItem itemLabel="2" itemValue="2" />
@@ -144,9 +145,9 @@
                         <f:selectItem itemLabel="5" itemValue="5" />
                         <f:selectItem itemLabel="6" itemValue="6" />
                         
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                     &nbsp;
-                    <p:selectOneMenu value="#{disciplinaMB.disciplina.crPraticos}">
+                    <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px;position: absolute; left: 50%" value="#{disciplinaMB.disciplina.crPraticos}">
                         <f:selectItem itemLabel="Práticos" itemValue="" />
                         <f:selectItem itemLabel="1" itemValue="1" />
                         <f:selectItem itemLabel="2" itemValue="2" />
@@ -155,38 +156,32 @@
                         <f:selectItem itemLabel="5" itemValue="5" />
                         <f:selectItem itemLabel="6" itemValue="6" />
                         
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                     
                     </div>
                     <div class="form-group row" >  
                         <p:outputLabel class="col-form-label"> Vagas: &nbsp;</p:outputLabel>
-                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 70px;"  value="#{disciplinaMB.disciplina.vagas}"/>
+                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 70px; position: absolute; left: 30%"  value="#{disciplinaMB.disciplina.vagas}"/>
                         &nbsp;
-                        <p:outputLabel class="col-form-label"> Sala Especifica: &nbsp;</p:outputLabel>
-                        <p:selectOneMenu value="#{disciplinaMB.disciplina.tipoSala}">
+                        <p:outputLabel class="col-form-label" style="position: absolute; left: 40%"> Sala Especifica: &nbsp;</p:outputLabel>
+                        <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px; position: absolute; left: 50%" value="#{disciplinaMB.disciplina.tipoSala}">
                             <f:selectItem itemLabel="Sala" itemValue="" />
                             <f:selectItem itemLabel="Laboratório de Química" itemValue="Laboratório de Química" />
                             <f:selectItem itemLabel="Laboratório de Informática" itemValue="Laboratório de Informática" />
                             <f:selectItem itemLabel="Laboratório de Física" itemValue="Laboratório de Física" />
                             <f:selectItem itemLabel="Sala de Desenho" itemValue="Sala de Desenho" />
                         
-                         </p:selectOneMenu>
+                         </h:selectOneMenu>
                     </div>  
                     <div class="form-group row" >  
-                    <a href="disciplinas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 70%; position: absolute;">Cancelar</a>
-                    <p:commandButton value="Salvar" actionListener="#{disciplinaMB.adicionar()}" update=":frm" style="border-radius: 0.5em; left: 80%; position: absolute;"></p:commandButton>
+                    <br/>
+                    
                     </div>  
                 </h:form>
+                <a href="disciplinas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 80%; position: absolute;">Cancelar</a>
+                <p:commandButton value="Salvar" actionListener="#{disciplinaMB.adicionar()}" style=" left: 90%; position: absolute;"></p:commandButton>
             </div>
         </div>
-       
-
-       
-
-
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
     </h:body>
 </html>
 

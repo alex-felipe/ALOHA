@@ -7,6 +7,7 @@ import br.ufc.russas.aloha.model.Disciplina;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
@@ -49,9 +50,17 @@ public class DisciplinaMB {
     }
     
     public void adicionar(){
-        disciplinaDAO.insert(this.disciplina);
-        this.disciplina = new Disciplina();
-        this.disciplinas = disciplinaDAO.selectALL();
+        if(disciplinaDAO.insert(this.disciplina)){
+            try{
+                FacesContext.getCurrentInstance().getExternalContext().redirect("disciplinas.xhtml");
+                this.disciplina = new Disciplina();
+                this.disciplinas = disciplinaDAO.selectALL();
+            
+            }catch(Exception e){
+                e.getMessage();
+            }
+        }
+        
     }
     
 

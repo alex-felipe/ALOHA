@@ -33,27 +33,27 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive" >
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                            <a class="nav-link js-scroll-trigger" href="index.xhtml">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Gerenciamento
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="salas.html">Salas</a>
-                                <a class="dropdown-item" href="combos.html">Combos</a>
-                                <a class="dropdown-item" href="disciplinas.html">Disciplinas</a>
-                                <a class="dropdown-item" href="docentes.html">Docentes</a>
+                                <a class="dropdown-item" href="salas.xhtml">Salas</a>
+                                <a class="dropdown-item" href="combos.xhtml">Combos</a>
+                                <a class="dropdown-item" href="disciplinas.xhtml">Disciplinas</a>
+                                <a class="dropdown-item" href="docentes.xhtml">Docentes</a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.xhtml">Planejamentos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="confifiracoes.html">Configurações</a>
+                            <a class="nav-link js-scroll-trigger" href="confifiracoes.xhtml">Configurações</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+                            <a class="nav-link js-scroll-trigger" href="sobre.xhtml">Sobre</a>
                         </li>
 
                     </ul>
@@ -66,8 +66,8 @@
                 <center>
                     <nav aria-label="breadcrumb" style="width: 75%;">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="salas.html">Gerenciamento de Salas</a></li>
+                            <li class="breadcrumb-item"><a href="index.xhtml">Inicio</a></li>
+                            <li class="breadcrumb-item"><a href="salas.xhtml">Gerenciamento de Salas</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Adicionar Sala</li>
                         </ol>
                     </nav>
@@ -81,47 +81,42 @@
             <br/><br/><br/>
             <div style="margin-left: 100px">
                 <h:form id="frm">
-                    
+                    <div class="form-group row" >
                         <p:outputLabel class="col-form-label">Nome: &nbsp;</p:outputLabel>
                         <p:inputText value="#{salaMB.sala.nome}" placeholder="Digite o nome da sala"></p:inputText>
+                    </div>
                     
-                    <br/>
-                    
-                        
+                    <div class="form-group row" >
                         <p:outputLabel class="col-form-label">Tipo: &nbsp;</p:outputLabel>
-                        <p:selectOneMenu value="#{salaMB.sala.tipo}">
+                        <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.tipo}">
                             <f:selectItem itemLabel="Selecione tipo" itemValue="" />
                             <f:selectItem itemLabel="Sala" itemValue="Sala" />
                             <f:selectItem itemLabel="Laboratório" itemValue="Laboratorio" />
-                        </p:selectOneMenu>
+                        </h:selectOneMenu>
+                    </div>
                     
-                    <br/>
+                    <div class="form-group row" >
                         <p:outputLabel class="col-form-label">Bloco: &nbsp;</p:outputLabel>
-                        <p:selectOneMenu value="#{salaMB.sala.bloco}">
+                        <h:selectOneMenu class="custom-select"  style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.bloco}">
                             <f:selectItem itemLabel="Selecione uma opção" itemValue="" />
                             <f:selectItem itemLabel="Bloco A" itemValue="Bloco A" />
-                            <f:selectItem itemLabel="Bloco B" itemValue="Bloco A" />
+                            <f:selectItem itemLabel="Bloco B" itemValue="Bloco B" />
                             <f:selectItem itemLabel="Bloco C" itemValue="Bloco C" />
                             <f:selectItem itemLabel="Bloco D" itemValue="Bloco D" />
-                        </p:selectOneMenu>
-                    
-                    <br/>
-                    
-
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-group row" >
                         <p:outputLabel class="col-form-label">Capacidade: &nbsp;</p:outputLabel>
-                        <p:spinner id="basic"  value="#{salaMB.sala.capacidade}"/>
-
-                    
-                     
+                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 70px;"  value="#{salaMB.sala.capacidade}"/>
+                    </div>
+                   
                 </h:form>
-                <p:commandButton class="btn btn-primary float-right" value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>>
+                
+                     <a href="salas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 80%; position: absolute;">Cancelar</a>
+                    <p:commandButton  style="left: 90%; position: absolute;"  value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>
+                
             </div>
         </div>
-        <br/>
-        <a href="salas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 74%; position: absolute;">Cancelar</a>
-        
-        
-        
 
         <!-- Custom scripts for this template -->
         <script src="js/creative.min.js"></script>

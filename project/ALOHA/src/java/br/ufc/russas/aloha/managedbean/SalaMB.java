@@ -6,6 +6,7 @@ import br.ufc.russas.aloha.model.Sala;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 
 @ManagedBean
@@ -24,9 +25,34 @@ public class SalaMB {
         //salas.add(sala);
         //sala.setCodigoModelo(sala.geraCodigo());
         //System.out.println(sala.getCodigoModelo());
-        salaEntidy.insert(sala);
-        sala = new Sala();
-        this.salas = salaEntidy.selectALL();
+        
+        if(salaEntidy.insert(sala)){
+            try{
+                FacesContext.getCurrentInstance().getExternalContext().redirect("salas.xhtml");
+                sala = new Sala();
+                this.salas = salaEntidy.selectALL();
+            }catch(Exception e){
+                e.getMessage();
+            }
+        }
+        
+    }
+    public void editar(){
+        try{
+                FacesContext.getCurrentInstance().getExternalContext().redirect("add_sala.xhtml");
+                
+            }catch(Exception e){
+                e.getMessage();
+            }
+    }
+    public void novaSala() {
+        try {
+            sala = new Sala();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("add_sala.xhtml");
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
     public Sala getSala() {
         return sala;
