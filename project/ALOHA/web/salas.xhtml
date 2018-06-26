@@ -86,8 +86,8 @@
             <br/>
             <h:form id="form" prependId="false">
                 <p:dataTable value="#{salaMB.salas}" rows="5" var="sala" paginator="true"
-                                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                      rowsPerPageTemplate="5,10,15">
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
                     <p:column headerText="Código" width="90">
                         <h:outputText value="#{sala.codigoModelo}" />
                     </p:column>
@@ -103,42 +103,60 @@
                     <p:column headerText="Capacidade" width="100">
                         <h:outputText value="#{sala.capacidade}" />
                     </p:column>
-                    <p:column headerText="Detalhes" style="text-align: center" width="90">                      
-                        <p:commandButton  icon="ui-icon-search"  oncomplete="PF('salaDialog').show();">
-                            <f:setPropertyActionListener value="#{sala}" target="#{salaMB.sala}" />
-                        </p:commandButton>
-                        <p:dialog  header="Informações da sala" widgetVar="salaDialog" modal="true" width="400" rendered="#{not empty salaMB.sala}">
-                            <div class="modal-body" style="align-items: flex-start">
-                                <div class="row" >
-                                    <b>Código: &nbsp;</b> <h:outputText value="#{sala.codigoModelo}" />
-                                </div>
-                                <div class="row" >
-                                    <b>Nome: &nbsp; </b> <h:outputText value="#{sala.nome}" />
-                                </div>
-                                <div class="row" >
-                                    <b>Tipo: &nbsp;</b> <h:outputText value="#{sala.tipo}" />
-                                </div>
-                                <div class="row" >
-                                    <b>Bloco: &nbsp;</b> <h:outputText value="#{sala.bloco}" />
-                                </div>
-                                <div class="row" >
-                                    <b>Capacidade: &nbsp; </b> <h:outputText value="#{sala.capacidade}" />
-                                </div>                               
-                            </div>
-                            <div class="modal-footer">
-                                <p:commandButton onclick="dialog.hide()" process="@none" value="Cancelar" />
-                                <p:commandButton value="Editar Informações" actionListener="#{salaMB.editar()}" ></p:commandButton>
-                                
-                            </div>
-                        </p:dialog>
+                    <p:column headerText="Ações" style="text-align:center;" width="70">
+                        <div style="display: inline; position: relative;" >
+                            <p:commandLink update=":form:salaDetail"  styleClass="ui-icon ui-icon-search"  oncomplete="PF('salaDialog').show();" style="float: left;">
+                                <f:setPropertyActionListener value="#{sala}" target="#{salaMB.sala}"/>
+                            </p:commandLink>
+                            <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{salaMB.editar()}" style="float: left;">
+                                <f:setPropertyActionListener value="#{sala}" target="#{salaMB.sala}"/>
+                            </p:commandLink>
+                            <p:commandLink  styleClass="ui-icon ui-icon-trash"  actionListener="#{salaMB.remover()}" style="float: left;">
+                                <f:setPropertyActionListener value="#{sala}" target="#{salaMB.sala}"/>
+                                <p:confirm header="Confirmação" message="Deseja realmente excluir a sala ?" />
+                            </p:commandLink>
+                        </div>
+
                     </p:column>
                 </p:dataTable>
                 <br/>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="margin-left: 200px"/>
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 5px"/>
+                    
+                </p:confirmDialog>
+                <p:dialog  header="Informações da sala" widgetVar="salaDialog" modal="true" width="400" showEffect="blind" hideEffect="explode" resizable="false">
+                    <p:outputPanel id="salaDetail" style="text-align:center;" rendered="#{not empty salaMB.sala}">
+
+                        <div class="modal-body" >
+                            <div class="row" >
+                                <b>Código: &nbsp;</b> <h:outputText value="#{salaMB.sala.codigoModelo}" />
+                            </div>
+                            <div class="row" >
+                                <b>Nome: &nbsp; </b> <h:outputText value="#{salaMB.sala.nome}" />
+                            </div>
+                            <div class="row" >
+                                <b>Tipo: &nbsp;</b> <h:outputText value="#{salaMB.sala.tipo}" />
+                            </div>
+                            <div class="row" >
+                                <b>Bloco: &nbsp;</b> <h:outputText value="#{salaMB.sala.bloco}" />
+                            </div>
+                            <div class="row" >
+                                <b>Capacidade: &nbsp; </b> <h:outputText value="#{salaMB.sala.capacidade}" />
+                            </div>                               
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton onclick="dialog.hide()" process="@none" value="Cancelar" />
+                            <p:commandButton value="Editar Informações" actionListener="#{salaMB.editar()}" ></p:commandButton>
+
+                        </div>
+                    </p:outputPanel>
+                </p:dialog>
                 <p:commandButton style="position: absolute; left: 86%" value="Adicionar Sala" icon="ui-icon-plus" actionListener="#{salaMB.novaSala()}"></p:commandButton>
-             </h:form>  
+            </h:form>  
 
             <br/>
-            
+
         </div>
         <br/>
 

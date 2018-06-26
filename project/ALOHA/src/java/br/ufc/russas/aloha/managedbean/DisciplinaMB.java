@@ -1,4 +1,3 @@
-
 package br.ufc.russas.aloha.managedbean;
 
 import br.ufc.russas.aloha.dao.DisciplinaDAO;
@@ -12,15 +11,16 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class DisciplinaMB {
+
     private Disciplina disciplina;
     private ArrayList<Disciplina> disciplinas;
     private CursoSemestre cursoSemCurrent;
     DisciplinaDAO disciplinaDAO;
-    
-    public DisciplinaMB(){
+
+    public DisciplinaMB() {
         this.disciplina = new Disciplina();
         this.disciplinas = new ArrayList<Disciplina>();
-        this.disciplinaDAO  = new DisciplinaDAO();
+        this.disciplinaDAO = new DisciplinaDAO();
         this.cursoSemCurrent = new CursoSemestre();
     }
 
@@ -33,7 +33,7 @@ public class DisciplinaMB {
     }
 
     public ArrayList<Disciplina> getDisciplinas() {
-        
+
         return this.disciplinaDAO.selectALL();
     }
 
@@ -48,32 +48,82 @@ public class DisciplinaMB {
     public void setCursoSemCurrent(CursoSemestre cursoSemCurrent) {
         this.cursoSemCurrent = cursoSemCurrent;
     }
-    
-    public void adicionar(){
-        if(disciplinaDAO.insert(this.disciplina)){
-            try{
-                FacesContext.getCurrentInstance().getExternalContext().redirect("disciplinas.xhtml");
-                this.disciplina = new Disciplina();
-                this.disciplinas = disciplinaDAO.selectALL();
-            
-            }catch(Exception e){
-                e.getMessage();
-            }
-        }
-        
-    }
-    
 
-    public void inserirCursoSemetre(){
-        if(this.cursoSemCurrent.getCurso() !=null && this.cursoSemCurrent.getSemestre()>0){
-           this.disciplina.getCursosSemestres().add(this.cursoSemCurrent);
-           this.cursoSemCurrent =  new CursoSemestre();
+    public void adicionar() {
+        try {
+            if (disciplinaDAO.find(disciplina.getId()) != null) {  
+                System.out.println("Aqui");
+                
+                if (disciplinaDAO.update(disciplina)) {
+                    try {
+                        
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("disciplinas.xhtml");
+                        disciplina = new Disciplina();
+                        this.disciplinas = disciplinaDAO.selectALL();
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+            } else {
+                
+                if (disciplinaDAO.insert(this.disciplina)) {
+                    try {
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("disciplinas.xhtml");
+                        this.disciplina = new Disciplina();
+                        this.disciplinas = disciplinaDAO.selectALL();
+
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+            }
+        } catch (Exception ex) {
+
         }
-        
-        
+
     }
-    
-    
-    
-    
+
+    public void editar() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("adicionar_disciplina.xhtml");
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+    public void remover() {
+        try {
+            System.out.println(disciplina.getId());
+            if (disciplinaDAO.delete(disciplina)) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("disciplinas.xhtml");
+                disciplina = new Disciplina();
+                this.disciplinas = disciplinaDAO.selectALL();
+
+            } else {
+                System.out.println("Deu erro");
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+    public void novaDisciplina() {
+        try {
+            disciplina = new Disciplina();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("adicionar_disciplina.xhtml");
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+    public void inserirCursoSemetre() {
+        if (this.cursoSemCurrent.getCurso() != null && this.cursoSemCurrent.getSemestre() > 0) {
+            this.disciplina.getCursosSemestres().add(this.cursoSemCurrent);
+            this.cursoSemCurrent = new CursoSemestre();
+        }
+
+    }
+
 }

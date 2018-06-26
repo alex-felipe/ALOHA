@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="utf-8"/>
@@ -18,8 +17,6 @@
 
         <!-- Custom fonts for this template -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
-        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'/>
 
         <!-- Plugin CSS -->
         <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet"/>
@@ -38,7 +35,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                            <a class="nav-link js-scroll-trigger" href="index.xhtml">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,13 +49,13 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.xhtml">Planejamentos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="configuracoes.html">Configurações</a>
+                            <a class="nav-link js-scroll-trigger" href="configuracoes.xhtml">Configurações</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+                            <a class="nav-link js-scroll-trigger" href="sobre.xhtml">Sobre</a>
                         </li>
                     </ul>
                 </div>
@@ -70,8 +67,8 @@
                 <center>
                     <nav aria-label="breadcrumb" style="width: 75%;">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Salas</li>
+                            <li class="breadcrumb-item"><a href="index.xhtml">Inicio</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Disciplinas</li>
                         </ol>
                     </nav>
                 </center>
@@ -80,27 +77,29 @@
         </div>
         <div class="container col-lg-9">
             <form class="form-inline my-2 my-lg-0">
-                <h2 class="section-heading float-left" style="font-size: 22px;">GERENCIAMENTO DE SALAS</h2>
+                    <h2 class="section-heading float-left" style="font-size: 22px;">GERENCIAMENTO DE DISCIPLINAS</h2>
                 <hr class="my-4"/>
-                <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar sala..." aria-label="Pesquisar sala..." style="width: 201px;"/>
+                <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar disciplina..." aria-label="Pesquisar disciplina..." style="width: 201px;"/>
                 <button class="btn btn-outline-primary my-2 my-sm-0" style="border-radius: 0.5em;" type="submit">Pesquisar</button>
             </form>
             <br/>
-            <h:form prependId="false">
-                <p:dataTable value="#{disciplinaMB.disciplinas}" var="disciplina" paginator="true"
-                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                            rowsPerPageTemplate="5,10,15">
+            <h:form id="form" prependId="false">
+                <p:dataTable value="#{disciplinaMB.disciplinas}" var="disciplina" paginator="true" rows="5"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+
                     <p:column headerText="Código" width="100" >
                         <h:outputText value="#{disciplina.codigoModelo}" />
                     </p:column>
+
                     <p:column headerText="Cod. Disciplina" width="130" >
                         <h:outputText value="#{disciplina.codigo}" />
                     </p:column>
+
                     <p:column headerText="Nome" >
                         <h:outputText value="#{disciplina.nome}" />
                     </p:column>
-                    
-                    
+
                     <p:column headerText="Vagas" width="80">
                         <h:outputText value="#{disciplina.vagas}" />
                     </p:column>
@@ -113,59 +112,72 @@
                     <p:column headerText="CR Teóricos" width="100">
                         <h:outputText value="#{disciplina.crTeoricos}" />
                     </p:column>
-                    <p:column headerText="Detalhes" style="text-align: center" width="90">
-                          
-                        <p:commandButton  process="@this" icon="ui-icon-search" update=":dSala" oncomplete="PF('salaDialog').show();">
-                            <f:setPropertyActionListener value="#{sala}" target="#{salaMB.sala}" />
-                        </p:commandButton>
+                    <p:column headerText="Ações" style="text-align: center" width="70">
+                        <p:commandLink update=":form:disciplinaDetail"  styleClass="ui-icon ui-icon-search"  oncomplete="PF('disciplinaDialog').show();" style="float: left;">
+                            <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaMB.disciplina}"/>
+                        </p:commandLink>
+                        <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{disciplinaMB.editar()}" style="float: left;">
+                            <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaMB.disciplina}"/>
+                        </p:commandLink>
+                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  actionListener="#{disciplinaMB.remover()}" style="float: left;">
+                            <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaMB.disciplina}"/>
+                            <p:confirm header="Confirmação" message="Deseja realmente excluir a disciplina ?" />
+                        </p:commandLink>
+
                     </p:column>
                 </p:dataTable>
-             </h:form>  
-                <h:form id="dSala" prependId="false">
-                      
-                <p:dialog  appendTo="@(body)" header="Informações da sala" widgetVar="salaDialog" modal="true" showEffect="fade" hideEffect="fade" width="600px" height="500px" rendered="#{not empty salaMB.sala}">
-                    <p:outputPanel id="salaDialog" style="text-align:center;">
-                        <p:panelGrid  columns="2" rendered="#{not empty salaMB.sala}" columnClasses="label,value">
-                            
-                            <h:outputText value="Código:" />
-                            <h:outputText value="#{sala.codigoModelo}" />
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="margin-left: 200px"/>
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 5px"/>
 
-                            <h:outputText value="Nome:" />
-                            <h:outputText value="#{sala.nome}" />
+                </p:confirmDialog>
 
-                            <h:outputText value="Capacidade:" />
-                            <h:outputText value="#{sala.tipo}" />
+                <p:dialog  header="Informações da disciplina" widgetVar="disciplinaDialog" modal="true" width="400" showEffect="blind" hideEffect="explode" resizable="false">
+                    <p:outputPanel id="disciplinaDetail" style="text-align:center;" rendered="#{not empty disciplinaMB.disciplina}">
+                        <div class="modal-body">
+                            <div class="row" >
+                                <b>Código Modelo: &nbsp;</b> <h:outputText value="#{disciplinaMB.disciplina.codigoModelo}" />
+                            </div>
+                            <div class="row" >
+                                <b>Código Disciplina: &nbsp;</b> <h:outputText value="#{disciplinaMB.disciplina.codigo}" />
+                            </div>
+                            <div class="row" >
+                                <b>Nome: &nbsp; </b> <h:outputText value="#{disciplinaMB.disciplina.nome}" />
+                            </div>
+                            <div class="row" >
+                                <b>Cursos / Sesmestre: &nbsp; </b>
+                                <p:dataList value="#{disciplinaMB.disciplina.cursosSemestres}" var="cs" type="ordered">
+                                    #{cs.curso} - #{cs.semestre}º Semestre
+                                </p:dataList>
+                            </div>
+                            <div class="row" >
+                                <b>CR Teóricos: &nbsp;</b> <h:outputText value="#{disciplinaMB.disciplina.crTeoricos}" />
+                            </div>
+                            <div class="row" >
+                                <b>CR Práticos: &nbsp;</b> <h:outputText value="#{disciplinaMB.disciplina.crPraticos}" />
+                            </div>
+                            <div class="row" >
+                                <b>Sala Específica: &nbsp;</b> <h:outputText value="#{disciplinaMB.disciplina.tipoSala}" />
+                            </div>
+                            <div class="row" >
+                                <b>Vagas: &nbsp; </b> <h:outputText value="#{disciplinaMB.disciplina.vagas}" />
+                            </div>                               
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton onclick="dialog.hide()" process="@none" value="Cancelar" />
+                            <p:commandButton value="Editar Informações" actionListener="#{disciplinaMB.editar()}" ></p:commandButton>
 
-                            <h:outputText value="Bloco:" />
-                            <h:outputText value="#{sala.bloco}" />
-                            
-                            <h:outputText value="Capacidade:" />
-                            <h:outputText value="#{sala.capacidade}" />
-                        </p:panelGrid>
+                        </div>
                     </p:outputPanel>
                 </p:dialog>
-               </h:form>
+                <br/>
+                <p:commandButton style="position: absolute; left: 83%" value="Adicionar disciplina" icon="ui-icon-plus" actionListener="#{disciplinaMB.novaDisciplina()}"></p:commandButton>
+            </h:form>  
             <br/>
-            <a href="adicionar_disciplina.xhtml" class="btn btn-primary float-right" style="border-radius: 0.5em; ">Adicionar Disciplina</a>
+            
+            
         </div>
         <br/>
-
-
-        <!-- Bootstrap core JavaScript -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-
-        <!-- Plugin JavaScript -->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-        <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-        
     </h:body>
 </html>
 
