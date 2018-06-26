@@ -47,16 +47,16 @@ public class Disciplina {
         
     }
     
-    public String geraCodigo() {
+    public String geraCodigo( int id) {
         String cod;
         if (id < 10) {
-            cod = "DISC" + "0000" + this.id;
+            cod = "DISC" + "0000" + id;
         } else if (id < 100) {
-            cod = "DISC" + "000" + this.id;
+            cod = "DISC" + "000" + id;
         } else if (id < 1000) {
-            cod = "DISC" + "00" + this.id;
+            cod = "DISC" + "00" + id;
         } else if (id< 10000){
-            cod = "DISC" + "0" + this.id;
+            cod = "DISC" + "0" + id;
         }else{
             cod = "DISC" + this.id;
         }
@@ -118,6 +118,7 @@ public class Disciplina {
 
     public void setCrPraticos(int crPraticos) {
         if(crPraticos >0 && crPraticos <6) this.crPraticos = crPraticos;
+        else this.crPraticos = 0;
     }
 
     public int getCrTeoricos() {
@@ -126,6 +127,7 @@ public class Disciplina {
 
     public void setCrTeoricos(int crTeoricos) {
         if(crTeoricos >0 && crTeoricos <6)this.crTeoricos = crTeoricos;
+        else this.crTeoricos = 0;
     }
 
     public int getVagas() {

@@ -12,8 +12,8 @@ import java.util.List;
 public class DisciplinaDAO {
 
     public boolean insert(Disciplina disciplina) {
-        disciplina.setId(this.gerarIdDisciplina());
-        disciplina.setCodigoModelo(disciplina.geraCodigo());
+        int id = this.gerarIdDisciplina();
+        disciplina.setCodigoModelo(disciplina.geraCodigo(id));
         Connection con = null;
         int tmp;
         try {
@@ -29,9 +29,10 @@ public class DisciplinaDAO {
             ps.setString(7, disciplina.getTipoSala());
             tmp = ps.executeUpdate();
             for (CursoSemestre cs : disciplina.getCursosSemestres()) {
-                sql = "INSERT INTO `disciplina_curso_semestre` (`id_disciplina`, `curso`, `semestre`) VALUES (?, ?, ?)";
+                sql = "INSERT INTO `disciplina_curso_semestre` (`id_disciplina`, `curso`, `semestre`) "
+                        + "VALUES ((SELECT id FROM disciplina WHERE codigo_modelo =?), ?, ?)";
                 ps = con.prepareStatement(sql);
-                ps.setInt(1, disciplina.getId());
+                ps.setString(1, disciplina.getCodigoModelo());
                 ps.setString(2, cs.getCurso());
                 ps.setInt(3, cs.getSemestre());
                 tmp = ps.executeUpdate();
@@ -89,8 +90,6 @@ public class DisciplinaDAO {
             ps.setInt(1, disciplina.getId());
             tmp = ps.executeUpdate();
             
-            
-
             sql = "UPDATE `disciplina` SET `codigo_modelo` = ?, `codigo_disciplina` = ?, `nome` = ?, `cr_praticos` = ?, `cr_teoricos` = ?, `vagas` = ?, `tipo_sala` = ? WHERE `disciplina`.`id` = ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, disciplina.getCodigoModelo());
@@ -103,17 +102,17 @@ public class DisciplinaDAO {
             ps.setInt(8, disciplina.getId());
            
             tmp = ps.executeUpdate();
-            System.out.println("Alterou");
+//            System.out.println("Alterou");
             System.out.println(tmp);
 
             for (CursoSemestre cs : disciplina.getCursosSemestres()) {
-                sql = "INSERT INTO `disciplina_curso_semestre` (`id_disciplina`, `curso`, `semestre`) VALUES (?, ?, ?)";
+                sql = "INSERT INTO `disciplina_curso_semestre` (`id_disciplina`, `curso`, `semestre`) "
+                        + "VALUES ((SELECT id FROM disciplina WHERE codigo_modelo =?), ?, ?)";
                 ps = con.prepareStatement(sql);
-                ps.setInt(1, disciplina.getId());
+                ps.setString(1, disciplina.getCodigoModelo());
                 ps.setString(2, cs.getCurso());
                 ps.setInt(3, cs.getSemestre());
                 tmp = ps.executeUpdate();
-                System.out.println(tmp);
             }
             //System.out.println(tmp);
             return tmp == 1;
@@ -138,7 +137,7 @@ public class DisciplinaDAO {
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, disciplina.getId());
-
+            ps.executeUpdate();
             sql = "DELETE FROM disciplina WHERE disciplina.id = ?";
             ps = con.prepareStatement(sql);
             ps.setInt(1, disciplina.getId());

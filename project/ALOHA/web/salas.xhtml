@@ -111,7 +111,7 @@
                             <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{salaMB.editar()}" style="float: left;">
                                 <f:setPropertyActionListener value="#{sala}" target="#{salaMB.sala}"/>
                             </p:commandLink>
-                            <p:commandLink  styleClass="ui-icon ui-icon-trash"  actionListener="#{salaMB.remover()}" style="float: left;">
+                            <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{salaMB.remover()}" style="float: left;">                               
                                 <f:setPropertyActionListener value="#{sala}" target="#{salaMB.sala}"/>
                                 <p:confirm header="Confirmação" message="Deseja realmente excluir a sala ?" />
                             </p:commandLink>
