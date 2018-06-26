@@ -3,6 +3,7 @@ package br.ufc.russas.aloha.dao;
 
 import br.ufc.russas.aloha.model.Disciplina;
 import br.ufc.russas.aloha.model.Docente;
+import br.ufc.russas.aloha.model.Preferencia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,8 +24,16 @@ public class DocenteDAO {
             ps.setString(2, docente.getNome());
             ps.setInt(3, docente.getCrMin());
             ps.setInt(4, docente.getCrMax());
-
-            return ps.executeUpdate() == 1;
+            ps.executeUpdate();
+            for (Preferencia preferencia : docente.getPreferencias()) {
+                sql = "INSERT INTO `preferencia`(`id_docente`, `id_disciplina`, `preferencia`) VALUES (?,?,?)";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, preferencia.getDocente().getId());
+                ps.setInt(2, preferencia.getDisciplina().getId());
+                ps.setInt(3, preferencia.getPreferencia());
+                ps.executeUpdate();
+            }
+            return true;
         } catch (SQLException e) {
             throw new DAOException("Operação não realizada com sucesso.", e);
         } finally {

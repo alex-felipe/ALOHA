@@ -17,6 +17,30 @@ public class Preferencia {
         this.disciplina = disciplina;
         this.preferencia = preferencia;
     }
+
+    public Docente getDocente() {
+        return docente;
+    }
+
+    public void setDocente(Docente docente) {
+        this.docente = docente;
+    }
+
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public int getPreferencia() {
+        return preferencia;
+    }
+
+    public void setPreferencia(int preferencia) {
+        this.preferencia = preferencia;
+    }
     
     
     
