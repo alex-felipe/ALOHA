@@ -93,6 +93,7 @@ public class SalaMB {
     }
 
     public void setSala(Sala sala) {
+        System.out.println("Inseriu");
         this.sala = sala;
     }
 

@@ -119,7 +119,7 @@
                         <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{disciplinaMB.editar()}" style="float: left;">
                             <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaMB.disciplina}"/>
                         </p:commandLink>
-                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  actionListener="#{disciplinaMB.remover()}" style="float: left;">
+                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{disciplinaMB.remover()}" style="float: left;">
                             <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaMB.disciplina}"/>
                             <p:confirm header="Confirmação" message="Deseja realmente excluir a disciplina ?" />
                         </p:commandLink>
@@ -147,7 +147,7 @@
                             <div class="row" >
                                 <b>Cursos / Sesmestre: &nbsp; </b>
                                 <p:dataList value="#{disciplinaMB.disciplina.cursosSemestres}" var="cs" type="ordered">
-                                    #{cs.curso} - #{cs.semestre}º Semestre
+                                    #{cs.curso} - #{cs.semestre}º Semestre &nbsp;&nbsp;&nbsp;&nbsp;
                                 </p:dataList>
                             </div>
                             <div class="row" >

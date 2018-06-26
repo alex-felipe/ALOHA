@@ -51,8 +51,8 @@ public class DisciplinaMB {
 
     public void adicionar() {
         try {
+            //System.out.println(disciplina.getId());
             if (disciplinaDAO.find(disciplina.getId()) != null) {  
-                System.out.println("Aqui");
                 
                 if (disciplinaDAO.update(disciplina)) {
                     try {
@@ -65,9 +65,10 @@ public class DisciplinaMB {
                     }
                 }
             } else {
-                
+                //System.out.println(this.disciplina.getCursosSemestres().size());
                 if (disciplinaDAO.insert(this.disciplina)) {
                     try {
+                       
                         FacesContext.getCurrentInstance().getExternalContext().redirect("disciplinas.xhtml");
                         this.disciplina = new Disciplina();
                         this.disciplinas = disciplinaDAO.selectALL();
@@ -92,7 +93,10 @@ public class DisciplinaMB {
         }
     }
 
-    public void remover() {
+    public void remover(){
+        remove();
+    }
+    public void remove() {
         try {
             System.out.println(disciplina.getId());
             if (disciplinaDAO.delete(disciplina)) {
@@ -119,8 +123,19 @@ public class DisciplinaMB {
     }
 
     public void inserirCursoSemetre() {
+        
         if (this.cursoSemCurrent.getCurso() != null && this.cursoSemCurrent.getSemestre() > 0) {
+            
             this.disciplina.getCursosSemestres().add(this.cursoSemCurrent);
+            this.cursoSemCurrent = new CursoSemestre();
+        }
+
+    }
+    public void removerCursoSemetre() {
+
+        if (this.cursoSemCurrent.getCurso() != null && this.cursoSemCurrent.getSemestre() > 0) {
+
+            this.disciplina.getCursosSemestres().remove(this.cursoSemCurrent);
             this.cursoSemCurrent = new CursoSemestre();
         }
 
