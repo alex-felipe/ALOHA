@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="utf-8"/>
@@ -18,8 +17,6 @@
 
         <!-- Custom fonts for this template -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
-        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'/>
 
         <!-- Plugin CSS -->
         <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet"/>
@@ -38,7 +35,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                            <a class="nav-link js-scroll-trigger" href="index.xhtml">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,13 +49,13 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.xhtml">Planejamentos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="configuracoes.html">Configurações</a>
+                            <a class="nav-link js-scroll-trigger" href="configuracoes.xhtml">Configurações</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+                            <a class="nav-link js-scroll-trigger" href="sobre.xhtml">Sobre</a>
                         </li>
                     </ul>
                 </div>
@@ -70,7 +67,7 @@
                 <center>
                     <nav aria-label="breadcrumb" style="width: 75%;">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                            <li class="breadcrumb-item"><a href="index.xhtml">Inicio</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Docentes</li>
                         </ol>
                     </nav>
@@ -86,67 +83,79 @@
                 <button class="btn btn-outline-primary my-2 my-sm-0" style="border-radius: 0.5em;" type="submit">Pesquisar</button>
             </form>
             <br/>
-            
             <h:form id="form" prependId="false">
-                <p:dataTable value="#{docenteMB.listaDocentes}" var="docente" paginator="true"
-                                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                      rowsPerPageTemplate="5,10,15">
-                    <p:column headerText="Código" width="90">
-                        <h:outputText value="#{docente.codigo_modelo}" />
+                <p:dataTable value="#{docenteMB.listaDocentes}" var="docente" paginator="true" rows="5"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+
+                    <p:column headerText="Código" width="100" >
+                        <h:outputText value="#{docente.codigoModelo}" />
                     </p:column>
-                    <p:column headerText="Nome">
+
+                    <p:column headerText="Nome" width="130" >
                         <h:outputText value="#{docente.nome}" />
                     </p:column>
-                    <p:column headerText="Créditos Mínimos">
-                        <h:outputText value="#{docente.crMax}" />
-                    </p:column>
-                    <p:column headerText="Créditos Máximos">
+
+                    <p:column headerText="Créditos Mínimos" >
                         <h:outputText value="#{docente.crMin}" />
                     </p:column>
-                    <p:column headerText="Detalhes" style="text-align: center" width="90">
-                        <p:commandButton  process="@this" icon="ui-icon-search" update=":dCombo" oncomplete="PF('comboDialog').show();">
-                            <f:setPropertyActionListener value="#{docente}" target="#{docenteMB.docente}" />
-                        </p:commandButton>
+
+                    <p:column headerText="Créditos Máximos" width="80">
+                        <h:outputText value="#{docente.crMax}" />
+                    </p:column>
+                    <p:column headerText="Ações" style="text-align: center" width="70">
+                        <p:commandLink update=":form:docenteDetail"  styleClass="ui-icon ui-icon-search"  oncomplete="PF('docenteDialog').show();" style="float: left;">
+                            <f:setPropertyActionListener value="#{docente}" target="#{docenteMB.docente}"/>
+                        </p:commandLink>
+                        <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{docenteMB.editar()}" style="float: left;">
+                            <f:setPropertyActionListener value="#{docente}" target="#{docenteMB.docente}"/>
+                        </p:commandLink>
+                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{docenteMB.remove()}" style="float: left;">
+                            <f:setPropertyActionListener value="#{docente}" target="#{docenteMB.docente}"/>
+                            <p:confirm header="Confirmação" message="Deseja realmente excluir os dados do docente?" />
+                        </p:commandLink>
+
                     </p:column>
                 </p:dataTable>
-                <p:commandButton  process="@this" icon="ui-icon-plus" value="Adicionar docente" onclick="window.open('adicionar_combo.xhtml')">                 
-                </p:commandButton>
-            </h:form>  
-            <h:form id="dCombo" prependId="false">
-                <p:dialog  appendTo="@(body)" header="Informações da sala" widgetVar="comboDialog" modal="true" showEffect="fade" hideEffect="fade" width="600px" height="500px" rendered="#{not empty comboMB.combo}">
-                    <p:outputPanel id="salaDialog" style="text-align:center;">
-                        <p:panelGrid  columns="2" rendered="#{not empty salaMB.sala}" columnClasses="label,value">
-                            <h:outputText value="Combo:" />
-                            <h:outputText value="#{combo.codigo_modelo}" />
+                <p:commandButton style="position: absolute; left: 83%" value="Adicionar docente" icon="ui-icon-plus" actionListener="#{docenteMB.novoDocente()}"></p:commandButton>
+                
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="margin-left: 200px"/>
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 5px"/>
 
-                            <h:outputText value="Dias da Semana:" />
-                            <h:outputText value="#{combo.dias}" />
-                        </p:panelGrid>
+                </p:confirmDialog>
+
+                <p:dialog  header="Informações do Docente" widgetVar="docenteDialog" modal="true" width="400" showEffect="blind" hideEffect="explode" resizable="false">
+                    <p:outputPanel id="docenteDetail" style="text-align:center;" rendered="#{not empty docenteMB.docente}">
+                        <div class="modal-body">
+                            <div class="row" >
+                                <b>Código Modelo: &nbsp;</b> <h:outputText value="#{docenteMB.docente.codigoModelo}" />
+                            </div>
+                            <div class="row" >
+                                <b>Nome: &nbsp; </b> <h:outputText value="#{docenteMB.docente.nome}" />
+                            </div>
+                            <div class="row" >
+                                <b>Créditos Mínimos: &nbsp; </b> <h:outputText value="#{docenteMB.docente.crMin}" />
+                            </div>
+                            <div class="row" >
+                                <b>Créditos Máximos: &nbsp; </b> <h:outputText value="#{docenteMB.docente.crMax}" />
+                            </div>
+                            <div class="row" >
+                                <b>Preferências: &nbsp; </b>
+
+                            </div>                            
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton onclick="dialog.hide()" process="@none" value="Cancelar" />
+                            <p:commandButton value="Editar Informações" actionListener="#{docenteMB.editar()}" ></p:commandButton>
+                        </div>
                     </p:outputPanel>
                 </p:dialog>
-            </h:form>
-            
+                
+            </h:form>  
             <br/>
-            
         </div>
         <br/>
-
-
-        <!-- Bootstrap core JavaScript -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-
-        <!-- Plugin JavaScript -->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-        <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-        
     </h:body>
 </html>
 

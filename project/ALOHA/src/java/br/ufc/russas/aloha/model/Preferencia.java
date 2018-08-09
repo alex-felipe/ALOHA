@@ -1,6 +1,8 @@
 
 package br.ufc.russas.aloha.model;
 
+import org.primefaces.event.SlideEndEvent;
+
 public class Preferencia {
     private Docente docente;
     private Disciplina disciplina;
@@ -42,6 +44,9 @@ public class Preferencia {
         this.preferencia = preferencia;
     }
     
-    
+    public void onSlideEnd(SlideEndEvent event) {
+        preferencia = event.getValue();
+        System.out.println(preferencia);
+    }
     
 }

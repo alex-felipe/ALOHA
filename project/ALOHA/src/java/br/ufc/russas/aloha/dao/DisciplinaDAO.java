@@ -2,6 +2,7 @@ package br.ufc.russas.aloha.dao;
 
 import br.ufc.russas.aloha.model.CursoSemestre;
 import br.ufc.russas.aloha.model.Disciplina;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisciplinaDAO {
+public class DisciplinaDAO implements Serializable{
 
     public boolean insert(Disciplina disciplina) {
         int id = this.gerarIdDisciplina();

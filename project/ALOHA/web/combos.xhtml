@@ -98,7 +98,7 @@
                         <h:outputText value="#{combo.diasEstendido}" />
                     </p:column>
                     <p:column headerText="Remover" style="text-align: center" width="90">
-                        <p:commandButton  process="@this" icon="ui-icon-trash" update=":dCombo" oncomplete="PF('comboDialog').show();">
+                        <p:commandButton  process="@this" icon="ui-icon-trash" oncomplete="PF('comboDialog').show();">
                             <f:setPropertyActionListener value="#{combo}" target="#{comboMB.combo}" />
                         </p:commandButton>
                     </p:column>
@@ -109,7 +109,7 @@
             <h:form id="dCombo" prependId="false">
                 <p:dialog  appendTo="@(body)" header="Informações da sala" widgetVar="comboDialog" modal="true" showEffect="fade" hideEffect="fade" width="600px" height="500px" rendered="#{not empty comboMB.combo}">
                     <p:outputPanel id="salaDialog" style="text-align:center;">
-                        <p:panelGrid  columns="2" rendered="#{not empty salaMB.sala}" columnClasses="label,value">
+                        <p:panelGrid  columns="2" rendered="#{not empty comboMB.combo}" columnClasses="label,value">
                             <h:outputText value="Combo:" />
                             <h:outputText value="#{combo.codigo_modelo}" />
 
