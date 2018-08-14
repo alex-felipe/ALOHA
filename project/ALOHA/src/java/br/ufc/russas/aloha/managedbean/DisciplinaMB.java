@@ -51,7 +51,7 @@ public class DisciplinaMB {
 
     public void adicionar() {
         try {
-            //System.out.println(disciplina.getId());
+            System.out.println(disciplina.getId());
             if (disciplinaDAO.find(disciplina.getId()) != null) {  
                 
                 if (disciplinaDAO.update(disciplina)) {
@@ -65,8 +65,9 @@ public class DisciplinaMB {
                     }
                 }
             } else {
-                //System.out.println(this.disciplina.getCursosSemestres().size());
+                System.out.println(this.disciplina.getCursosSemestres().size());
                 if (disciplinaDAO.insert(this.disciplina)) {
+                    
                     try {
                        
                         FacesContext.getCurrentInstance().getExternalContext().redirect("disciplinas.xhtml");
@@ -74,8 +75,12 @@ public class DisciplinaMB {
                         this.disciplinas = disciplinaDAO.selectALL();
 
                     } catch (Exception e) {
+                        System.out.println("Erro");
                         e.getMessage();
                     }
+                }
+                else{
+                    System.out.println("Aqui 2");
                 }
             }
         } catch (Exception ex) {

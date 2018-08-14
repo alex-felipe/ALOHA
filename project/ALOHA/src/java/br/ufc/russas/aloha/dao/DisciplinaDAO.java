@@ -18,8 +18,9 @@ public class DisciplinaDAO implements Serializable{
         Connection con = null;
         int tmp;
         try {
+            
             con = ConexaoFactory.getConnection();
-            String sql = "INSERT INTO `disciplina` (`codigo_modelo`, `codigo_disciplina`, `nome`, `cr_praticos`, `cr_teoricos`, `vagas`, `tipo_sala`) VALUES (?, ?, ?, ?, ?,?,?)";
+            String sql = "INSERT INTO disciplina (codigo_modelo, codigo_disciplina, nome, cr_praticos, cr_teoricos, vagas, tipo_sala) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, disciplina.getCodigoModelo());
             ps.setString(2, disciplina.getCodigo());
@@ -28,6 +29,7 @@ public class DisciplinaDAO implements Serializable{
             ps.setInt(5, disciplina.getCrTeoricos());
             ps.setInt(6, disciplina.getVagas());
             ps.setString(7, disciplina.getTipoSala());
+           
             tmp = ps.executeUpdate();
             for (CursoSemestre cs : disciplina.getCursosSemestres()) {
                 sql = "INSERT INTO `disciplina_curso_semestre` (`id_disciplina`, `curso`, `semestre`) "
@@ -41,6 +43,7 @@ public class DisciplinaDAO implements Serializable{
 
             return tmp == 1;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new DAOException("Operação não realizada com sucesso.", e);
 
         } finally {

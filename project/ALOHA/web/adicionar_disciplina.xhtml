@@ -168,7 +168,9 @@
                     </div>
                     <div class="form-group row" >  
                         <p:outputLabel class="col-form-label"> Vagas: &nbsp;</p:outputLabel>
-                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 70px; position: absolute; left: 30%"  value="#{disciplinaMB.disciplina.vagas}"/>
+                        <p:inputText  id="text" type="number" class="form-control" style="font-size: 12px; width: 70px; position: absolute; left: 30%"  value="#{disciplinaMB.disciplina.vagas}"/>
+          
+          
                         &nbsp;
                         <p:outputLabel class="col-form-label" style="position: absolute; left: 40%"> Sala Especifica: &nbsp;</p:outputLabel>
                         <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px; position: absolute; left: 50%" value="#{disciplinaMB.disciplina.tipoSala}">

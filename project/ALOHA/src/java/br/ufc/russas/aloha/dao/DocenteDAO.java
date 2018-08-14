@@ -66,7 +66,7 @@ public class DocenteDAO {
         return false;
     }
     
-    public ArrayList<Docente> selectALL(){
+    public ArrayList<Docente> selectALL() throws QuantidadeCreditosInvalidoException{
         Connection con = null;
         ArrayList<Docente> listaDocentes = new ArrayList<>();
         try {
