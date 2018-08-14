@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>ALOHA - Sistema de Alocação de Horários Acadêmicos</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Custom fonts for this template -->
+        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        
+        <!-- Plugin CSS -->
+        <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+        <link href="css/creative.css" rel="stylesheet"/>
+        <link href="css/style.css" rel="stylesheet"/>
+    </h:head>
+    <h:body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-shrink" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">ALOHA UFC</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gerenciamento
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="salas.xhtml">Salas</a>
+                                <a class="dropdown-item" href="combos.xhtml">Combos</a>
+                                <a class="dropdown-item" href="disciplinas.xhtml">Disciplinas</a>
+                                <a class="dropdown-item" href="docentes.xhtml">Docentes</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="configuracoes.html">Configurações</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br/>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <center>
+                    <nav aria-label="breadcrumb" style="width: 75%;">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Planejamento</li>
+                        </ol>
+                    </nav>
+                </center>
+
+            </div>
+        </div>
+        <div class="container col-lg-9">
+            <form class="form-inline my-2 my-lg-0">
+                <h2 class="section-heading float-left" style="font-size: 22px;">PLANEJAMENTO</h2>
+                <hr class="my-4"/>
+            </form>
+            <br/>
+            
+            <h:form id="form" prependId="false">
+                <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                <p:wizard>
+                    <p:tab id="disciplinas" title="Disciplinas">
+                        <p:panel header="Disciplinas">
+                            <p:messages />
+                            <h:form id="form" prependId="false">
+                                <p:dataTable value="#{disciplinaMB.disciplinas}" var="disciplina" paginator="true" rows="5" style="width: 400px; margin-left: 152px;"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15" >
+                                    
+                                    <p:column headerText="" style="text-align: center" width="35">
+                                        <p:commandLink  styleClass="ui-icon ui-icon-plus"  actionListener="#{disciplinaMB.editar()}" style="float: left;">
+                                            <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaMB.disciplina}"/>
+                                        </p:commandLink>
+                                    </p:column>
+                                    <p:column headerText="Cod. Disciplina" width="130" >
+                                        <h:outputText value="#{disciplina.codigo}" />
+                                    </p:column>
+
+                                    <p:column headerText="Nome" >
+                                        <h:outputText value="#{disciplina.nome}" />
+                                    </p:column>
+                                    
+                                </p:dataTable>
+                            </h:form>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="address" title="Address">
+                        <p:panel header="Address Details">
+                            <p:messages />
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Street: " />
+                                
+
+                                <h:outputText value="Postal Code: " />
+                                
+
+                                <h:outputText value="City: " />
+                                
+
+                                <h:outputText value="Skip to last: " />
+                                
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="contact" title="Contact">
+                        <p:panel header="Contact Information">
+                            <p:messages />
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Email: *" />
+                                
+
+                                <h:outputText value="Phone: " />
+                                
+
+                                <h:outputText value="Additional Info: " />
+                                
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="confirm" title="Confirmation">
+                        <p:panel header="Confirmation">
+                            <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Firstname: " />
+                                
+
+                                    <h:outputText value="Lastname: " />
+                                
+
+                                    <h:outputText value="Age: " />
+                                
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Street: " />
+                                
+
+                                    <h:outputText value="Postal: " />
+                                
+
+                                    <h:outputText value="City: " />
+                                
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Email: " />
+                                
+
+                                    <h:outputText value="Phone " />
+                                
+
+                                    <h:outputText value="Info: " />
+                                
+
+                                    <h:outputText />
+                                    <h:outputText />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <p:commandButton value="Submit" actionListener="#" update="growl" process="@this"/>
+                        </p:panel>
+                    </p:tab>
+                </p:wizard>
+
+                <p:dataTable value="#{comboMB.listaCombos}" var="combo" paginator="true"
+                                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                      rowsPerPageTemplate="5,10,15">
+                    <p:column headerText="Código" width="90">
+                        <h:outputText value="#{combo.codigo_modelo}" />
+                    </p:column>
+                    <p:column headerText="Dias da Semana">
+                        <h:outputText value="#{combo.diasEstendido}" />
+                    </p:column>
+                    <p:column headerText="Remover" style="text-align: center" width="90">
+                        <p:commandButton  process="@this" icon="ui-icon-trash" update=":dCombo" oncomplete="PF('comboDialog').show();">
+                            <f:setPropertyActionListener value="#{combo}" target="#{comboMB.combo}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton  process="@this" icon="ui-icon-plus" value="Adicionar combo" onclick="window.open('adicionar_combo.xhtml')">                 
+                </p:commandButton>
+            </h:form>  
+            <h:form id="dCombo" prependId="false">
+                <p:dialog  appendTo="@(body)" header="Informações da sala" widgetVar="comboDialog" modal="true" showEffect="fade" hideEffect="fade" width="600px" height="500px" rendered="#{not empty comboMB.combo}">
+                    <p:outputPanel id="salaDialog" style="text-align:center;">
+                        <p:panelGrid  columns="2" rendered="#{not empty salaMB.sala}" columnClasses="label,value">
+                            <h:outputText value="Combo:" />
+                            <h:outputText value="#{combo.codigo_modelo}" />
+
+                            <h:outputText value="Dias da Semana:" />
+                            <h:outputText value="#{combo.dias}" />
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+            
+            <br/>
+            
+        </div>
+        <br/>
+
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+        <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+        <!-- Custom scripts for this template -->
+        <script src="js/creative.min.js"></script>
+
+        <!-- Custom scripts for this template -->
+        <script src="js/creative.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        
+    </h:body>
+</html>
+
