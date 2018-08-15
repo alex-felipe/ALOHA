@@ -18,7 +18,7 @@
 
         <!-- Custom fonts for this template -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-        
+
         <!-- Plugin CSS -->
         <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet"/>
 
@@ -82,7 +82,7 @@
                 <hr class="my-4"/>
             </form>
             <br/>
-            
+
             <h:form id="form" prependId="false">
                 <p:growl id="growl" sticky="true" showDetail="true"/>
 
@@ -90,26 +90,36 @@
                     <p:tab id="disciplinas" title="Disciplinas">
                         <p:panel header="Disciplinas">
                             <p:messages />
-                            <h:form id="form" prependId="false">
-                                <p:dataTable value="#{disciplinaMB.disciplinas}" var="disciplina" paginator="true" rows="5" style="width: 400px; margin-left: 152px;"
-                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="5,10,15" >
-                                    
-                                    <p:column headerText="" style="text-align: center" width="35">
-                                        <p:commandLink  styleClass="ui-icon ui-icon-plus"  actionListener="#{disciplinaMB.editar()}" style="float: left;">
-                                            <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaMB.disciplina}"/>
-                                        </p:commandLink>
-                                    </p:column>
-                                    <p:column headerText="Cod. Disciplina" width="130" >
-                                        <h:outputText value="#{disciplina.codigo}" />
-                                    </p:column>
+                            
+                                <div class="form-group row" > 
+                                    <p:dataTable value="#{planejamentoMB.turmasCadastro}" var="disciplina" paginator="true" rows="5" style="width: 50%; margin: 5px"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15" >
 
-                                    <p:column headerText="Nome" >
-                                        <h:outputText value="#{disciplina.nome}" />
-                                    </p:column>
-                                    
-                                </p:dataTable>
-                            </h:form>
+                                       
+                                        <p:column headerText="Cod. Disciplina" width="100" >
+                                            <h:outputText value="#{disciplina.disciplina.codigo}" />
+                                        </p:column>
+
+                                        <p:column headerText="Nome" width="180">
+                                            <h:outputText value="#{disciplina.disciplina.nome}" />
+                                        </p:column>
+
+                                        <p:column headerText="" style="text-align: center" width="35">
+                                            <p:commandLink  styleClass="ui-icon ui-icon-plus"  action="#{planejamentoMB.addDisciplina()}" update=":form" style="float: left;" >
+                                                <f:setPropertyActionListener value="#{disciplina}" target="#{planejamentoMB.turmasTmp}"/>
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:dataTable var="turma" value="#{planejamentoMB.turmasOfertadas}" style="width: 48%;">
+                                        <p:column headerText="Disciplina">
+                                            <h:outputText value="#{turma.disciplina.nome}" />
+                                        </p:column>
+                                        <p:column headerText="Nº de Turmas">
+                                            <h:outputText value="#{turma.qntTurmas}" />
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
                         </p:panel>
                     </p:tab>
 
@@ -118,16 +128,16 @@
                             <p:messages />
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Street: " />
-                                
+
 
                                 <h:outputText value="Postal Code: " />
-                                
+
 
                                 <h:outputText value="City: " />
-                                
+
 
                                 <h:outputText value="Skip to last: " />
-                                
+
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>
@@ -137,13 +147,13 @@
                             <p:messages />
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Email: *" />
-                                
+
 
                                 <h:outputText value="Phone: " />
-                                
+
 
                                 <h:outputText value="Additional Info: " />
-                                
+
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>
@@ -153,35 +163,35 @@
                             <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
                                 <h:panelGrid columns="2" columnClasses="label, value">
                                     <h:outputText value="Firstname: " />
-                                
+
 
                                     <h:outputText value="Lastname: " />
-                                
+
 
                                     <h:outputText value="Age: " />
-                                
+
                                 </h:panelGrid>
 
                                 <h:panelGrid columns="2" columnClasses="label, value">
                                     <h:outputText value="Street: " />
-                                
+
 
                                     <h:outputText value="Postal: " />
-                                
+
 
                                     <h:outputText value="City: " />
-                                
+
                                 </h:panelGrid>
 
                                 <h:panelGrid columns="2" columnClasses="label, value">
                                     <h:outputText value="Email: " />
-                                
+
 
                                     <h:outputText value="Phone " />
-                                
+
 
                                     <h:outputText value="Info: " />
-                                
+
 
                                     <h:outputText />
                                     <h:outputText />
@@ -192,41 +202,11 @@
                         </p:panel>
                     </p:tab>
                 </p:wizard>
-
-                <p:dataTable value="#{comboMB.listaCombos}" var="combo" paginator="true"
-                                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                      rowsPerPageTemplate="5,10,15">
-                    <p:column headerText="Código" width="90">
-                        <h:outputText value="#{combo.codigo_modelo}" />
-                    </p:column>
-                    <p:column headerText="Dias da Semana">
-                        <h:outputText value="#{combo.diasEstendido}" />
-                    </p:column>
-                    <p:column headerText="Remover" style="text-align: center" width="90">
-                        <p:commandButton  process="@this" icon="ui-icon-trash" update=":dCombo" oncomplete="PF('comboDialog').show();">
-                            <f:setPropertyActionListener value="#{combo}" target="#{comboMB.combo}" />
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
-                <p:commandButton  process="@this" icon="ui-icon-plus" value="Adicionar combo" onclick="window.open('adicionar_combo.xhtml')">                 
-                </p:commandButton>
             </h:form>  
-            <h:form id="dCombo" prependId="false">
-                <p:dialog  appendTo="@(body)" header="Informações da sala" widgetVar="comboDialog" modal="true" showEffect="fade" hideEffect="fade" width="600px" height="500px" rendered="#{not empty comboMB.combo}">
-                    <p:outputPanel id="salaDialog" style="text-align:center;">
-                        <p:panelGrid  columns="2" rendered="#{not empty salaMB.sala}" columnClasses="label,value">
-                            <h:outputText value="Combo:" />
-                            <h:outputText value="#{combo.codigo_modelo}" />
 
-                            <h:outputText value="Dias da Semana:" />
-                            <h:outputText value="#{combo.dias}" />
-                        </p:panelGrid>
-                    </p:outputPanel>
-                </p:dialog>
-            </h:form>
-            
+
             <br/>
-            
+
         </div>
         <br/>
 
@@ -245,7 +225,7 @@
         <!-- Custom scripts for this template -->
         <script src="js/creative.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-        
+
     </h:body>
 </html>
 
