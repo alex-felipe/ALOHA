@@ -66,8 +66,8 @@ public class DocenteDAO {
         return false;
     }
     
-    public ArrayList<Docente> selectALL() throws QuantidadeCreditosInvalidoException{
-        Connection con = null;
+    public ArrayList<Docente> selectALL() {
+        Connection con = null; 
         ArrayList<Docente> listaDocentes = new ArrayList<>();
         try {
             con = ConexaoFactory.getConnection();
@@ -83,7 +83,9 @@ public class DocenteDAO {
                     docente.setCrMin(rs.getInt("cr_minimo"));
                     docente.setCrMax(rs.getInt("cr_maximo"));
                 } catch (NomeInvalidoException ex) {
-                    System.out.println("erro nos creditos");
+                    System.out.println("Nome de docente inválido");
+                } catch (QuantidadeCreditosInvalidoException ex){
+                    System.out.println("Quantidade de créditos inválidos");
                 }
                 listaDocentes.add(docente);
             }
