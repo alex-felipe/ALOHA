@@ -90,112 +90,81 @@
                     <p:tab id="disciplinas" title="Disciplinas">
                         <p:panel header="Disciplinas">
                             <p:messages />
-                            
-                                <div class="form-group row" > 
-                                    <p:dataTable value="#{planejamentoMB.turmasCadastro}" var="disciplina" paginator="true" rows="5" style="width: 50%; margin: 5px"
-                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 rowsPerPageTemplate="5,10,15" >
 
-                                       
-                                        <p:column headerText="Cod. Disciplina" width="100" >
-                                            <h:outputText value="#{disciplina.disciplina.codigo}" />
+                            <div class="form-group row" > 
+                                <p:dataTable value="#{planejamentoMB.turmasCadastro}" var="disciplina" paginator="true" rows="5" style="width: 50%; margin: 5px"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15" >
+
+
+                                    <p:column headerText="Cod. Disciplina" width="100" >
+                                        <h:outputText value="#{disciplina.disciplina.codigo}" />
+                                    </p:column>
+
+                                    <p:column headerText="Nome" width="180">
+                                        <h:outputText value="#{disciplina.disciplina.nome}" />
+                                    </p:column>
+
+                                    <p:column headerText="" style="text-align: center" width="35">
+                                        <p:commandLink  styleClass="ui-icon ui-icon-plus"  action="#{planejamentoMB.addDisciplina()}" update=":form" style="float: left;" >
+                                            <f:setPropertyActionListener value="#{disciplina}" target="#{planejamentoMB.turmasTmp}"/>
+                                        </p:commandLink>
+                                    </p:column>
+                                </p:dataTable>
+                                <p:dataTable var="turma" value="#{planejamentoMB.turmasOfertadas}" style="width: 48%;">
+                                    <p:column headerText="Disciplina">
+                                        <h:outputText value="#{turma.disciplina.nome}" />
+                                    </p:column>
+                                    <p:column headerText="Nº de Turmas">
+                                        <h:outputText value="#{turma.qntTurmas}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="salas" title="Salas">
+                            <p:panel>
+                                <p:messages />
+                                <div class="form-group row" >
+                                    
+                                    <p:dataTable id="tableSala" var="sala" value="#{planejamentoMB.salasAlocadas}" style="width: 70%;">
+                                        <p:column headerText="Cod. Sala" width="30%">
+                                            <h:outputText value="#{sala.codigoModelo}" />
                                         </p:column>
-
-                                        <p:column headerText="Nome" width="180">
-                                            <h:outputText value="#{disciplina.disciplina.nome}" />
+                                        <p:column headerText="Nome">
+                                            <h:outputText value="#{sala.nome}" />
                                         </p:column>
-
                                         <p:column headerText="" style="text-align: center" width="35">
-                                            <p:commandLink  styleClass="ui-icon ui-icon-plus"  action="#{planejamentoMB.addDisciplina()}" update=":form" style="float: left;" >
-                                                <f:setPropertyActionListener value="#{disciplina}" target="#{planejamentoMB.turmasTmp}"/>
+                                            <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{planejamentoMB.removeSala()}" update=":form:tableSala"  style="float: left;" >
+                                                <f:setPropertyActionListener value="#{sala}" target="#{planejamentoMB.salaTmp}"/>
                                             </p:commandLink>
                                         </p:column>
                                     </p:dataTable>
-                                    <p:dataTable var="turma" value="#{planejamentoMB.turmasOfertadas}" style="width: 48%;">
-                                        <p:column headerText="Disciplina">
-                                            <h:outputText value="#{turma.disciplina.nome}" />
-                                        </p:column>
-                                        <p:column headerText="Nº de Turmas">
-                                            <h:outputText value="#{turma.qntTurmas}" />
-                                        </p:column>
-                                    </p:dataTable>
                                 </div>
-                        </p:panel>
+                            </p:panel>
+                        
                     </p:tab>
 
-                    <p:tab id="address" title="Address">
-                        <p:panel header="Address Details">
-                            <p:messages />
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Street: " />
-
-
-                                <h:outputText value="Postal Code: " />
-
-
-                                <h:outputText value="City: " />
-
-
-                                <h:outputText value="Skip to last: " />
-
-                            </h:panelGrid>
-                        </p:panel>
-                    </p:tab>
-
-                    <p:tab id="contact" title="Contact">
+                    <p:tab id="contact" title="Validações">
                         <p:panel header="Contact Information">
                             <p:messages />
                             <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Email: *" />
-
-
-                                <h:outputText value="Phone: " />
-
-
-                                <h:outputText value="Additional Info: " />
+                                <h:outputText value="Verificação se todas a disciplina tem no minimo 1 professor" />
+                                <h:outputText value="Verificação se o numero de salas ofertadas*4 será maior que o numero de disciplinas " />
 
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>
+                    
 
-                    <p:tab id="confirm" title="Confirmation">
+
+                    <p:tab id="confirm" title="Confirmação">
                         <p:panel header="Confirmation">
-                            <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Firstname: " />
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Apresentar informações para gerar o arquivo" />
 
 
-                                    <h:outputText value="Lastname: " />
-
-
-                                    <h:outputText value="Age: " />
-
-                                </h:panelGrid>
-
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Street: " />
-
-
-                                    <h:outputText value="Postal: " />
-
-
-                                    <h:outputText value="City: " />
-
-                                </h:panelGrid>
-
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Email: " />
-
-
-                                    <h:outputText value="Phone " />
-
-
-                                    <h:outputText value="Info: " />
-
-
-                                    <h:outputText />
-                                    <h:outputText />
-                                </h:panelGrid>
                             </h:panelGrid>
 
                             <p:commandButton value="Submit" actionListener="#" update="growl" process="@this"/>

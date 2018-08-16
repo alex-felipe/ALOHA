@@ -1,6 +1,8 @@
 
 package br.ufc.russas.aloha.model;
 
+import java.util.Objects;
+
 
 public class Sala {
 
@@ -93,6 +95,55 @@ public class Sala {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + Objects.hashCode(this.codigoModelo);
+        hash = 59 * hash + Objects.hashCode(this.nome);
+        hash = 59 * hash + Objects.hashCode(this.tipo);
+        hash = 59 * hash + this.capacidade;
+        hash = 59 * hash + Objects.hashCode(this.bloco);
+        return hash;
+    }
+
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Sala other = (Sala) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.capacidade != other.capacidade) {
+            return false;
+        }
+        if (!Objects.equals(this.codigoModelo, other.codigoModelo)) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipo, other.tipo)) {
+            return false;
+        }
+        if (!Objects.equals(this.bloco, other.bloco)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
     
     

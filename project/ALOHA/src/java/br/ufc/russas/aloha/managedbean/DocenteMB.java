@@ -8,6 +8,7 @@ import br.ufc.russas.aloha.dao.DocenteDAO;
 import br.ufc.russas.aloha.model.Disciplina;
 import br.ufc.russas.aloha.model.Docente;
 import br.ufc.russas.aloha.model.Preferencia;
+import br.ufc.russas.aloha.model.exception.QuantidadeCreditosInvalidoException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -35,7 +36,11 @@ public class DocenteMB implements Serializable{
     public DocenteMB() {
         this.docenteDAO = new DocenteDAO();
         this.docente = new Docente();
-        this.listaDocentes = docenteDAO.selectALL(); 
+        try { 
+            this.listaDocentes = docenteDAO.selectALL();
+        } catch (QuantidadeCreditosInvalidoException ex) {
+            Logger.getLogger(DocenteMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.disciplinaDAO = new DisciplinaDAO();
         this.preferencias = new ArrayList<>();
         for(Disciplina d: disciplinaDAO.selectALL()){
@@ -99,7 +104,11 @@ public class DocenteMB implements Serializable{
                 try {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");
                     this.docente = new Docente();
-                    this.listaDocentes = docenteDAO.selectALL();
+                    try {
+                        this.listaDocentes = docenteDAO.selectALL();
+                    } catch (QuantidadeCreditosInvalidoException ex) {
+                        Logger.getLogger(DocenteMB.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     return true;
                 } catch (IOException ex) {
                     Logger.getLogger(DocenteMB.class.getName()).log(Level.SEVERE, null, ex);

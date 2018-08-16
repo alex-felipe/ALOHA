@@ -1,7 +1,9 @@
 package br.ufc.russas.aloha.managedbean;
 
 import br.ufc.russas.aloha.dao.DisciplinaDAO;
+import br.ufc.russas.aloha.dao.SalaDAO;
 import br.ufc.russas.aloha.model.Disciplina;
+import br.ufc.russas.aloha.model.Sala;
 import br.ufc.russas.aloha.model.Turmas;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
@@ -12,16 +14,25 @@ import org.primefaces.event.FlowEvent;
 @SessionScoped
 public class PlanejamentoMB {
 
-    private ArrayList<Turmas> turmasCadastro;
     DisciplinaDAO disciplinaDAO;
-    private ArrayList<Turmas> turmasOfertadas;
+    SalaDAO salaDAO;
+    
     private Turmas turmasTmp;
+    private Sala salaTmp;
+    
+    private ArrayList<Turmas> turmasCadastro;
+    private ArrayList<Turmas> turmasOfertadas;
+    private ArrayList<Sala> salasAlocadas;
 
     public PlanejamentoMB() {
-        this.turmasCadastro = new ArrayList<Turmas>();
+        this.turmasCadastro = new ArrayList<>();
         this.disciplinaDAO = new DisciplinaDAO();
-        this.turmasOfertadas = new ArrayList<Turmas>();
+        this.salaDAO = new SalaDAO();
+        this.turmasOfertadas = new ArrayList<>();
+        this.salasAlocadas = new ArrayList<>();
         this.turmasTmp = new Turmas();
+        this.salaTmp = new Sala();
+                this.salasAlocadas = salaDAO.selectALL();
         //System.out.println("ccc");
         
     }
@@ -55,10 +66,28 @@ public class PlanejamentoMB {
     public void setTurmasTmp(Turmas turmasTmp) {
         this.turmasTmp = turmasTmp;
     }
+
+    public ArrayList<Sala> getSalasAlocadas() {
+
+        return this.salasAlocadas;
+    }
+
+    public void setSalasAlocadas(ArrayList<Sala> salasAlocadas) {
+        this.salasAlocadas = salasAlocadas;
+    }
+
+    public Sala getSalaTmp() {
+        return salaTmp;
+    }
+
+    public void setSalaTmp(Sala salaTmp) {
+        this.salaTmp = salaTmp;
+    }
+    
     
     
     public void addDisciplina(){
-        System.out.println(this.turmasTmp.getDisciplina().getNome()+" "+ this.turmasTmp.getQntTurmas());
+        //System.out.println(this.turmasTmp.getDisciplina().getNome()+" "+ this.turmasTmp.getQntTurmas());
         if (this.turmasTmp.getDisciplina() != null) {
             for(Turmas t: this.getTurmasOfertadas()){
                 if(t.getDisciplina().getNome().equals(this.turmasTmp.getDisciplina().getNome()) && t.getDisciplina().getCodigo().equals(this.turmasTmp.getDisciplina().getCodigo())){
@@ -80,6 +109,17 @@ public class PlanejamentoMB {
             
         }
     }
+    
+    public void removeSala(){
+        System.out.println(this.salasAlocadas.size());
+        if(this.salaTmp.getNome()!=null){
+            System.out.println(this.salasAlocadas.size());
+            this.salasAlocadas.remove(this.salaTmp);
+            System.out.println(this.salasAlocadas.size());
+            this.salaTmp = new Sala();
+        }
+    }
+    
     
     private boolean skip;
 
