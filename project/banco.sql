@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 15/08/2018 às 00:42
+-- Tempo de geração: 17/08/2018 às 00:08
 -- Versão do servidor: 10.1.32-MariaDB
 -- Versão do PHP: 7.2.5
 
@@ -40,7 +40,8 @@ CREATE TABLE `combo` (
 INSERT INTO `combo` (`id`, `codigo_modelo`) VALUES
 (1, 'CMB0001'),
 (2, 'CMB0002'),
-(3, 'CMB0003');
+(3, 'CMB0003'),
+(4, 'CMB0004');
 
 -- --------------------------------------------------------
 
@@ -64,7 +65,9 @@ INSERT INTO `combo_dias` (`id_combo`, `id_dia`) VALUES
 (2, 3),
 (2, 4),
 (3, 1),
-(3, 2);
+(3, 2),
+(4, 1),
+(4, 3);
 
 -- --------------------------------------------------------
 
@@ -100,7 +103,10 @@ CREATE TABLE `disciplina` (
 --
 
 INSERT INTO `disciplina` (`id`, `codigo_modelo`, `codigo_disciplina`, `nome`, `cr_praticos`, `cr_teoricos`, `vagas`, `tipo_sala`) VALUES
-(5, 'DISC00001', 'RUS0014', 'Fundamentos de Programação', 1, 1, 13, 'Laboratório de Informática');
+(5, 'DISC00001', 'RUS0014', 'Fundamentos de Programação', 1, 1, 13, 'Laboratório de Informática'),
+(6, 'DISC00002', 'RUS0014', 'Estrutura de Dados', 1, 1, 10, 'Sala'),
+(7, 'DISC00003', 'RUS0014', 'Matemática Computacional', 4, 1, 22, 'Laboratório de Química'),
+(8, 'DISC00004', 'RUS0013', 'PPCT', 0, 2, 39, 'Sala');
 
 -- --------------------------------------------------------
 
@@ -121,7 +127,11 @@ CREATE TABLE `disciplina_curso_semestre` (
 
 INSERT INTO `disciplina_curso_semestre` (`id`, `id_disciplina`, `curso`, `semestre`) VALUES
 (3, 5, 'Ciência da Computação', 1),
-(4, 5, 'Engenharia de Software', 1);
+(4, 5, 'Engenharia de Software', 1),
+(5, 6, 'Ciência da Computação', 3),
+(6, 7, 'Ciência da Computação', 4),
+(7, 8, 'Ciência da Computação', 7),
+(8, 8, 'Engenharia de Software', 7);
 
 -- --------------------------------------------------------
 
@@ -131,11 +141,18 @@ INSERT INTO `disciplina_curso_semestre` (`id`, `id_disciplina`, `curso`, `semest
 
 CREATE TABLE `docente` (
   `id` int(11) NOT NULL,
-  `codigo_modelo` int(11) NOT NULL,
+  `codigo_modelo` varchar(11) COLLATE utf8_bin NOT NULL,
   `nome` varchar(120) COLLATE utf8_bin NOT NULL,
   `cr_minimo` int(11) NOT NULL,
   `cr_maximo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Fazendo dump de dados para tabela `docente`
+--
+
+INSERT INTO `docente` (`id`, `codigo_modelo`, `nome`, `cr_minimo`, `cr_maximo`) VALUES
+(1, 'DOC0001', 'Dmontier', 2, 6);
 
 -- --------------------------------------------------------
 
@@ -159,6 +176,16 @@ CREATE TABLE `preferencia` (
   `id_disciplina` int(11) NOT NULL,
   `preferencia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Fazendo dump de dados para tabela `preferencia`
+--
+
+INSERT INTO `preferencia` (`id_docente`, `id_disciplina`, `preferencia`) VALUES
+(1, 5, 24),
+(1, 6, 45),
+(1, 7, 66),
+(1, 8, 64);
 
 -- --------------------------------------------------------
 
@@ -244,7 +271,7 @@ ALTER TABLE `sala`
 -- AUTO_INCREMENT de tabela `combo`
 --
 ALTER TABLE `combo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `curso_semestre`
@@ -256,19 +283,19 @@ ALTER TABLE `curso_semestre`
 -- AUTO_INCREMENT de tabela `disciplina`
 --
 ALTER TABLE `disciplina`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `disciplina_curso_semestre`
 --
 ALTER TABLE `disciplina_curso_semestre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `docente`
 --
 ALTER TABLE `docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `sala`
