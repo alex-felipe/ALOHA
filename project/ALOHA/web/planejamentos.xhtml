@@ -92,33 +92,39 @@
                             <p:messages />
 
                             <div class="form-group row" > 
-                                <p:dataTable value="#{planejamentoMB.turmasCadastro}" var="disciplina" paginator="true" rows="5" style="width: 50%; margin: 5px"
-                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="5,10,15" >
+                                <p:dataTable value="#{planejamentoMB.turmasOfertadas}" var="disciplina" widgetVar="discip"
+                                             filteredValue="#{planejamentoMB.filteredDiscip}" 
+                                             style="width: 70%; margin: 5px" scrollable="true" scrollHeight="150" scrollWidth="100%">
+                                    
+                                    <f:facet name="header" >
+                                        <p:outputPanel style="position: relative;left: 35% ">
+                                            <h:outputText value="Pesquisar:" />
+                                            <p:inputText id="globalFilter" onkeyup="PF('discip').filter()" style="width:150px" placeholder="Insira a disciplina..."/>
+                                        </p:outputPanel>
+                                    </f:facet>
 
-
-                                    <p:column headerText="Cod. Disciplina" width="100" >
+                                    <p:column filterBy="#{disciplina.disciplina.codigo}" headerText="Cod. Disciplina"  filterStyle="display: none" style="width:15%">
                                         <h:outputText value="#{disciplina.disciplina.codigo}" />
                                     </p:column>
 
-                                    <p:column headerText="Nome" width="180">
+                                    <p:column  filterBy="#{disciplina.disciplina.nome}" headerText="Nome"  filterStyle="display: none" >
                                         <h:outputText value="#{disciplina.disciplina.nome}" />
                                     </p:column>
-
-                                    <p:column headerText="" style="text-align: center" width="35">
+                                    
+                                    <p:column headerText="Nº de Turmas" style="width:12%">
+                                        <h:outputText value="#{disciplina.qntTurmas}" />
+                                    </p:column>
+                                    
+                                    <p:column headerText="Ações" style="text-align: center;width:10%" >
+                                        <p:commandLink  styleClass="ui-icon ui-icon-minus"  action="#{planejamentoMB.removeDisciplina()}" update=":form" style="float: left;" >
+                                            <f:setPropertyActionListener value="#{disciplina}" target="#{planejamentoMB.turmasTmp}"/>
+                                        </p:commandLink>
                                         <p:commandLink  styleClass="ui-icon ui-icon-plus"  action="#{planejamentoMB.addDisciplina()}" update=":form" style="float: left;" >
                                             <f:setPropertyActionListener value="#{disciplina}" target="#{planejamentoMB.turmasTmp}"/>
                                         </p:commandLink>
                                     </p:column>
                                 </p:dataTable>
-                                <p:dataTable var="turma" value="#{planejamentoMB.turmasOfertadas}" style="width: 48%;">
-                                    <p:column headerText="Disciplina">
-                                        <h:outputText value="#{turma.disciplina.nome}" />
-                                    </p:column>
-                                    <p:column headerText="Nº de Turmas">
-                                        <h:outputText value="#{turma.qntTurmas}" />
-                                    </p:column>
-                                </p:dataTable>
+                              
                             </div>
                         </p:panel>
                     </p:tab>

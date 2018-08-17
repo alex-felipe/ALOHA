@@ -142,10 +142,19 @@ public class Disciplina {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 67 * hash + Objects.hashCode(this.codigoModelo);
-        hash = 67 * hash + Objects.hashCode(this.nome);
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + Objects.hashCode(this.codigoModelo);
+        hash = 97 * hash + Objects.hashCode(this.codigo);
+        hash = 97 * hash + Objects.hashCode(this.nome);
+        hash = 97 * hash + this.crPraticos;
+        hash = 97 * hash + this.crTeoricos;
+        hash = 97 * hash + this.vagas;
+        hash = 97 * hash + Objects.hashCode(this.tipoSala);
+        hash = 97 * hash + Objects.hashCode(this.cursosSemestres);
         return hash;
     }
+
+
 
 
 
