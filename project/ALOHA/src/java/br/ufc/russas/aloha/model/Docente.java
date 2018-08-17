@@ -16,6 +16,7 @@ public class Docente implements Serializable {
     private List<Combo> combos;
     private List<Preferencia> preferencias;
 
+    
     public Docente() {
         this.combos = new ArrayList<Combo>();
         this.preferencias = new ArrayList<Preferencia>();
@@ -27,7 +28,7 @@ public class Docente implements Serializable {
         this.crMax = crMax;
     }
 
-    public Docente(int id, String codigoModelo, String nome, int crMin, int crMax) throws QuantidadeCreditosInvalidoException, NomeInvalidoException {
+    public Docente(int id, String codigoModelo, String nome, int crMin, int crMax) {
         this.id = id;
         this.codigoModelo = codigoModelo;
         setNome(nome);
@@ -84,32 +85,38 @@ public class Docente implements Serializable {
         return nome;
     }
 
-    public void setNome(String nome) throws NomeInvalidoException {
-        if (nome == null || nome.isEmpty()) {
-            throw new NomeInvalidoException("O campos 'nome do docente' precisa ser preenchido");
-        } else {
+    public void setNome(String nome)    {
+        if (nome != null && !nome.isEmpty()) {
             this.nome = nome;
-        }
+        } 
     }
 
     public int getCrMin() {
         return crMin;
     }
 
-    public void setCrMin(int crMin) throws QuantidadeCreditosInvalidoException {
-        System.out.println("CrMIn " + crMin + "| Crmax " + crMax);
-        if (crMin < 0) {
-            throw new QuantidadeCreditosInvalidoException("Quantidade de créditos mínimos não pode ser negativo");
-        } else {
-            this.crMin = crMin;
-        }
+
+    public void setCrMin(int crMin) {
+        this.crMin = crMin;
+    }
+
+    /*public void setCrMin(int crMin) throws QuantidadeCreditosInvalidoException {
+    System.out.println("CrMIn " + crMin + "| Crmax " + crMax);
+    if (crMin < 0) {
+    throw new QuantidadeCreditosInvalidoException("Quantidade de créditos mínimos não pode ser negativo");
+    } else {
+    this.crMin = crMin;
+    }
+    }*/
+    public void setCrMax(int crMax) {
+        this.crMax = crMax;
     }
 
     public int getCrMax() {
         return crMax;
     }
 
-    public void setCrMax(int crMax) throws QuantidadeCreditosInvalidoException {
+    /*public void setCrMax(int crMax) throws QuantidadeCreditosInvalidoException {
         if ((crMax < 0)) {
             throw new QuantidadeCreditosInvalidoException("Quantidade de créditos máximos não pode ser negativo");
         } else if (crMax < getCrMin()) {
@@ -117,7 +124,7 @@ public class Docente implements Serializable {
         } else {
             this.crMax = crMax;
         }
-    }
+    }*/
 
     public List<Combo> getCombos() {
         return combos;
@@ -135,4 +142,5 @@ public class Docente implements Serializable {
         this.preferencias = preferencias;
     }
 
+    
 }

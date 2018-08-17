@@ -50,11 +50,7 @@ public class DocenteDAO {
             return true;
         } catch (SQLException e) {
             Logger.getLogger(DocenteDAO.class.getName()).log(Level.SEVERE, null, e);
-        } catch (QuantidadeCreditosInvalidoException ex) {
-            System.out.println(ex.getMessage());
-        } catch (NomeInvalidoException ex) {
-            Logger.getLogger(DocenteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             try {
                 if (con != null) {
                     con.close();
@@ -78,15 +74,9 @@ public class DocenteDAO {
                 Docente docente = new Docente();
                 docente.setId(rs.getInt("id"));
                 docente.setCodigoModelo(rs.getString("codigo_modelo"));
-                try {
-                    docente.setNome(rs.getString("nome"));
-                    docente.setCrMin(rs.getInt("cr_minimo"));
-                    docente.setCrMax(rs.getInt("cr_maximo"));
-                } catch (NomeInvalidoException ex) {
-                    System.out.println("Nome de docente inválido");
-                } catch (QuantidadeCreditosInvalidoException ex){
-                    System.out.println("Quantidade de créditos inválidos");
-                }
+                docente.setNome(rs.getString("nome"));
+                docente.setCrMin(rs.getInt("cr_minimo"));
+                docente.setCrMax(rs.getInt("cr_maximo"));
                 listaDocentes.add(docente);
             }
         } catch (SQLException e) {
@@ -103,7 +93,7 @@ public class DocenteDAO {
         return listaDocentes;
     }
     
-    public Docente find(int id) throws SQLException, QuantidadeCreditosInvalidoException, NomeInvalidoException {
+    public Docente find(int id) throws SQLException{
         Connection con = null;
         Docente s = null;
         try {
@@ -125,7 +115,7 @@ public class DocenteDAO {
         return s;
     }
     
-    public int find(String nome) throws SQLException, QuantidadeCreditosInvalidoException, NomeInvalidoException {
+    public int find(String nome) throws SQLException{
         Connection con = null;
         Docente s = null;
         try {
@@ -146,7 +136,7 @@ public class DocenteDAO {
 
         return 0;
     }
-    private Docente map(ResultSet rs) throws SQLException, QuantidadeCreditosInvalidoException, NomeInvalidoException {
+    private Docente map(ResultSet rs) throws SQLException {
         Docente d = new Docente(rs.getInt("id"), rs.getString("codigo_modelo"), rs.getString("nome"), rs.getInt("cr_minimo"), rs.getInt("cr_maximo"));
         return d;
     }

@@ -46,7 +46,7 @@ public class ConexaoFactory {
         Connection con = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String caminhoServidor = "jdbc:mysql://"+ ip_servidor +"/aloha";
+            String caminhoServidor = "jdbc:mysql://"+ ip_servidor +"/ALOHA";
             con = DriverManager.getConnection(caminhoServidor, "root", "");
             
         } catch (ClassNotFoundException e1) {

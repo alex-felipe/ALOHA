@@ -11,7 +11,9 @@ package br.ufc.russas.aloha.model.exception;
  */
 public class NomeInvalidoException extends Exception {
 
-    public NomeInvalidoException(String o_campos_nome_do_docente_precisa_ser_pree) {
+    public NomeInvalidoException(String m) {
+        super(m);
     }
+
     
 }
