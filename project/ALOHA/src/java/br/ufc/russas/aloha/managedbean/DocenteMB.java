@@ -30,7 +30,8 @@ public class DocenteMB implements Serializable {
     private Docente docente;
     private List<Docente> listaDocentes;
     private Disciplina[] disciplinasSelecionadas;
-    private ArrayList<Preferencia> preferencias;
+    private List<Preferencia> preferencias;
+    private List<String> diasSemana;
     DisciplinaDAO disciplinaDAO;
     DocenteDAO docenteDAO;
 
@@ -74,6 +75,7 @@ public class DocenteMB implements Serializable {
                     }
                 } else {
                     this.docente.setPreferencias(preferencias);
+                    this.docente.setDiasSemana(diasSemana);
                     if (docenteDAO.insert(this.docente)) {
                         try {
 
@@ -155,7 +157,7 @@ public class DocenteMB implements Serializable {
         this.disciplinasSelecionadas = disciplinasSelecionadas;
     }
 
-    public ArrayList<Preferencia> getPreferencias() {
+    public List<Preferencia> getPreferencias() {
         return preferencias;
     }
 
@@ -167,12 +169,22 @@ public class DocenteMB implements Serializable {
         return feedback;
     }
 
+    public List<String> getDiasSemana() {
+        return diasSemana;
+    }
+
+    public void setDiasSemana(List<String> diasSemana) {
+        this.diasSemana = diasSemana;
+    }
+
+
+
     private boolean validaDocente() {
         FacesContext context = FacesContext.getCurrentInstance();
         if (docente.getCrMax() <= docente.getCrMin()) {
-            context.addMessage(null, new FacesMessage("Successful", "Your message: " + feedback));
-            context.addMessage(null, new FacesMessage("Second Message", "Additional Message Detail"));
-            feedback = "A quantidade de créditos máximos deve ser MAIOR que a quantidade de créditos mínimos";
+            feedback = "A quantidade de créditos máximos deve ser MAIOR que a quantidade de créditos mínimos";  
+            context.addMessage(null, new FacesMessage("Aviso", feedback));
+            
         }
         return false;
     }

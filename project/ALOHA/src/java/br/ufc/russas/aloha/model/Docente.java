@@ -5,6 +5,7 @@ import br.ufc.russas.aloha.model.exception.QuantidadeCreditosInvalidoException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Docente implements Serializable {
 
@@ -13,22 +14,24 @@ public class Docente implements Serializable {
     private String nome;
     private int crMin;
     private int crMax;
-    private List<Combo> combos;
+    private List<String> diasSemana;
     private List<Preferencia> preferencias;
 
     
     public Docente() {
-        this.combos = new ArrayList<Combo>();
+        this.diasSemana = new ArrayList<String>();
         this.preferencias = new ArrayList<Preferencia>();
     }
 
     public Docente(String nome, int crMin, int crMax) {
+        this();
         this.nome = nome;
         this.crMin = crMin;
         this.crMax = crMax;
     }
 
     public Docente(int id, String codigoModelo, String nome, int crMin, int crMax) {
+        this(nome, crMin, crMax);
         this.id = id;
         this.codigoModelo = codigoModelo;
         setNome(nome);
@@ -59,10 +62,6 @@ public class Docente implements Serializable {
 
     public void addDisciplina(Preferencia disciplina) {
         preferencias.add(disciplina);
-    }
-
-    public void addCombo(Combo combo) {
-        combos.add(combo);
     }
 
     public int getId() {
@@ -126,13 +125,15 @@ public class Docente implements Serializable {
         }
     }*/
 
-    public List<Combo> getCombos() {
-        return combos;
+    public List<String> getDiasSemana() {
+        return diasSemana;
     }
 
-    private void setCombos(List<Combo> combos) {
-        this.combos = combos;
+    public void setDiasSemana(List<String> diasSemana) {
+        this.diasSemana = diasSemana;
     }
+
+
 
     public List<Preferencia> getPreferencias() {
         return preferencias;
@@ -140,6 +141,47 @@ public class Docente implements Serializable {
 
     public void setPreferencias(List<Preferencia> preferencias) {
         this.preferencias = preferencias;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + this.id;
+        hash = 47 * hash + Objects.hashCode(this.codigoModelo);
+        hash = 47 * hash + Objects.hashCode(this.nome);
+        hash = 47 * hash + this.crMin;
+        hash = 47 * hash + this.crMax;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Docente other = (Docente) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.crMin != other.crMin) {
+            return false;
+        }
+        if (this.crMax != other.crMax) {
+            return false;
+        }
+        if (!Objects.equals(this.codigoModelo, other.codigoModelo)) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        return true;
     }
 
     

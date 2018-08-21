@@ -46,6 +46,26 @@ public class DocenteDAO {
                 ps.executeUpdate();
             }
             
+            for (String dia: docente.getDiasSemana()) {
+                System.out.println("asldkyasdashdla");
+                sql = "INSERT INTO `docente_dias_semana`(`id_docente`, `dia_semana`) VALUES (?,?)";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, docente.getId());
+                switch(dia){
+                    case "Domingo": ps.setInt(2, 0); break;
+                    case "Segunda": ps.setInt(2, 1); break;
+                    case "Terça": ps.setInt(2, 2); break;
+                    case "Quarta": ps.setInt(2, 3); break;
+                    case "Quinta": ps.setInt(2, 4); break;
+                    case "Sexta": ps.setInt(2, 5); break;
+                    case "Sábado": ps.setInt(2, 6); break;
+                    default: 
+                        return false;
+                }
+                
+                ps.executeUpdate();   
+            }
+            
             
             return true;
         } catch (SQLException e) {
