@@ -1,10 +1,11 @@
 
 package br.ufc.russas.aloha.dao;
 
+import br.ufc.russas.aloha.managedbean.DocenteMB;
 import br.ufc.russas.aloha.model.Docente;
 import br.ufc.russas.aloha.model.Preferencia;
-import br.ufc.russas.aloha.model.exception.NomeInvalidoException;
-import br.ufc.russas.aloha.model.exception.QuantidadeCreditosInvalidoException;
+import java.io.IOException;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,21 +13,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
 
-public class DocenteDAO {
+public class DocenteDAO implements Serializable{
 
     public boolean insert(Docente docente) {
         docente.setCodigoModelo(docente.getCodigo());
         Connection con = null;
         try {
             con = ConexaoFactory.getConnection();
-            String sql = "INSERT INTO `docente` (`id`, `codigo_modelo`, `nome`, `cr_minimo`, `cr_maximo`) VALUES (?,?, ?, ?, ?);";
+            String sql = "INSERT INTO `docente` (`codigo_modelo`, `nome`, `cr_minimo`, `cr_maximo`) VALUES (?, ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, 0);
-            ps.setString(2, "NULL");
-            ps.setString(3, docente.getNome());
-            ps.setInt(4, docente.getCrMin());
-            ps.setInt(5, docente.getCrMax());
+            ps.setString(1, "NULL");
+            ps.setString(2, docente.getNome());
+            ps.setInt(3, docente.getCrMin());
+            ps.setInt(4, docente.getCrMax());
             ps.executeUpdate();
             
             docente.setId(find(docente.getNome()));
@@ -46,30 +47,18 @@ public class DocenteDAO {
                 ps.executeUpdate();
             }
             
-            for (String dia: docente.getDiasSemana()) {
-                System.out.println("asldkyasdashdla");
+            ArrayList<String> listaDias = new ArrayList<>(docente.getDiasSemana());
+            for (String dia : listaDias) {
                 sql = "INSERT INTO `docente_dias_semana`(`id_docente`, `dia_semana`) VALUES (?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setInt(1, docente.getId());
-                switch(dia){
-                    case "Domingo": ps.setInt(2, 0); break;
-                    case "Segunda": ps.setInt(2, 1); break;
-                    case "Terça": ps.setInt(2, 2); break;
-                    case "Quarta": ps.setInt(2, 3); break;
-                    case "Quinta": ps.setInt(2, 4); break;
-                    case "Sexta": ps.setInt(2, 5); break;
-                    case "Sábado": ps.setInt(2, 6); break;
-                    default: 
-                        return false;
-                }
-                
-                ps.executeUpdate();   
+                ps.setString(2, dia);
+                ps.executeUpdate();
             }
-            
             
             return true;
         } catch (SQLException e) {
-            Logger.getLogger(DocenteDAO.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println(e);
         } finally {
             try {
                 if (con != null) {
@@ -80,6 +69,39 @@ public class DocenteDAO {
             }
         }
         return false;
+    }
+    
+    public boolean remove(Docente docente) {
+        Connection con = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "DELETE FROM `docente` WHERE id = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, docente.getId());
+            if(ps.executeUpdate() != 0){
+                sql = "DELETE FROM `docente_dias_semana` WHERE id_docente = ?";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, docente.getId());
+                ps.executeUpdate();
+                
+                sql = "DELETE FROM `preferencia` WHERE id_docente = ?";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, docente.getId());
+                return ps.executeUpdate() != 0;
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new DAOException("Falha ao executar operação", e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException("Não foi possível fechar a conexão.", e);
+            }
+        }
     }
     
     public ArrayList<Docente> selectALL() {

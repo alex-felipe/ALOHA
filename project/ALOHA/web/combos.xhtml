@@ -98,9 +98,10 @@
                         <h:outputText value="#{combo.diasEstendido}" />
                     </p:column>
                     <p:column headerText="Remover" style="text-align: center" width="90">
-                        <p:commandButton  process="@this" icon="ui-icon-trash" oncomplete="PF('comboDialog').show();">
-                            <f:setPropertyActionListener value="#{combo}" target="#{comboMB.combo}" />
-                        </p:commandButton>
+                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{comboMB.remove()}" style="float: left;">
+                            <f:setPropertyActionListener value="#{combo}" target="#{comboMB.combo}"/>
+                            <p:confirm header="Confirmação" message="Deseja realmente excluir este combo?" />
+                        </p:commandLink>
                     </p:column>
                 </p:dataTable>
                 <p:commandButton  process="@this" icon="ui-icon-plus" value="Adicionar combo" actionListener="#{comboMB.novoCombo()}">                 

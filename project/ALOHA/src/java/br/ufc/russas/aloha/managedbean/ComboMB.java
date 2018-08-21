@@ -35,6 +35,22 @@ public class ComboMB {
         combo = new Combo();
         this.listaCombos = comboDAO.selectALL();
     }
+    
+    public void remove() {
+        try {
+            if (comboDAO.delete(combo)) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("combos.xhtml");
+                combo = new Combo();
+                this.listaCombos = comboDAO.selectALL();
+
+            } else {
+                System.out.println("Deu erro");
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+    
     public Combo getCombo() {
         return combo;
     }

@@ -54,7 +54,35 @@ public class ComboDAO {
         }
         return false;
     }
+    public boolean delete(Combo combo) {
+        Connection con = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "DELETE FROM `combo` WHERE id = ?";
 
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, combo.getId());
+            ps.executeUpdate();
+            
+            sql = "DELETE FROM combos_dias WHERE id_combo = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, combo.getId());
+
+            //Executando os comandos
+            return ps.executeUpdate() == 1;
+        } catch (SQLException e) {
+            throw new DAOException("Operação não realizada com sucesso.", e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException("Não foi possível fechar a conexão.", e);
+            }
+        }
+    }
+    
     public ArrayList<Combo> selectALL(){
         Connection con = null;
         ArrayList<Combo> listaCombos = new ArrayList<>();

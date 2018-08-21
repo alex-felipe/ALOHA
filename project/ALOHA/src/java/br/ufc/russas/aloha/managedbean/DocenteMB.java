@@ -4,6 +4,7 @@ import br.ufc.russas.aloha.dao.ConexaoFactory;
 import br.ufc.russas.aloha.dao.DAOException;
 import br.ufc.russas.aloha.dao.DisciplinaDAO;
 import br.ufc.russas.aloha.dao.DocenteDAO;
+import br.ufc.russas.aloha.model.DiasSemanaEnum;
 import br.ufc.russas.aloha.model.Disciplina;
 import br.ufc.russas.aloha.model.Docente;
 import br.ufc.russas.aloha.model.Preferencia;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -31,7 +33,7 @@ public class DocenteMB implements Serializable {
     private List<Docente> listaDocentes;
     private Disciplina[] disciplinasSelecionadas;
     private List<Preferencia> preferencias;
-    private List<String> diasSemana;
+    private List<DiasSemanaEnum> diasSemana;
     DisciplinaDAO disciplinaDAO;
     DocenteDAO docenteDAO;
 
@@ -69,6 +71,7 @@ public class DocenteMB implements Serializable {
                             FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");
                             docente = new Docente();
                             this.listaDocentes = docenteDAO.selectALL();
+                            enviaFeedBack("Operação realizada com sucesso", "O cadastro do docente foi realizado com sucesso!", 'i');
                         } catch (IOException e) {
                             System.out.println(e.getMessage());
                         }
@@ -91,46 +94,23 @@ public class DocenteMB implements Serializable {
             } catch (SQLException e) {
                 System.out.println("Erro na inserção de Docente (SQL)");
             }
-        } else{
-            atualizaFeedback();
         }
     }
 
-    public boolean remove() {
-        Connection con = null;
-        try {
-            con = ConexaoFactory.getConnection();
-            String sql = "DELETE FROM `docente` WHERE id = ?";
-
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, docente.getId());
-            //Executando os comandos
-            if (ps.executeUpdate() == 1) {
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");
-                    this.docente = new Docente();
-                    this.listaDocentes = docenteDAO.selectALL();
-                    return true;
-                } catch (IOException ex) {
-                    Logger.getLogger(DocenteMB.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Falha ao executar operação", e);
-        } finally {
+    public void remove() {
+        System.out.println("alkshdasldh");
+        if(docenteDAO.remove(docente)){
             try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                throw new DAOException("Não foi possível fechar a conexão.", e);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");
+                enviaFeedBack("Operação realizada com sucesso!", "Os dados do docente foram removidos com sucesso!", 'i');
+            } catch (IOException ex) {
+                Logger.getLogger(DocenteMB.class.getName()).log(Level.SEVERE, null, ex);
             }
+            this.docente = new Docente();
+            this.listaDocentes = docenteDAO.selectALL();        
+        }else{
+            enviaFeedBack("Erro!", "Não foi possível realizar o cadastro do docente!", 'e');
         }
-        return false;
-    }
-
-    public void inserePreferencia() {
-
     }
 
     public Docente getDocente() {
@@ -169,30 +149,33 @@ public class DocenteMB implements Serializable {
         return feedback;
     }
 
-    public List<String> getDiasSemana() {
+    public List<DiasSemanaEnum> getDiasSemana() {
         return diasSemana;
     }
 
-    public void setDiasSemana(List<String> diasSemana) {
+    public void setDiasSemana(List<DiasSemanaEnum> diasSemana) {
         this.diasSemana = diasSemana;
     }
-
-
-
+   
     private boolean validaDocente() {
-        FacesContext context = FacesContext.getCurrentInstance();
         if (docente.getCrMax() <= docente.getCrMin()) {
-            feedback = "A quantidade de créditos máximos deve ser MAIOR que a quantidade de créditos mínimos";  
-            context.addMessage(null, new FacesMessage("Aviso", feedback));
-            
+            enviaFeedBack("Créditos Máximos Inválidos", "A quantidade de créditos máximos deve ser MAIOR que a quantidade de créditos mínimos", 'e');  
+            return false;
         }
-        return false;
+        return true;
     }
 
-    public void atualizaFeedback() {
-        
-
-
+    public void enviaFeedBack(String titulo, String msg, char severidade) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Severity s = null;
+        switch(severidade){
+            case 'i': s = FacesMessage.SEVERITY_INFO; break;
+            case 'a': s = FacesMessage.SEVERITY_WARN; break;
+            case 'e': s = FacesMessage.SEVERITY_ERROR; break;
+            case 'f': s = FacesMessage.SEVERITY_FATAL; break;
+            default: s = FacesMessage.SEVERITY_INFO; break;
+        }
+        context.addMessage(null, new FacesMessage(s, titulo, msg));
     }
 
 }

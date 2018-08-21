@@ -88,22 +88,22 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
 
-                    <p:column headerText="Código" width="100" >
+                    <p:column headerText="Código" width="100" sortBy="#{docente.codigoModelo}">
                         <h:outputText value="#{docente.codigoModelo}" />
                     </p:column>
 
-                    <p:column headerText="Nome" width="130" >
+                    <p:column headerText="Nome" sortBy="#{docente.nome}" filterBy="#{docente.nome}">
                         <h:outputText value="#{docente.nome}" />
                     </p:column>
 
-                    <p:column headerText="Créditos Mínimos" >
+                    <p:column headerText="Créditos Mínimos" width="200" sortBy="#{docente.crMin}">
                         <h:outputText value="#{docente.crMin}" />
                     </p:column>
 
-                    <p:column headerText="Créditos Máximos" width="80">
+                    <p:column headerText="Créditos Máximos" width="200" sortBy="#{docente.crMax}">
                         <h:outputText value="#{docente.crMax}" />
                     </p:column>
-                    <p:column headerText="Ações" style="text-align: center" width="70">
+                    <p:column headerText="Ações" style="text-align: center" width="200">
                         <p:commandLink update=":form:docenteDetail"  styleClass="ui-icon ui-icon-search"  oncomplete="PF('docenteDialog').show();" style="float: left;">
                             <f:setPropertyActionListener value="#{docente}" target="#{docenteMB.docente}"/>
                         </p:commandLink>
@@ -117,6 +117,7 @@
 
                     </p:column>
                 </p:dataTable>
+                
                 <p:commandButton style="position: absolute; left: 83%" value="Adicionar docente" icon="ui-icon-plus" actionListener="#{docenteMB.novoDocente()}"></p:commandButton>
                 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
