@@ -1,7 +1,6 @@
 package br.ufc.russas.aloha.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +9,7 @@ public class Combo {
     private int id;
     private String codigo_modelo;
     private List<DiasSemanaEnum> dias;
-    private String[] dias_semana;
+
     
     public Combo(){
         this.dias = new ArrayList<>();
@@ -43,9 +42,7 @@ public class Combo {
         this.dias = dias;
     }
     
-    public String[] getDias_Semana(){
-        return dias_semana;
-    }
+
     
     /* O código será composto por:
         * 1) As 3 primeiras letras do nome do combo
@@ -78,40 +75,12 @@ public class Combo {
                 case QUARTA: stb.append("Quarta-feira"); break;
                 case QUINTA: stb.append("Quinta-feira"); break;
                 case SEXTA: stb.append("Sexta-feira"); break;
-                case SABADO: stb.append("Sabádo"); break;      
+                case SABADO: stb.append("Sábado"); break;      
             }
             stb.append("; ");
         }
         return stb.toString();
     }
-/*
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        return hash;
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Combo other = (Combo) obj;
-        for(DiasSemanaEnum d : other.dias){
-            boolean contem = false;
-            for(DiasSemanaEnum dd: dias){
-                if(d == dd) contem = true;
-            }
-            if(!contem) return false;
-        }
-        return true;
-    }
- */   
     
 }
