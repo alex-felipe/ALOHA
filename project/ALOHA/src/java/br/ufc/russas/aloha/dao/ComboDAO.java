@@ -8,29 +8,36 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ComboDAO {
 
     public ComboDAO() {
     }
     public boolean insert(Combo combo) {
-        combo.setId(this.geraIdCombo());
-        combo.setCodigo_modelo(combo.getCodigo());
         Connection con = null;
         try {
             con = ConexaoFactory.getConnection();
             String sql = "INSERT INTO combo (codigo_modelo) VALUES (?)" ; 
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, combo.getCodigo_modelo());
+            int chaveTemp = (new Random()).nextInt(100);
+            pst.setString(1, "" + chaveTemp);
             if(pst.executeUpdate() == 1){
                 sql = "SELECT * FROM combo WHERE codigo_modelo = ?";
                 pst = con.prepareStatement(sql);
-                pst.setString(1, combo.getCodigo_modelo());
+                pst.setString(1, "" + chaveTemp);
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
                     combo.setId(rs.getInt("id"));
                 }
-                System.out.println("OK");
+                
+                sql = "UPDATE `combo` SET `codigo_modelo`= ? WHERE id = ?";
+                pst = con.prepareStatement(sql);
+                pst.setString(1, combo.getCodigo());
+                pst.setInt(2, combo.getId());
+                
+                pst.executeUpdate();
+                
                 ArrayList<String> listaDias = new ArrayList<>(combo.getDias());
                 for(String dia: listaDias){
                     sql = "INSERT INTO combo_dias (id_combo, id_dia) VALUES (?, ?)";
@@ -54,7 +61,35 @@ public class ComboDAO {
         }
         return false;
     }
+    public boolean delete(Combo combo) {
+        Connection con = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "DELETE FROM combo WHERE id = ?";
 
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, combo.getId());
+            ps.executeUpdate();
+            
+            sql = "DELETE FROM combo_dias WHERE id_combo = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, combo.getId());
+
+            //Executando os comandos
+            return ps.executeUpdate() != 0;
+        } catch (SQLException e) {
+            throw new DAOException("Operação não realizada com sucesso.", e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException("Não foi possível fechar a conexão.", e);
+            }
+        }
+    }
+    
     public ArrayList<Combo> selectALL(){
         Connection con = null;
         ArrayList<Combo> listaCombos = new ArrayList<>();

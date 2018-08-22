@@ -88,26 +88,26 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
 
-                    <p:column headerText="Código" width="100" >
+                    <p:column headerText="Código" width="100" sortBy="#{docente.codigoModelo}">
                         <h:outputText value="#{docente.codigoModelo}" />
                     </p:column>
 
-                    <p:column headerText="Nome" width="130" >
+                    <p:column headerText="Nome" sortBy="#{docente.nome}" filterBy="#{docente.nome}">
                         <h:outputText value="#{docente.nome}" />
                     </p:column>
 
-                    <p:column headerText="Créditos Mínimos" >
+                    <p:column headerText="Créditos Mínimos" width="200" sortBy="#{docente.crMin}">
                         <h:outputText value="#{docente.crMin}" />
                     </p:column>
 
-                    <p:column headerText="Créditos Máximos" width="80">
+                    <p:column headerText="Créditos Máximos" width="200" sortBy="#{docente.crMax}">
                         <h:outputText value="#{docente.crMax}" />
                     </p:column>
-                    <p:column headerText="Ações" style="text-align: center" width="70">
+                    <p:column headerText="Ações" style="text-align: center" width="200">
                         <p:commandLink update=":form:docenteDetail"  styleClass="ui-icon ui-icon-search"  oncomplete="PF('docenteDialog').show();" style="float: left;">
                             <f:setPropertyActionListener value="#{docente}" target="#{docenteMB.docente}"/>
                         </p:commandLink>
-                        <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{docenteMB.editar()}" style="float: left;">
+                        <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{docenteMB.edita()}" style="float: left;">
                             <f:setPropertyActionListener value="#{docente}" target="#{docenteMB.docente}"/>
                         </p:commandLink>
                         <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{docenteMB.remove()}" style="float: left;">
@@ -117,6 +117,7 @@
 
                     </p:column>
                 </p:dataTable>
+                
                 <p:commandButton style="position: absolute; left: 83%" value="Adicionar docente" icon="ui-icon-plus" actionListener="#{docenteMB.novoDocente()}"></p:commandButton>
                 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
@@ -125,7 +126,7 @@
 
                 </p:confirmDialog>
 
-                <p:dialog  header="Informações do Docente" widgetVar="docenteDialog" modal="true" width="400" showEffect="blind" hideEffect="explode" resizable="false">
+                <p:dialog  header="Informações do Docente" widgetVar="docenteDialog" modal="true" width="400" showEffect="blind" hideEffect="blind" resizable="false">
                     <p:outputPanel id="docenteDetail" style="text-align:center;" rendered="#{not empty docenteMB.docente}">
                         <div class="modal-body">
                             <div class="row" >
@@ -147,7 +148,7 @@
                         </div>
                         <div class="modal-footer">
                             <p:commandButton onclick="dialog.hide()" process="@none" value="Cancelar" />
-                            <p:commandButton value="Editar Informações" actionListener="#{docenteMB.editar()}" ></p:commandButton>
+                            <p:commandButton value="Editar Informações" actionListener="#{docenteMB.edita()}" ></p:commandButton>
                         </div>
                     </p:outputPanel>
                 </p:dialog>

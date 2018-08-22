@@ -14,12 +14,12 @@ public class Docente implements Serializable {
     private String nome;
     private int crMin;
     private int crMax;
-    private List<String> diasSemana;
+    private List<DiasSemanaEnum> diasSemana;
     private List<Preferencia> preferencias;
 
     
     public Docente() {
-        this.diasSemana = new ArrayList<String>();
+        this.diasSemana = new ArrayList<DiasSemanaEnum>();
         this.preferencias = new ArrayList<Preferencia>();
     }
 
@@ -125,11 +125,11 @@ public class Docente implements Serializable {
         }
     }*/
 
-    public List<String> getDiasSemana() {
+    public List getDiasSemana() {
         return diasSemana;
     }
 
-    public void setDiasSemana(List<String> diasSemana) {
+    public void setDiasSemana(List diasSemana) {
         this.diasSemana = diasSemana;
     }
 

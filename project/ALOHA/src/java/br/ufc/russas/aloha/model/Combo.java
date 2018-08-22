@@ -2,13 +2,14 @@ package br.ufc.russas.aloha.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Combo {
     private int id;
     private String codigo_modelo;
     private List<DiasSemanaEnum> dias;
-    private String[] dias_semana;
+
     
     public Combo(){
         this.dias = new ArrayList<>();
@@ -41,9 +42,7 @@ public class Combo {
         this.dias = dias;
     }
     
-    public String[] getDias_Semana(){
-        return dias_semana;
-    }
+
     
     /* O código será composto por:
         * 1) As 3 primeiras letras do nome do combo
@@ -76,10 +75,12 @@ public class Combo {
                 case QUARTA: stb.append("Quarta-feira"); break;
                 case QUINTA: stb.append("Quinta-feira"); break;
                 case SEXTA: stb.append("Sexta-feira"); break;
-                case SABADO: stb.append("Sabádo"); break;      
+                case SABADO: stb.append("Sábado"); break;      
             }
             stb.append("; ");
         }
         return stb.toString();
     }
+
+    
 }

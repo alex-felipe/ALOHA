@@ -89,7 +89,7 @@
                         <p:message for="nome" />
                     </div>                        
                     <div class="form-group row" >  
-                        <p:outputLabel>Quantidade de Créditos Mínimo: &nbsp;</p:outputLabel>
+                        <p:outputLabel>Quantidade Mínima de Créditos: &nbsp;</p:outputLabel>
                         <p:inputText id="crMin" value="#{docenteMB.docente.crMin}" label="Créditos Mínimos" >
                             <f:validateLongRange minimum="0" maximum="20" />
                             <p:clientValidator />
@@ -98,15 +98,20 @@
                     </div>
 
                     <div class="form-group row" >  
-                        <p:outputLabel>Quantidade de Créditos Máxima &nbsp;</p:outputLabel>
+                        <p:outputLabel>Quantidade Máxima de Créditos &nbsp;</p:outputLabel>
                         <p:inputText id="crMax" value="#{docenteMB.docente.crMax}" label="Créditos Máximos" >
                             <f:validateLongRange minimum="0" maximum="20" />
                             <p:clientValidator />
                         </p:inputText>
                         <p:message for="crMax" />
                     </div>
-                    <div class="form-group row" >
-                        <p:selectManyCheckbox id="dias_da_semana" value="#{docenteMB.diasSemana}">
+                    
+                    <p:separator/>
+                    
+                    <div class="" >
+                        <p:outputLabel>Selecione os dias da semana na qual o docente estará disponível para realizar suas atividades: </p:outputLabel>
+                        
+                        <p:selectManyCheckbox value="#{docenteMB.diasSemana}"  >
                             <f:selectItem itemLabel="Domingo" itemValue="0"/>
                             <f:selectItem itemLabel="Segunda" itemValue="1"/>
                             <f:selectItem itemLabel="Terça" itemValue="2"/>
@@ -116,12 +121,17 @@
                             <f:selectItem itemLabel="Sábado" itemValue="6"/>
                         </p:selectManyCheckbox>
                     </div>
+                    
+                    <p:separator/>
+                    
                     <div class="form-group row" >
-                        <p:dataTable var="preferencia" value="#{docenteMB.preferencias}">
-                            <p:column headerText="Cód. da Disciplina"  width="60">
+                            <p:dataTable value="#{docenteMB.preferencias}" var="preferencia" paginator="true" rows="10"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15">
+                                <p:column headerText="Cód. da Disciplina"  width="60" filterBy="#{preferencia.disciplina.codigo}" sortBy="#{preferencia.disciplina.codigo}">
                                 <h:outputText value="#{preferencia.disciplina.codigo}" />
                             </p:column>
-                            <p:column headerText="Nome" width="120">
+                            <p:column headerText="Nome" width="120" filterBy="#{preferencia.disciplina.nome}" sortBy="#{preferencia.disciplina.nome}">
                                 <h:outputText value="#{preferencia.disciplina.nome}" />
                             </p:column>
                             <p:column headerText="Preferência" width="60">
