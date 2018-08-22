@@ -104,22 +104,14 @@
                         </p:commandLink>
                     </p:column>
                 </p:dataTable>
-                <p:commandButton  process="@this" icon="ui-icon-plus" value="Adicionar combo" actionListener="#{comboMB.novoCombo()}">                 
-                </p:commandButton>
+                <p:commandButton  process="@this" icon="ui-icon-plus" value="Adicionar combo" actionListener="#{comboMB.novoCombo()}"/>
+                
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="margin-left: 200px"/>
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 5px"/>
+                </p:confirmDialog>
+                
             </h:form>  
-            <h:form id="dCombo" prependId="false">
-                <p:dialog  appendTo="@(body)" header="Informações da sala" widgetVar="comboDialog" modal="true" showEffect="fade" hideEffect="fade" width="600px" height="500px" rendered="#{not empty comboMB.combo}">
-                    <p:outputPanel id="salaDialog" style="text-align:center;">
-                        <p:panelGrid  columns="2" rendered="#{not empty comboMB.combo}" columnClasses="label,value">
-                            <h:outputText value="Combo:" />
-                            <h:outputText value="#{combo.codigo_modelo}" />
-
-                            <h:outputText value="Dias da Semana:" />
-                            <h:outputText value="#{combo.dias}" />
-                        </p:panelGrid>
-                    </p:outputPanel>
-                </p:dialog>
-            </h:form>
             
             <br/>
             

@@ -66,7 +66,7 @@ public class DocenteMB implements Serializable {
             try {
                 if (docenteDAO.find(docente.getId()) != null) {
 
-                    if (false/*docenteDAO.update(docente)*/) {
+                    if (docenteDAO.update(docente)) {
                         try {
                             FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");
                             docente = new Docente();
@@ -97,8 +97,16 @@ public class DocenteMB implements Serializable {
         }
     }
 
+    public void edita() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("adicionar_docente.xhtml");
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public void remove() {
-        System.out.println("alkshdasldh");
         if(docenteDAO.remove(docente)){
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");

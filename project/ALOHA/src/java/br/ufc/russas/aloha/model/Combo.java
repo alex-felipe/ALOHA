@@ -1,7 +1,9 @@
 package br.ufc.russas.aloha.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Combo {
@@ -82,4 +84,34 @@ public class Combo {
         }
         return stb.toString();
     }
+/*
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Combo other = (Combo) obj;
+        for(DiasSemanaEnum d : other.dias){
+            boolean contem = false;
+            for(DiasSemanaEnum dd: dias){
+                if(d == dd) contem = true;
+            }
+            if(!contem) return false;
+        }
+        return true;
+    }
+ */   
+    
 }

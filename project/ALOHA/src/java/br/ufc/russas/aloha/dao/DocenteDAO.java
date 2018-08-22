@@ -1,19 +1,15 @@
 
 package br.ufc.russas.aloha.dao;
 
-import br.ufc.russas.aloha.managedbean.DocenteMB;
+import br.ufc.russas.aloha.model.DiasSemanaEnum;
 import br.ufc.russas.aloha.model.Docente;
 import br.ufc.russas.aloha.model.Preferencia;
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.context.FacesContext;
 
 public class DocenteDAO implements Serializable{
 
@@ -71,6 +67,61 @@ public class DocenteDAO implements Serializable{
         return false;
     }
     
+    public boolean update(Docente docente) {
+        docente.setCodigoModelo(docente.getCodigo());
+        Connection con = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "INSERT INTO `docente` (`codigo_modelo`, `nome`, `cr_minimo`, `cr_maximo`) VALUES (?, ?, ?, ?);";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "NULL");
+            ps.setString(2, docente.getNome());
+            ps.setInt(3, docente.getCrMin());
+            ps.setInt(4, docente.getCrMax());
+            ps.executeUpdate();
+
+            docente.setId(find(docente.getNome()));
+
+            sql = "UPDATE `docente` SET `codigo_modelo`= ? WHERE `id`= ?;";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, docente.getCodigo());
+            ps.setInt(2, docente.getId());
+            ps.executeUpdate();
+
+            for (Preferencia preferencia : docente.getPreferencias()) {
+                sql = "INSERT INTO `preferencia`(`id_docente`, `id_disciplina`, `preferencia`) VALUES (?,?,?)";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, docente.getId());
+                ps.setInt(2, preferencia.getDisciplina().getId());
+                ps.setInt(3, preferencia.getPreferencia());
+                ps.executeUpdate();
+            }
+
+            ArrayList<String> listaDias = new ArrayList<>(docente.getDiasSemana());
+            for (String dia : listaDias) {
+                sql = "INSERT INTO `docente_dias_semana`(`id_docente`, `dia_semana`) VALUES (?,?)";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, docente.getId());
+                ps.setString(2, dia);
+                ps.executeUpdate();
+            }
+
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException("Não foi possível fechar a conexão.", e);
+            }
+        }
+        return false;
+    }
+    
+    
     public boolean remove(Docente docente) {
         Connection con = null;
         try {
@@ -119,6 +170,40 @@ public class DocenteDAO implements Serializable{
                 docente.setNome(rs.getString("nome"));
                 docente.setCrMin(rs.getInt("cr_minimo"));
                 docente.setCrMax(rs.getInt("cr_maximo"));
+                
+                sql = "SELECT * FROM preferencia WHERE id_docente = ?";
+                pst = con.prepareStatement(sql);
+                pst.setInt(1, docente.getId());
+                rs = pst.executeQuery();
+                
+                ArrayList<Preferencia> preferencias = new ArrayList<>();
+                while(rs.next()){
+                    Preferencia p = new Preferencia(docente, new DisciplinaDAO().find(rs.getInt("id_disciplina")), rs.getInt("preferencia"));
+                    preferencias.add(p);
+                }
+                docente.setPreferencias(preferencias);
+                
+                sql = "SELECT * FROM docente_dias_semana WHERE id_docente = ?";
+                pst = con.prepareStatement(sql);
+                pst.setInt(1, docente.getId());
+                rs = pst.executeQuery();
+
+                ArrayList<DiasSemanaEnum> diasSemanaEnum = new ArrayList<>();
+                while (rs.next()) {
+                    int dia = rs.getInt("dia_semana");
+                    switch(dia){
+                        case 0: diasSemanaEnum.add(DiasSemanaEnum.DOMINGO); break;
+                        case 1: diasSemanaEnum.add(DiasSemanaEnum.SEGUNDA); break;
+                        case 2: diasSemanaEnum.add(DiasSemanaEnum.TERCA); break;
+                        case 3: diasSemanaEnum.add(DiasSemanaEnum.QUARTA); break;
+                        case 4: diasSemanaEnum.add(DiasSemanaEnum.QUINTA); break;
+                        case 5: diasSemanaEnum.add(DiasSemanaEnum.SEXTA); break;
+                        case 6: diasSemanaEnum.add(DiasSemanaEnum.SABADO); break;
+                    }
+                    
+                }
+                docente.setDiasSemana(diasSemanaEnum);
+                
                 listaDocentes.add(docente);
             }
         } catch (SQLException e) {
