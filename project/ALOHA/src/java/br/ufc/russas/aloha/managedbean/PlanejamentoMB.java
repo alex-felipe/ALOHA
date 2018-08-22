@@ -21,7 +21,7 @@ public class PlanejamentoMB implements Serializable {
     private Turmas turmasTmp;
     private Sala salaTmp;
     private Docente docenteTemp;
-    
+    private boolean skip;
 
 //Listas para gerar modelo
     private ArrayList<Docente> docentesDisponiveis;
@@ -49,7 +49,7 @@ public class PlanejamentoMB implements Serializable {
             for (Disciplina d : this.disciplinaDAO.selectALL()) {
                 this.turmasOfertadas.add(new Turmas(d, 1));
             }
-            System.out.println(this.turmasOfertadas.size());
+            //System.out.println(this.turmasOfertadas.size());
             this.salasAlocadas = salaDAO.selectALL();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -135,7 +135,6 @@ public class PlanejamentoMB implements Serializable {
     }
 
     //---------------------------------------------------------------------------
-
     public Docente getDocenteTemp() {
         return docenteTemp;
     }
@@ -151,17 +150,20 @@ public class PlanejamentoMB implements Serializable {
     public void setFilteredDiscip(ArrayList<Turmas> filteredDiscip) {
         this.filteredDiscip = filteredDiscip;
     }
-    
-    
-    
+
     public void addDisciplina() {
-        //System.out.println(this.turmasTmp.getDisciplina().getNome()+" "+ this.turmasTmp.getQntTurmas());
         if (this.turmasOfertadas.contains(this.turmasTmp)) {
             int i = this.turmasOfertadas.indexOf(this.turmasTmp);
             this.turmasOfertadas.get(i).setQntTurmas(this.turmasTmp.getQntTurmas() + 1);
             this.turmasTmp = new Turmas();
+        } else {
+            this.disciplinasOut.remove(this.turmasTmp);
+            if (this.turmasTmp.getQntTurmas() == 0) {
+                this.turmasTmp.setQntTurmas(1);
+            }
+            this.turmasOfertadas.add(this.turmasTmp);
         }
-           
+
     }
 
     public void removeDisciplina() {
@@ -169,25 +171,50 @@ public class PlanejamentoMB implements Serializable {
         if (this.turmasOfertadas.contains(this.turmasTmp)) {
             if (this.turmasTmp.getQntTurmas() <= 1) {
                 this.turmasOfertadas.remove(this.turmasTmp);
+                this.turmasTmp.setQntTurmas(0);
+                this.disciplinasOut.add(turmasTmp);
+                this.turmasTmp = new Turmas();
             } else {
                 int i = this.turmasOfertadas.indexOf(this.turmasTmp);
                 this.turmasOfertadas.get(i).setQntTurmas(this.turmasTmp.getQntTurmas() - 1);
                 this.turmasTmp = new Turmas();
             }
-
         }
-
     }
 
     public void removeSala() {
-        System.out.println(this.salasAlocadas.size());
         if (this.salaTmp.getNome() != null) {
             this.salasAlocadas.remove(this.salaTmp);
+            this.salasOut.add(this.salaTmp);
             this.salaTmp = new Sala();
         }
     }
 
-    private boolean skip;
+    public void addSala() {
+        if (!this.salasAlocadas.contains(this.salaTmp)) {
+            this.salasAlocadas.add(this.salaTmp);
+            this.salasOut.remove(this.salaTmp);
+            this.salaTmp = new Sala();
+        }
+
+    }
+
+    public void removeDocente() {
+        if (this.docenteTemp != null && this.docentesDisponiveis.contains(this.docenteTemp)) {
+            this.docentesDisponiveis.remove(this.docenteTemp);
+            this.docentesOut.add(this.docenteTemp);
+            this.docenteTemp = new Docente();
+        }
+    }
+
+    public void addDocente() {
+        if (!this.docentesDisponiveis.contains(this.docenteTemp)) {
+            this.docentesDisponiveis.add(this.docenteTemp);
+            this.docentesOut.remove(this.docenteTemp);
+            this.docenteTemp = new Docente();
+        }
+
+    }
 
     public boolean isSkip() {
         return skip;
@@ -198,10 +225,11 @@ public class PlanejamentoMB implements Serializable {
     }
 
     public String onFlowProcess(FlowEvent event) {
-        if (!skip) {
+        if (skip) {
             skip = false;   //reset in case user goes back
             return "confirm";
         } else {
+
             return event.getNewStep();
         }
     }
