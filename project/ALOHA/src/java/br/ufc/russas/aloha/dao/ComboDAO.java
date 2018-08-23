@@ -170,15 +170,5 @@ public class ComboDAO {
         }
         return numero;
     }
-    public static void main(String[] args) throws SQLException {
-        ComboDAO cbd = new ComboDAO();
-        ArrayList<DiasSemanaEnum> dias = new ArrayList<>();
-        dias.add(DiasSemanaEnum.DOMINGO);
-        dias.add(DiasSemanaEnum.TERCA);
-        dias.add(DiasSemanaEnum.QUINTA);
-        Combo c = new Combo();
-        c.setCodigo_modelo("COMBO002");
-        c.setDias(dias);
-        System.out.println(cbd.insert(c));
-    }
+
 }

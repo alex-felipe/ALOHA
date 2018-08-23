@@ -3,6 +3,7 @@ package br.ufc.russas.aloha.dao;
 
 import br.ufc.russas.aloha.model.DiasSemanaEnum;
 import br.ufc.russas.aloha.model.Docente;
+import br.ufc.russas.aloha.model.Horario;
 import br.ufc.russas.aloha.model.Preferencia;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.apache.catalina.tribes.util.Arrays;
 
 public class DocenteDAO implements Serializable{
 
@@ -43,12 +45,14 @@ public class DocenteDAO implements Serializable{
                 ps.executeUpdate();
             }
             
-            ArrayList<String> listaDias = new ArrayList<>(docente.getDiasSemana());
-            for (String dia : listaDias) {
+            System.out.println(Arrays.toString(docente.getDiasSemana().toArray()));
+            ArrayList listaDias = new ArrayList<>(docente.getDiasSemana());
+            
+            for (Object dia : listaDias) {
                 sql = "INSERT INTO `docente_dias_semana`(`id_docente`, `dia_semana`) VALUES (?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setInt(1, docente.getId());
-                ps.setString(2, dia);
+                ps.setInt(2, Integer.parseInt(dia.toString()));
                 ps.executeUpdate();
             }
             
@@ -68,26 +72,27 @@ public class DocenteDAO implements Serializable{
     }
     
     public boolean update(Docente docente) {
-        docente.setCodigoModelo(docente.getCodigo());
         Connection con = null;
         try {
             con = ConexaoFactory.getConnection();
-            String sql = "INSERT INTO `docente` (`codigo_modelo`, `nome`, `cr_minimo`, `cr_maximo`) VALUES (?, ?, ?, ?);";
+            String sql = "UPDATE `docente` SET `nome` = ?, `cr_minimo` = ?, `cr_maximo` = ? WHERE `id` = ?;";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, "NULL");
-            ps.setString(2, docente.getNome());
-            ps.setInt(3, docente.getCrMin());
-            ps.setInt(4, docente.getCrMax());
+            ps.setString(1, docente.getNome());
+            ps.setInt(2, docente.getCrMin());
+            ps.setInt(3, docente.getCrMax());
+            ps.setInt(4, docente.getId());
             ps.executeUpdate();
 
-            docente.setId(find(docente.getNome()));
-
-            sql = "UPDATE `docente` SET `codigo_modelo`= ? WHERE `id`= ?;";
+            sql = "DELETE FROM `preferencia` WHERE `id_docente` = ?";
             ps = con.prepareStatement(sql);
-            ps.setString(1, docente.getCodigo());
-            ps.setInt(2, docente.getId());
+            ps.setInt(1, docente.getId());
             ps.executeUpdate();
-
+            
+            sql = "DELETE FROM `docente_dias_semana` WHERE `id_docente` = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, docente.getId());
+            ps.executeUpdate();
+            
             for (Preferencia preferencia : docente.getPreferencias()) {
                 sql = "INSERT INTO `preferencia`(`id_docente`, `id_disciplina`, `preferencia`) VALUES (?,?,?)";
                 ps = con.prepareStatement(sql);
@@ -97,12 +102,12 @@ public class DocenteDAO implements Serializable{
                 ps.executeUpdate();
             }
 
-            ArrayList<String> listaDias = new ArrayList<>(docente.getDiasSemana());
-            for (String dia : listaDias) {
+            ArrayList<Horario> listaDias = new ArrayList<>(docente.getDiasSemana());
+            for (Horario dia : listaDias) {
                 sql = "INSERT INTO `docente_dias_semana`(`id_docente`, `dia_semana`) VALUES (?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setInt(1, docente.getId());
-                ps.setString(2, dia);
+                ps.setInt(2, dia.getId());
                 ps.executeUpdate();
             }
 
@@ -174,11 +179,11 @@ public class DocenteDAO implements Serializable{
                 sql = "SELECT * FROM preferencia WHERE id_docente = ?";
                 pst = con.prepareStatement(sql);
                 pst.setInt(1, docente.getId());
-                rs = pst.executeQuery();
+                ResultSet rst = pst.executeQuery();
                 
                 ArrayList<Preferencia> preferencias = new ArrayList<>();
-                while(rs.next()){
-                    Preferencia p = new Preferencia(docente, new DisciplinaDAO().find(rs.getInt("id_disciplina")), rs.getInt("preferencia"));
+                while(rst.next()){
+                    Preferencia p = new Preferencia(docente, new DisciplinaDAO().find(rst.getInt("id_disciplina")), rst.getInt("preferencia"));
                     preferencias.add(p);
                 }
                 docente.setPreferencias(preferencias);
@@ -186,23 +191,30 @@ public class DocenteDAO implements Serializable{
                 sql = "SELECT * FROM docente_dias_semana WHERE id_docente = ?";
                 pst = con.prepareStatement(sql);
                 pst.setInt(1, docente.getId());
-                rs = pst.executeQuery();
+                rst = pst.executeQuery();
 
-                ArrayList<DiasSemanaEnum> diasSemanaEnum = new ArrayList<>();
-                while (rs.next()) {
-                    int dia = rs.getInt("dia_semana");
+                ArrayList<Horario> horarios = new ArrayList<>();
+                while (rst.next()) {
+                    int dia = rst.getInt("dia_semana");
                     switch(dia){
-                        case 0: diasSemanaEnum.add(DiasSemanaEnum.DOMINGO); break;
-                        case 1: diasSemanaEnum.add(DiasSemanaEnum.SEGUNDA); break;
-                        case 2: diasSemanaEnum.add(DiasSemanaEnum.TERCA); break;
-                        case 3: diasSemanaEnum.add(DiasSemanaEnum.QUARTA); break;
-                        case 4: diasSemanaEnum.add(DiasSemanaEnum.QUINTA); break;
-                        case 5: diasSemanaEnum.add(DiasSemanaEnum.SEXTA); break;
-                        case 6: diasSemanaEnum.add(DiasSemanaEnum.SABADO); break;
+                        case 0: horarios.add(new Horario(0, "Domingo", "Manhã")); break;
+                        case 1: horarios.add(new Horario(1, "Domingo", "Tarde")); break;
+                        case 2: horarios.add(new Horario(2, "Segunda", "Manhã")); break;
+                        case 3: horarios.add(new Horario(3, "Segunda", "Tarde")); break;
+                        case 4: horarios.add(new Horario(4, "Terça", "Manhã")); break;
+                        case 5: horarios.add(new Horario(5, "Terça", "Tarde")); break;
+                        case 6: horarios.add(new Horario(6, "Quarta", "Manhã")); break;
+                        case 7: horarios.add(new Horario(7, "Quarta", "Tarde")); break;
+                        case 8: horarios.add(new Horario(8, "Quinta", "Manhã")); break;
+                        case 9: horarios.add(new Horario(9, "Quinta", "Tarde")); break;
+                        case 10: horarios.add(new Horario(10, "Sexta", "Manhã")); break;
+                        case 11: horarios.add(new Horario(11, "Sexta", "Tarde")); break;
+                        case 12: horarios.add(new Horario(12, "Sábado", "Manhã")); break;
+                        case 13: horarios.add(new Horario(13, "Sábado", "Tarde")); break;
                     }
                     
                 }
-                docente.setDiasSemana(diasSemanaEnum);
+                docente.setHorario(horarios);
                 
                 listaDocentes.add(docente);
             }

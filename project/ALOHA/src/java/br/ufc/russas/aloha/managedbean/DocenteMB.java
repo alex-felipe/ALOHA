@@ -1,19 +1,13 @@
 package br.ufc.russas.aloha.managedbean;
 
-import br.ufc.russas.aloha.dao.ConexaoFactory;
-import br.ufc.russas.aloha.dao.DAOException;
 import br.ufc.russas.aloha.dao.DisciplinaDAO;
 import br.ufc.russas.aloha.dao.DocenteDAO;
-import br.ufc.russas.aloha.model.DiasSemanaEnum;
 import br.ufc.russas.aloha.model.Disciplina;
 import br.ufc.russas.aloha.model.Docente;
 import br.ufc.russas.aloha.model.Preferencia;
-import br.ufc.russas.aloha.model.exception.NomeInvalidoException;
-import br.ufc.russas.aloha.model.exception.QuantidadeCreditosInvalidoException;
+import br.ufc.russas.aloha.model.Horario;
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,23 +26,24 @@ public class DocenteMB implements Serializable {
     private Docente docente;
     private List<Docente> listaDocentes;
     private Disciplina[] disciplinasSelecionadas;
-    private List<Preferencia> preferencias;
-    private List<DiasSemanaEnum> diasSemana;
     DisciplinaDAO disciplinaDAO;
     DocenteDAO docenteDAO;
+    private List<Horario> horarios;
+    private List<String> teste;
 
-    private String feedback;
 
     public DocenteMB() {
         this.docenteDAO = new DocenteDAO();
         this.docente = new Docente();
         this.listaDocentes = docenteDAO.selectALL();
+        this.horarios = new ArrayList<>();
         this.disciplinaDAO = new DisciplinaDAO();
-        this.preferencias = new ArrayList<>();
+        this.teste = new ArrayList<>();
         for (Disciplina d : disciplinaDAO.selectALL()) {
             Preferencia p = new Preferencia(docente, d, 0);
-            preferencias.add(p);
+            docente.getPreferencias().add(p);
         }
+        addDiasSemana();
     }
 
     public void novoDocente() {
@@ -77,8 +72,6 @@ public class DocenteMB implements Serializable {
                         }
                     }
                 } else {
-                    this.docente.setPreferencias(preferencias);
-                    this.docente.setDiasSemana(diasSemana);
                     if (docenteDAO.insert(this.docente)) {
                         try {
 
@@ -145,32 +138,38 @@ public class DocenteMB implements Serializable {
         this.disciplinasSelecionadas = disciplinasSelecionadas;
     }
 
-    public List<Preferencia> getPreferencias() {
-        return preferencias;
+    public List<Horario> getHorarios() {
+        return horarios;
     }
 
-    public void setPreferencias(ArrayList<Preferencia> preferencias) {
-        this.preferencias = preferencias;
-    }
 
-    public String getFeedback() {
-        return feedback;
-    }
+    
 
-    public List<DiasSemanaEnum> getDiasSemana() {
-        return diasSemana;
-    }
-
-    public void setDiasSemana(List<DiasSemanaEnum> diasSemana) {
-        this.diasSemana = diasSemana;
-    }
-   
     private boolean validaDocente() {
         if (docente.getCrMax() <= docente.getCrMin()) {
             enviaFeedBack("Créditos Máximos Inválidos", "A quantidade de créditos máximos deve ser MAIOR que a quantidade de créditos mínimos", 'e');  
             return false;
         }
         return true;
+    }
+    
+    
+    private void addDiasSemana(){
+        this.horarios.add(new Horario(0, "Domingo", "Manhã"));
+        this.horarios.add(new Horario(1, "Domingo", "Tarde"));
+        this.horarios.add(new Horario(2, "Segunda", "Manhã"));
+        this.horarios.add(new Horario(3, "Segunda", "Tarde"));
+        this.horarios.add(new Horario(4, "Terça", "Manhã"));
+        this.horarios.add(new Horario(5, "Terça", "Tarde"));
+        this.horarios.add(new Horario(6, "Quarta", "Manhã"));
+        this.horarios.add(new Horario(7, "Quarta", "Tarde"));
+        this.horarios.add(new Horario(8, "Quinta", "Manhã"));
+        this.horarios.add(new Horario(9, "Quinta", "Tarde"));
+        this.horarios.add(new Horario(10, "Sexta", "Manhã"));
+        this.horarios.add(new Horario(11, "Sexta", "Tarde"));
+        this.horarios.add(new Horario(12, "Sábado", "Manhã"));
+        this.horarios.add(new Horario(13, "Sábado", "Tarde"));
+
     }
 
     public void enviaFeedBack(String titulo, String msg, char severidade) {

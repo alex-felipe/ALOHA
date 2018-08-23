@@ -2,7 +2,6 @@ package br.ufc.russas.aloha.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class Combo {
@@ -69,13 +68,20 @@ public class Combo {
         StringBuilder stb = new StringBuilder();
         for(DiasSemanaEnum dia: dias){
             switch(dia){
-                case DOMINGO: stb.append("Domingo"); break;
-                case SEGUNDA: stb.append("Segunda-feira"); break;
-                case TERCA: stb.append("Terça-feira"); break;
-                case QUARTA: stb.append("Quarta-feira"); break;
-                case QUINTA: stb.append("Quinta-feira"); break;
-                case SEXTA: stb.append("Sexta-feira"); break;
-                case SABADO: stb.append("Sábado"); break;      
+                case DOMINGO_MANHA: stb.append("Domingo (Manhã)"); break;
+                case DOMINGO_TARDE: stb.append("Domingo (Tarde)"); break;
+                case SEGUNDA_MANHA: stb.append("Segunda (Manhã)"); break;
+                case SEGUNDA_TARDE: stb.append("Segunda (Tarde)"); break;
+                case TERCA_MANHA: stb.append("Terça (Manhã)"); break;
+                case TERCA_TARDE: stb.append("Terça (Tarde)"); break;
+                case QUARTA_MANHA: stb.append("Quarta (Manhã)"); break;
+                case QUARTA_TARDE: stb.append("Quarta (Tarde)"); break;
+                case QUINTA_MANHA: stb.append("Quinta (Manhã)"); break;
+                case QUINTA_TARDE: stb.append("Quinta (Tarde)"); break;
+                case SEXTA_MANHA: stb.append("Sexta (Manhã)"); break;
+                case SEXTA_TARDE: stb.append("Sexta (Tarde)"); break;
+                case SABADO_MANHA: stb.append("Sábado (Manhã)"); break;
+                case SABADO_TARDE: stb.append("Sábado (Tarde)"); break;
             }
             stb.append("; ");
         }

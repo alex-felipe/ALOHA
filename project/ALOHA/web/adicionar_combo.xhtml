@@ -135,15 +135,27 @@
             <p:messages id="messages" showDetail="true" closable="true">
             </p:messages>
             <p:selectManyCheckbox id="dias_da_semana" value="#{comboMB.combo.dias}">
-                <f:selectItem itemLabel="Domingo" itemValue="0"/>
-                <f:selectItem itemLabel="Segunda" itemValue="1"/>
-                <f:selectItem itemLabel="Terça" itemValue="2"/>
-                <f:selectItem itemLabel="Quarta" itemValue="3"/>
-                <f:selectItem itemLabel="Quinta" itemValue="4"/>
-                <f:selectItem itemLabel="Sexta" itemValue="5"/>
-                <f:selectItem itemLabel="Sábado" itemValue="6"/>
+                <f:selectItem itemLabel="Domingo (Manhã)" itemValue="0"/>
+                <f:selectItem itemLabel="Domingo (Tarde)" itemValue="1"/>
+                <f:selectItem itemLabel="Segunda (Manhã)" itemValue="2"/>
+                <f:selectItem itemLabel="Segunda (Tarde)" itemValue="3"/>
+                <f:selectItem itemLabel="Terça (Manhã)" itemValue="4"/>
+                <f:selectItem itemLabel="Terça (Tarde)" itemValue="5"/>
+                <f:selectItem itemLabel="Quarta (Manhã)" itemValue="6"/>
+                <f:selectItem itemLabel="Quarta (Tarde)" itemValue="7"/>
+                <f:selectItem itemLabel="Quinta (Manhã)" itemValue="8"/>
+                <f:selectItem itemLabel="Quinta (Tarde)" itemValue="9"/>
+                <f:selectItem itemLabel="Sexta (Manhã)" itemValue="10"/>
+                <f:selectItem itemLabel="Sexta (Tarde)" itemValue="11"/>
+                <f:selectItem itemLabel="Sábado (Manhã)" itemValue="12"/>
+                <f:selectItem itemLabel="Sábado (Tarde)" itemValue="13"/>
             </p:selectManyCheckbox>
-            <p:commandButton value="Salvar" actionListener="#{comboMB.adiciona()}"  update=":frm"></p:commandButton>
+            <br/>
+            <div style="float: right;">
+                <a href="combos.xhtml" class="btn btn-secodary" >Cancelar</a>
+                <p:commandButton value="Salvar" actionListener="#{comboMB.adiciona()}" update=":frm"></p:commandButton>                
+            </div>
+
         </h:form>
         </div>
         <!-- Bootstrap core JavaScript -->

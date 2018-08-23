@@ -29,6 +29,7 @@
         <link href="css/style.css" rel="stylesheet"/>
     </h:head>
     <h:body id="page-top">
+        <p:tooltip />
         <nav class="navbar navbar-expand-lg navbar-light navbar-shrink" id="mainNav">
             <div class="container">
                 <a class="navbar-brand js-scroll-trigger" href="#page-top">ALOHA UFC</a>
@@ -88,6 +89,8 @@
             <br/>
             
             <h:form id="form" prependId="false">
+                <p:messages id="messages" showDetail="true" closable="true">
+                </p:messages>
                 <p:dataTable value="#{comboMB.listaCombos}" var="combo" paginator="true"
                                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                       rowsPerPageTemplate="5,10,15">
@@ -98,18 +101,20 @@
                         <h:outputText value="#{combo.diasEstendido}" />
                     </p:column>
                     <p:column headerText="Remover" style="text-align: center" width="90">
-                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{comboMB.remove()}" style="float: left;">
+                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{comboMB.remove()}" style="left: 40%;position: relative;">
                             <f:setPropertyActionListener value="#{combo}" target="#{comboMB.combo}"/>
-                            <p:confirm header="Confirmação" message="Deseja realmente excluir este combo?" />
+                            <p:confirm header="Confirmação" message="Deseja realmente excluir este combo?" icon="ui-icon-trash"/>
                         </p:commandLink>
                     </p:column>
                 </p:dataTable>
-                <p:commandButton  process="@this" icon="ui-icon-plus" value="Adicionar combo" actionListener="#{comboMB.novoCombo()}"/>
-                
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                     <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="margin-left: 200px"/>
                     <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 5px"/>
                 </p:confirmDialog>
+                <br/>
+                <p:commandButton style="position: absolute; left: 83%" process="@this" icon="ui-icon-plus" value="Adicionar combo" actionListener="#{comboMB.novoCombo()}"/>
+                
+
                 
             </h:form>  
             

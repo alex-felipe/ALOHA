@@ -14,12 +14,12 @@ public class Docente implements Serializable {
     private String nome;
     private int crMin;
     private int crMax;
-    private List<DiasSemanaEnum> diasSemana;
+    private List<Horario> diasSemana;
     private List<Preferencia> preferencias;
 
     
     public Docente() {
-        this.diasSemana = new ArrayList<DiasSemanaEnum>();
+        this.diasSemana = new ArrayList<Horario>();
         this.preferencias = new ArrayList<Preferencia>();
     }
 
@@ -125,13 +125,39 @@ public class Docente implements Serializable {
         }
     }*/
 
-    public List getDiasSemana() {
+    public List<Horario> getDiasSemana() {
         return diasSemana;
     }
 
-    public void setDiasSemana(List diasSemana) {
-        this.diasSemana = diasSemana;
+    public void setDiasSemana(List<String> diasSemana) {
+        ArrayList<Horario> horarios = new ArrayList();
+        for(String h: diasSemana){
+            switch(Integer.parseInt(h)){
+                case 0: horarios.add(new Horario(0, "Domingo", "Manhã")); break;
+                case 1: horarios.add(new Horario(1, "Domingo", "Tarde")); break;
+                case 2: horarios.add(new Horario(2, "Segunda", "Manhã")); break;
+                case 3: horarios.add(new Horario(3, "Segunda", "Tarde")); break;
+                case 4: horarios.add(new Horario(4, "Terça", "Manhã")); break;
+                case 5: horarios.add(new Horario(5, "Terça", "Tarde")); break;
+                case 6: horarios.add(new Horario(6, "Quarta", "Manhã")); break;
+                case 7: horarios.add(new Horario(7, "Quarta", "Tarde")); break;
+                case 8: horarios.add(new Horario(8, "Quinta", "Manhã")); break;
+                case 9: horarios.add(new Horario(9, "Quinta", "Tarde")); break;
+                case 10: horarios.add(new Horario(10, "Sexta", "Manhã")); break;
+                case 11: horarios.add(new Horario(11, "Sexta", "Tarde")); break;
+                case 12: horarios.add(new Horario(12, "Sábado", "Manhã")); break;
+                case 13: horarios.add(new Horario(13, "Sábado", "Tarde")); break;
+            }            
+        }
+
+        this.diasSemana = horarios;
     }
+
+    public void setHorario(List<Horario> horarios) {
+        this.diasSemana = horarios;
+    }
+
+    
 
 
 

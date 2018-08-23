@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.swing.tree.TreeNode;
 import org.apache.catalina.tribes.util.Arrays;
 
 @ManagedBean
@@ -21,6 +22,7 @@ public class ComboMB {
     private Combo combo;
     private List<Combo> listaCombos;
     ComboDAO comboDAO;
+    private TreeNode[] combosSelecionados;
 
     public ComboMB() {
         this.comboDAO = new ComboDAO();
@@ -30,37 +32,44 @@ public class ComboMB {
 
     public void adiciona() {
         try {
+            if (combo.getDias().isEmpty()) {
+                enviaFeedBack("", "Nenhum combo foi selecionado", 'e');
+                return;
+            }
             for (Combo cmb : listaCombos) {
                 ArrayList<Integer> listaDias_cmb = new ArrayList<>();
                 for (Object dd : cmb.getDias().toArray()) {
-                    if (dd.toString().equals("DOMINGO")) {
-                        listaDias_cmb.add(0);
-                    } else if (dd.toString().equals("SEGUNDA")) {
-                        listaDias_cmb.add(1);
-                    } else if (dd.toString().equals("TERCA")) {
-                        listaDias_cmb.add(2);
-                    } else if (dd.toString().equals("QUARTA")) {
-                        listaDias_cmb.add(3);
-                    } else if (dd.toString().equals("QUINTA")) {
-                        listaDias_cmb.add(4);
-                    } else if (dd.toString().equals("SEXTA")) {
-                        listaDias_cmb.add(5);
-                    } else if (dd.toString().equals("SABADO")) {
-                        listaDias_cmb.add(6);
+                    switch((DiasSemanaEnum)dd){
+                        case DOMINGO_MANHA: listaDias_cmb.add(0); break;
+                        case DOMINGO_TARDE: listaDias_cmb.add(1); break;
+                        case SEGUNDA_MANHA: listaDias_cmb.add(2); break;
+                        case SEGUNDA_TARDE: listaDias_cmb.add(3); break;
+                        case TERCA_MANHA: listaDias_cmb.add(4); break;
+                        case TERCA_TARDE: listaDias_cmb.add(5); break;
+                        case QUARTA_MANHA: listaDias_cmb.add(6); break;
+                        case QUARTA_TARDE: listaDias_cmb.add(7); break;
+                        case QUINTA_MANHA: listaDias_cmb.add(8); break;
+                        case QUINTA_TARDE: listaDias_cmb.add(9); break;
+                        case SEXTA_MANHA: listaDias_cmb.add(10); break;
+                        case SEXTA_TARDE: listaDias_cmb.add(11); break;
+                        case SABADO_MANHA: listaDias_cmb.add(12); break;
+                        case SABADO_TARDE: listaDias_cmb.add(13); break;
                     }
                 }
                 //System.out.println(Arrays.toString(listaDias_cmb.toArray()));
                 //System.out.println(Arrays.toString(combo.getDias().toArray()));
                 if (Arrays.toString(listaDias_cmb.toArray()).equals(Arrays.toString(combo.getDias().toArray()))) {
-                    enviaFeedBack("Alerta", "Este combo já foi cadastrado", 'a');
+                    enviaFeedBack("", "Este combo já está cadastrado", 'a');
                     return;
                 }
             }
 
             comboDAO.insert(combo);
+            enviaFeedBack("", "Cadastro realizado com sucesso!", 'i');
             FacesContext.getCurrentInstance().getExternalContext().redirect("combos.xhtml");
             combo = new Combo();
             this.listaCombos = comboDAO.selectALL();
+            
 
         } catch (IOException ex) {
             Logger.getLogger(ComboMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,5 +139,15 @@ public class ComboMB {
         }
         context.addMessage(null, new FacesMessage(s, titulo, msg));
     }
+
+    public TreeNode[] getCombosSelecionados() {
+        return combosSelecionados;
+    }
+
+    public void setCombosSelecionados(TreeNode[] combosSelecionados) {
+        this.combosSelecionados = combosSelecionados;
+    }
+    
+    
 
 }
