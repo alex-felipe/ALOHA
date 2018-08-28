@@ -129,10 +129,10 @@ public class Docente implements Serializable {
         return diasSemana;
     }
 
-    public void setDiasSemana(List<String> diasSemana) {
+    public void setDiasSemana(List<Integer> diasSemana) {
         ArrayList<Horario> horarios = new ArrayList();
-        for(String h: diasSemana){
-            switch(Integer.parseInt(h)){
+        for(Integer h: diasSemana){
+            switch(h){
                 case 0: horarios.add(new Horario(0, "Domingo", "Manhã")); break;
                 case 1: horarios.add(new Horario(1, "Domingo", "Tarde")); break;
                 case 2: horarios.add(new Horario(2, "Segunda", "Manhã")); break;

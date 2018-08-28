@@ -52,7 +52,7 @@ public class DocenteDAO implements Serializable{
                 sql = "INSERT INTO `docente_dias_semana`(`id_docente`, `dia_semana`) VALUES (?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setInt(1, docente.getId());
-                ps.setInt(2, Integer.parseInt(dia.toString()));
+                ps.setInt(2, ((Horario)dia).getId());
                 ps.executeUpdate();
             }
             
@@ -193,28 +193,13 @@ public class DocenteDAO implements Serializable{
                 pst.setInt(1, docente.getId());
                 rst = pst.executeQuery();
 
-                ArrayList<Horario> horarios = new ArrayList<>();
+                ArrayList<Integer> horarios = new ArrayList<>();
                 while (rst.next()) {
                     int dia = rst.getInt("dia_semana");
-                    switch(dia){
-                        case 0: horarios.add(new Horario(0, "Domingo", "Manhã")); break;
-                        case 1: horarios.add(new Horario(1, "Domingo", "Tarde")); break;
-                        case 2: horarios.add(new Horario(2, "Segunda", "Manhã")); break;
-                        case 3: horarios.add(new Horario(3, "Segunda", "Tarde")); break;
-                        case 4: horarios.add(new Horario(4, "Terça", "Manhã")); break;
-                        case 5: horarios.add(new Horario(5, "Terça", "Tarde")); break;
-                        case 6: horarios.add(new Horario(6, "Quarta", "Manhã")); break;
-                        case 7: horarios.add(new Horario(7, "Quarta", "Tarde")); break;
-                        case 8: horarios.add(new Horario(8, "Quinta", "Manhã")); break;
-                        case 9: horarios.add(new Horario(9, "Quinta", "Tarde")); break;
-                        case 10: horarios.add(new Horario(10, "Sexta", "Manhã")); break;
-                        case 11: horarios.add(new Horario(11, "Sexta", "Tarde")); break;
-                        case 12: horarios.add(new Horario(12, "Sábado", "Manhã")); break;
-                        case 13: horarios.add(new Horario(13, "Sábado", "Tarde")); break;
-                    }
-                    
+                    horarios.add(dia);
                 }
-                docente.setHorario(horarios);
+                System.out.println("a"+ Arrays.toString(horarios.toArray()));
+                docente.setDiasSemana(horarios);
                 
                 listaDocentes.add(docente);
             }

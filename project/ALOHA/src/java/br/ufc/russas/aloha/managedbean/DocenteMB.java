@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 @ManagedBean
 @SessionScoped
@@ -29,21 +31,27 @@ public class DocenteMB implements Serializable {
     DisciplinaDAO disciplinaDAO;
     DocenteDAO docenteDAO;
     private List<Horario> horarios;
-    private List<String> teste;
+
+    private List<String> horariosSelecionados; // preselected
+
+    private List<SelectItem> horariosCheckbox;
 
 
+    
+    
     public DocenteMB() {
         this.docenteDAO = new DocenteDAO();
         this.docente = new Docente();
         this.listaDocentes = docenteDAO.selectALL();
         this.horarios = new ArrayList<>();
         this.disciplinaDAO = new DisciplinaDAO();
-        this.teste = new ArrayList<>();
         for (Disciplina d : disciplinaDAO.selectALL()) {
             Preferencia p = new Preferencia(docente, d, 0);
             docente.getPreferencias().add(p);
         }
         addDiasSemana();
+        this.horariosCheckbox = new ArrayList<>();
+        addItensHorarios();
     }
 
     public void novoDocente() {
@@ -92,6 +100,11 @@ public class DocenteMB implements Serializable {
 
     public void edita() {
         try {
+            this.horariosSelecionados = new ArrayList<>();
+            for(Horario h: docente.getDiasSemana()){
+                horariosSelecionados.add(""+h.getId());
+            }
+            System.out.println(Arrays.toString(horariosSelecionados.toArray()));
             FacesContext.getCurrentInstance().getExternalContext().redirect("adicionar_docente.xhtml");
 
         } catch (IOException e) {
@@ -142,6 +155,22 @@ public class DocenteMB implements Serializable {
         return horarios;
     }
 
+    public List<String> getHorariosSelecionados() {
+        return horariosSelecionados;
+    }
+
+    public void setHorariosSelecionados(List<String> horariosSelecionados) {
+        this.horariosSelecionados = horariosSelecionados;
+    }
+
+    public List<SelectItem> getHorariosCheckbox() {
+        return horariosCheckbox;
+    }
+
+    public void setHorariosCheckbox(List<SelectItem> horariosCheckbox) {
+        this.horariosCheckbox = horariosCheckbox;
+    }
+
 
     
 
@@ -172,6 +201,14 @@ public class DocenteMB implements Serializable {
 
     }
 
+    private void addItensHorarios() {
+        for(Horario h: horarios){
+            this.horariosCheckbox.add(new SelectItem(h.getId(), h.getDia() + " (" + h.getTurno() + ")"));
+        }
+
+    }
+
+    
     public void enviaFeedBack(String titulo, String msg, char severidade) {
         FacesContext context = FacesContext.getCurrentInstance();
         Severity s = null;

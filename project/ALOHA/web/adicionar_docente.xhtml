@@ -112,7 +112,7 @@
                         <p:outputLabel>Selecione os dias da semana na qual o docente estará disponível para realizar suas atividades: </p:outputLabel>
 
                         <p:selectManyCheckbox id="grid" value="#{docenteMB.docente.diasSemana}" layout="grid" columns="2">
-                            <f:selectItems value="#{docenteMB.horarios}" var="horario" itemLabel="#{horario.dia}  (#{horario.turno})" itemValue="#{horario.id}" />
+                            <f:selectItems value="#{docenteMB.horariosSelecionados}" var="horario" itemLabel="#{horario.dia}  (#{horario.turno})" itemValue="#{horario.id}" />
                         </p:selectManyCheckbox>
                     </div>
                     

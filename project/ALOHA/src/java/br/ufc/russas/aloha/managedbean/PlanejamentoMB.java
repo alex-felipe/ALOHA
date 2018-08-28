@@ -16,11 +16,15 @@ public class PlanejamentoMB implements Serializable {
     DisciplinaDAO disciplinaDAO;
     SalaDAO salaDAO;
     DocenteDAO docenteDAO;
+    ComboDAO comboDAO;
 
 //Variáveis para Auxiliares
     private Turmas turmasTmp;
     private Sala salaTmp;
     private Docente docenteTemp;
+    private Docente docenteFix;
+    private VariaveisFixas varFix;
+    
     private boolean skip;
 
 //Listas para gerar modelo
@@ -28,6 +32,8 @@ public class PlanejamentoMB implements Serializable {
     private ArrayList<Turmas> turmasOfertadas;
     private ArrayList<Turmas> filteredDiscip;
     private ArrayList<Sala> salasAlocadas;
+    private ArrayList<VariaveisFixas> variaveisFixas;
+    private ArrayList<Combo> combos;
 
 //listaRemovidos
     private ArrayList<Docente> docentesOut;
@@ -38,13 +44,16 @@ public class PlanejamentoMB implements Serializable {
         this.disciplinaDAO = new DisciplinaDAO();
         this.salaDAO = new SalaDAO();
         this.docenteDAO = new DocenteDAO();
+        this.comboDAO = new ComboDAO();
 
         this.disciplinasOut = new ArrayList<>();
         this.docentesOut = new ArrayList<>();
         this.salasOut = new ArrayList<>();
+        this.variaveisFixas = new ArrayList<>();
 
         this.turmasOfertadas = new ArrayList<>();
         try {
+            this.combos = comboDAO.selectALL();
             this.docentesDisponiveis = docenteDAO.selectALL();
             for (Disciplina d : this.disciplinaDAO.selectALL()) {
                 this.turmasOfertadas.add(new Turmas(d, 1));
@@ -58,7 +67,44 @@ public class PlanejamentoMB implements Serializable {
         this.turmasTmp = new Turmas();
         this.salaTmp = new Sala();
         this.docenteTemp = new Docente();
+        this.docenteFix = new Docente();
+        this.varFix = new VariaveisFixas();
 
+    }
+
+    public ArrayList<Combo> getCombos() {
+        return combos;
+    }
+
+    public void setCombos(ArrayList<Combo> combos) {
+        this.combos = combos;
+    }
+    
+
+    public VariaveisFixas getVarFix() {
+        return varFix;
+    }
+
+    public void setVarFix(VariaveisFixas varFix) {
+        this.varFix = varFix;
+    }
+
+    public ArrayList<VariaveisFixas> getVariaveisFixas() {
+        return variaveisFixas;
+    }
+
+    public void setVariaveisFixas(ArrayList<VariaveisFixas> variaveisFixas) {
+        this.variaveisFixas = variaveisFixas;
+    }
+
+    
+    
+    public Docente getDocenteFix() {
+        return docenteFix;
+    }
+
+    public void setDocenteFix(Docente docenteFix) {
+        this.docenteFix = docenteFix;
     }
 
     //---------------------------------------------------------------------------

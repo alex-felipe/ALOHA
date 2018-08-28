@@ -88,7 +88,7 @@
                 <p:wizard  nextLabel="Próximo" backLabel="Anterior">
                     <p:tab id="docentes" title="Docentes">
 
-                        <p:panel header="Docentes">
+                        <p:panel>
                             <hr></hr>
                             <h2 style="font-size: 22px;">Docentes disponíveis</h2>
                             <p:messages />
@@ -133,7 +133,7 @@
                     </p:tab>
 
                     <p:tab id="disciplinas" title="Disciplinas">
-                        <p:panel header="Disciplinas">
+                        <p:panel>
                             <hr></hr>
                             <h2 style="font-size: 22px;">Disciplinas ofertadas</h2>
                             <p:messages />
@@ -247,8 +247,100 @@
 
                     </p:tab>
 
+                    <p:tab id="varFixas" title="Variáveis fixas">
+
+                        <p:panel header="Variáveis fixas" >
+                            <hr></hr>
+                            <h2 style="font-size: 22px;">Cadastro variáveis fixas</h2>
+                            <br/><br/>
+                            <div style="width: 95%; margin: 0 auto;"  >
+                                <div class="form-group row" >
+                                    <p:outputLabel for="docente">Docente: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu id="docente" value="#{planejamentoMB.varFix.docente}" panelStyle="width:180px"
+                                                     effect="fade" var="doc"  filter="true" filterMatchMode="startsWith">
+                                        <f:selectItems value="#{planejamentoMB.docentesDisponiveis}" var="doce" itemLabel="#{doce.nome}" itemValue="#{doce}" />
+                                        <p:column>
+                                            <h:outputText value="#{doc.nome}" />
+                                        </p:column>
+                                    </p:selectOneMenu> 
+                                </div>
+                                <div class="form-group row" >
+                                    <p:outputLabel for="combo">Combo: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu id="combo" value="#{planejamentoMB.varFix.combo}" panelStyle="width:100px" 
+                                                     effect="fade" var="c"  filter="true" filterMatchMode="startsWith">
+                                        <f:selectItems value="#{planejamentoMB.combos}" var="cb" itemLabel="#{cb.diasEstendido}" itemValue="#{cb}" />
+                                        <p:column>
+                                            <h:outputText value="#{c.diasEstendido}" />
+                                        </p:column>
+                                    </p:selectOneMenu> 
+                                </div>
+                                <div class="form-group row" >
+                                    <p:outputLabel for="horario">Horario: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu id="horario" value="#{planejamentoMB.varFix.horario}" panelStyle="width:100px" 
+                                                     effect="fade" var="h"  filter="true" filterMatchMode="startsWith">
+                                        <f:selectItem itemLabel="08:00 - 10:00" itemValue="08:00 - 10:00"/>
+                                        <f:selectItem itemLabel="10:00 - 12:00" itemValue="10:00 - 12:00"/>
+                                        <f:selectItem itemLabel="13:30 - 13:30" itemValue="13:30 - 15:30"/>
+                                        <f:selectItem itemLabel="15:30 - 17:30" itemValue="15:30 - 17:30"/>
+                                        
+                                    </p:selectOneMenu> 
+                                </div>
+                                <div class="form-group row" >
+                                    <p:outputLabel for="sala">Disciplina: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu id="sala" value="#{planejamentoMB.varFix.sala}" panelStyle="width:100px" 
+                                                     effect="fade" var="s" filter="true" filterMatchMode="startsWith">
+                                        <f:selectItems value="#{planejamentoMB.salasAlocadas}" var="sl" itemLabel="#{sl.nome}" itemValue="#{sl}" />
+                                        <p:column>
+                                            <h:outputText value="#{s.nome}" />
+                                        </p:column>
+                                    </p:selectOneMenu> 
+                                </div>
+                                <div class="form-group row" >
+                                    <p:outputLabel for="disciplina">Disciplina: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu id="disciplina" value="#{planejamentoMB.varFix.disciplina}" panelStyle="width:100px" 
+                                                     effect="fade" var="disc" filter="true" filterMatchMode="startsWith">
+                                        <f:selectItems value="#{planejamentoMB.turmasOfertadas}" var="di" itemLabel="#{di.disciplina.nome}" itemValue="#{di.disciplina}" />
+                                        <p:column>
+                                            <h:outputText value="#{disc.nome}" />
+                                        </p:column>
+                                    </p:selectOneMenu> 
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <h2 style="font-size: 22px;">Variáveis fixas</h2>
+                            <div class="form-group row" >
+                                <p:dataTable id="tableVarFixa" var="varFixa" value="#{planejamentoMB.variaveisFixas}" style="width: 95%; margin: 0 auto" 
+                                             rows="10" paginator="true" rowsPerPageTemplate="5,10,15" paginatorPosition="top"
+                                             paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" emptyMessage="Nenhuma variável fixa no planejamento">
+                                    <p:column headerText="Docente" width="30%">
+                                        <h:outputText value="#{varFixa.docente.nome}" />
+                                    </p:column>
+                                    <p:column headerText="Combo">
+                                        <h:outputText value="#{varFixa.combo.diasEstendido}" />
+                                    </p:column>
+                                    <p:column headerText="Horário">
+                                        <h:outputText value="#{varFixa.horario}" />
+                                    </p:column>
+                                    <p:column headerText="Sala">
+                                        <h:outputText value="#{varFixa.sala.nome}" />
+                                    </p:column>
+                                    <p:column headerText="Disciplina">
+                                        <h:outputText value="#{varFixa.disciplina.nome}" />
+                                    </p:column>
+                                    <p:column headerText="" style="text-align: center" width="35">
+                                        <p:commandLink  styleClass="ui-icon ui-icon-circle-plus"   update=":form:tableSalaOut :form:tableSala"  style="float: left;" >
+                                            
+                                        </p:commandLink>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </p:panel>
+
+                    </p:tab>
+
+
                     <p:tab id="confirm" title="Confirmação">
-                        <p:panel header="Confirmation">
+                        <p:panel header="Confirmation" >
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Apresentar informações para gerar o arquivo" />
 
@@ -267,21 +359,6 @@
         </div>
         <br/>
 
-
-        <!-- Bootstrap core JavaScript -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-
-        <!-- Plugin JavaScript -->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-        <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
     </h:body>
 </html>
