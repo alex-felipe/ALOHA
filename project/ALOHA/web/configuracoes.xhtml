@@ -104,22 +104,16 @@
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="Configurações do Planejamento">
-                    <p:dataTable var="combo">
-                        <p:column headerText="Curso" width="90">
-                            <h:outputText value="Engenharia de Software" />
-                        </p:column>
-                        <p:column headerText="Remover" style="text-align: center" width="90">
-                            <p:commandLink  styleClass="ui-icon ui-icon-trash" style="left: 40%;position: relative;">
-                                <p:confirm header="Confirmação" message="Deseja realmente excluir este combo?" icon="ui-icon-trash"/>
-                            </p:commandLink>
-                        </p:column>
-                    </p:dataTable>
                     <p:dataList value="#{configuracoesMB.cursos}" var="curso" type="ordered">
                         <f:facet name="header">
                             Curso
                         </f:facet>
-                        #curso
+                        #{curso}
                     </p:dataList>
+                    <p:commandLink  styleClass="ui-icon ui-icon-trash"   style="left: 40%;position: relative;">
+                        
+                        <p:confirm header="Confirmação" message="Deseja realmente excluir este combo?" icon="ui-icon-trash"/>
+                    </p:commandLink>
                 </p:tab>
                 <p:tab title="Configurações do Servidor">
                     <h:outputText value="URL do Servidor: "/><p:inputText />
