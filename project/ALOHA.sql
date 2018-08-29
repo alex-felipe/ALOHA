@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 21, 2018 at 11:51 PM
+-- Generation Time: Aug 29, 2018 at 09:44 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -38,10 +38,13 @@ CREATE TABLE `combo` (
 --
 
 INSERT INTO `combo` (`id`, `codigo_modelo`) VALUES
-(1, 'CMB0001'),
-(2, 'CMB0002'),
-(3, 'CMB0003'),
-(4, 'CMB0004');
+(26, 'CMB0026'),
+(28, 'CMB0028'),
+(29, 'CMB0029'),
+(30, 'CMB0030'),
+(31, 'CMB0031'),
+(32, 'CMB0032'),
+(33, 'CMB0033');
 
 -- --------------------------------------------------------
 
@@ -59,15 +62,22 @@ CREATE TABLE `combo_dias` (
 --
 
 INSERT INTO `combo_dias` (`id_combo`, `id_dia`) VALUES
-(1, 1),
-(1, 3),
-(2, 2),
-(2, 3),
-(2, 4),
-(3, 1),
-(3, 2),
-(4, 1),
-(4, 3);
+(26, 1),
+(26, 3),
+(28, 1),
+(28, 3),
+(29, 1),
+(29, 3),
+(30, 0),
+(30, 3),
+(31, 0),
+(31, 3),
+(32, 0),
+(32, 3),
+(33, 0),
+(33, 3),
+(34, 0),
+(34, 3);
 
 -- --------------------------------------------------------
 
@@ -152,9 +162,7 @@ CREATE TABLE `docente` (
 --
 
 INSERT INTO `docente` (`id`, `codigo_modelo`, `nome`, `cr_minimo`, `cr_maximo`) VALUES
-(1, 'DOC0001', 'Dmontier', 2, 6),
-(3, 'DOC0003', 'asdasd', 2, 8),
-(4, 'DOC0004', 'aaaaa', 10, 2);
+(44, 'DOC0044', 'zxczzczxc', 10, 12);
 
 -- --------------------------------------------------------
 
@@ -181,6 +189,18 @@ CREATE TABLE `docente_dias_semana` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `horario`
+--
+
+CREATE TABLE `horario` (
+  `id` int(11) NOT NULL,
+  `codigo_modelo` varchar(6) COLLATE utf8_bin DEFAULT NULL,
+  `descricao` varchar(45) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `preferencia`
 --
 
@@ -195,34 +215,46 @@ CREATE TABLE `preferencia` (
 --
 
 INSERT INTO `preferencia` (`id_docente`, `id_disciplina`, `preferencia`) VALUES
-(1, 5, 24),
-(1, 6, 45),
-(1, 7, 66),
-(1, 8, 64),
-(2, 5, 0),
-(2, 6, 0),
-(2, 7, 0),
-(2, 8, 0),
-(3, 5, 0),
-(3, 6, 0),
-(3, 7, 0),
-(3, 8, 0),
-(4, 5, 63),
-(4, 6, 0),
-(4, 7, 0),
-(4, 8, 0),
-(5, 5, 63),
-(5, 6, 0),
-(5, 7, 0),
-(5, 8, 0),
-(6, 5, 63),
-(6, 6, 0),
-(6, 7, 0),
-(6, 8, 0),
-(7, 5, 63),
-(7, 6, 0),
-(7, 7, 0),
-(7, 8, 0);
+(18, 5, 0),
+(18, 6, 0),
+(18, 7, 0),
+(18, 8, 0),
+(25, 5, 0),
+(25, 6, 0),
+(25, 7, 0),
+(25, 8, 0),
+(26, 5, 100),
+(26, 6, 100),
+(26, 7, 0),
+(26, 8, 0),
+(27, 5, 100),
+(27, 6, 100),
+(27, 7, 0),
+(27, 8, 50),
+(30, 5, 99),
+(30, 6, 0),
+(30, 7, 0),
+(30, 8, 48),
+(31, 5, 0),
+(31, 6, 0),
+(31, 7, 0),
+(31, 8, 0),
+(32, 5, 0),
+(32, 6, 0),
+(32, 7, 0),
+(32, 8, 0),
+(35, 5, 0),
+(35, 6, 0),
+(35, 7, 0),
+(35, 8, 0),
+(37, 5, 0),
+(37, 6, 0),
+(37, 7, 0),
+(37, 8, 0),
+(38, 5, 100),
+(38, 6, 0),
+(38, 7, 0),
+(38, 8, 0);
 
 -- --------------------------------------------------------
 
@@ -289,6 +321,12 @@ ALTER TABLE `docente_combo`
   ADD PRIMARY KEY (`id_docente`,`id_combo`);
 
 --
+-- Indexes for table `horario`
+--
+ALTER TABLE `horario`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `preferencia`
 --
 ALTER TABLE `preferencia`
@@ -308,7 +346,7 @@ ALTER TABLE `sala`
 -- AUTO_INCREMENT for table `combo`
 --
 ALTER TABLE `combo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `curso_semestre`
@@ -332,7 +370,13 @@ ALTER TABLE `disciplina_curso_semestre`
 -- AUTO_INCREMENT for table `docente`
 --
 ALTER TABLE `docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT for table `horario`
+--
+ALTER TABLE `horario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sala`

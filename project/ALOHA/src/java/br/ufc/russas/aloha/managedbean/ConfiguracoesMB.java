@@ -8,14 +8,23 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ConfiguracoesMB {
 
-    private String[] cursos = {"Engenharia de Software", "Ciências da Computação"};
-
+    private String[] cursos = {"Engenharia de Software", "Ciência da Computação"};
+    private String[] horarios = {"08:00 - 10:00", "10:00 - 12:00"};
+    
     public String[] getCursos() {
         return cursos;
     }
 
     public void setCursos(String[] cursos) {
         this.cursos = cursos;
+    }
+
+    public String[] getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(String[] horarios) {
+        this.horarios = horarios;
     }
     
     

@@ -88,13 +88,14 @@
             <br/>
             <p:tabView>
                 <p:tab title="Atualizar Perfil">
+                    <h:outputText value="Nesta página você pode realizar alterações nos seus dados."/><br/><br/>
                     <h:panelGrid columns="3" cellpadding="5">
                         <h:outputText value="Nome: " />
-                        <p:inputText id="nonFeedback" value="" />
+                        <p:inputText id="nonFeedback" value="Dmontier Aragão" />
                         <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
 
                         <h:outputText value="Login: " />
-                        <p:inputText id="feedback" value=""  />
+                        <p:inputText id="feedback" value="dmontier@ufc.br"  disabled="true"/>
                         <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
 
 
@@ -102,24 +103,53 @@
                         <p:password id="inlineFeedback" feedback="true" inline="true" value="aloha"/>
                         <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
                     </h:panelGrid>
+                    <p:commandButton value="Salvar " validateClient="true"> </p:commandButton>
                 </p:tab>
                 <p:tab title="Configurações do Planejamento">
-                    <p:dataList value="#{configuracoesMB.cursos}" var="curso" type="ordered">
-                        <f:facet name="header">
-                            Curso
-                        </f:facet>
-                        #{curso}
-                    </p:dataList>
-                    <p:commandLink  styleClass="ui-icon ui-icon-trash"   style="left: 40%;position: relative;">
-                        
-                        <p:confirm header="Confirmação" message="Deseja realmente excluir este combo?" icon="ui-icon-trash"/>
-                    </p:commandLink>
+                    <h:outputText value="Nesta página você pode realizar alterações nas configurações de planejamento da alocação de horários."/><br/><br/>
+                    <div style="position: absolute; width: 50%; ">
+                        <div style="width: 450px;">
+                            <p:dataList value="#{configuracoesMB.cursos}" var="curso" type="none" >
+                                <f:facet name="header">
+                                    Curso
+                                </f:facet>
+                                <h:panelGrid columns="3" cellpadding="5">
+                                    &nbsp; #{curso} <p:commandLink  styleClass="ui-icon ui-icon-trash" ></p:commandLink> 
+                                </h:panelGrid>
+
+                            </p:dataList>
+                        </div>
+                        <br/>
+                        <h:outputText value="Nome do curso: " /> &nbsp;
+                        <p:inputText id="feedback" value=""  /> &nbsp;
+                        <p:commandButton value="Adicionar novo curso"/>
+                    </div>
+                    <div style="position: absolute; width: 50%; left: 50%;">
+                        <div style="width: 450px;">
+                            <p:dataList value="#{configuracoesMB.horarios}" var="horario" type="none" >
+                                
+                                <f:facet name="header">
+                                    Horários
+                                </f:facet>
+                                <h:panelGrid columns="3" cellpadding="5">
+                                    &nbsp; #{horario} <p:commandLink  styleClass="ui-icon ui-icon-trash" ></p:commandLink> 
+                                </h:panelGrid>
+                            </p:dataList>
+                        </div>
+                        <br/>
+                        <h:outputText value="Horário: " /> &nbsp;
+                        <p:inputMask  mask="99:99" style="width: 60px;" /> &nbsp; às &nbsp;<p:inputMask  mask="99:99" style="width: 60px;" /> &nbsp;
+                        <p:commandButton value="Adicionar novo horário"/>
+                    </div>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
                 </p:tab>
                 <p:tab title="Configurações do Servidor">
-                    <h:outputText value="URL do Servidor: "/><p:inputText />
+                    <h:outputText value="Nesta página você pode realizar alterações nas configurações do servidor."/><br/><br/>
+                    <h:outputText value="URL do Servidor: "/><p:inputText />  &nbsp; &nbsp;<p:commandButton value="Salvar " validateClient="true"> </p:commandButton>
                 </p:tab>
                 <p:tab title="Configurações do Banco de Dados">
-                    <h:outputText value="Nesta página você pode realizar alterações nas configurações do banco de dados."/><br/>
+                    <h:outputText value="Nesta página você pode realizar alterações nas configurações do banco de dados."/><br/><br/>
                     <h:panelGrid columns="3" cellpadding="10">
                         <h:outputText value="Nome do BD: " />
                         <p:inputText id="feedback" value="aloha" />
