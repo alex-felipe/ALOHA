@@ -82,8 +82,6 @@
             <form class="form-inline my-2 my-lg-0">
                 <h2 class="section-heading float-left" style="font-size: 22px;">CONFIGURAÇÕES</h2>
                 <hr class="my-4"/>
-                <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar sala..." aria-label="Pesquisar sala..." style="width: 201px;"/>
-                <button class="btn btn-outline-primary my-2 my-sm-0" style="border-radius: 0.5em;" type="submit">Pesquisar</button>
             </form>
             <br/>
             <p:tabView>
@@ -92,7 +90,7 @@
                     <h:panelGrid columns="3" cellpadding="5">
                         <h:outputText value="Nome: " />
                         <p:inputText id="nonFeedback" value="Dmontier Aragão" />
-                        <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
+                        <br/>
 
                         <h:outputText value="Login: " />
                         <p:inputText id="feedback" value="dmontier@ufc.br"  disabled="true"/>
@@ -100,10 +98,12 @@
 
 
                         <h:outputText value="Senha: " />
-                        <p:password id="inlineFeedback" feedback="true" inline="true" value="aloha"/>
+                        <p:inputText id="inlineFeedback" value="**********" disabled="true"/>
                         <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
                     </h:panelGrid>
-                    <p:commandButton value="Salvar " validateClient="true"> </p:commandButton>
+                    <br/>
+                    <p:commandButton value="Cancelar" validateClient="true"> </p:commandButton> &nbsp;
+                    <p:commandButton value="Salvar alterações" validateClient="true"> </p:commandButton>
                 </p:tab>
                 <p:tab title="Configurações do Planejamento">
                     <h:outputText value="Nesta página você pode realizar alterações nas configurações de planejamento da alocação de horários."/><br/><br/>
@@ -146,14 +146,17 @@
                 </p:tab>
                 <p:tab title="Configurações do Servidor">
                     <h:outputText value="Nesta página você pode realizar alterações nas configurações do servidor."/><br/><br/>
-                    <h:outputText value="URL do Servidor: "/><p:inputText />  &nbsp; &nbsp;<p:commandButton value="Salvar " validateClient="true"> </p:commandButton>
+                    <h:outputText value="URL do Servidor: "/><p:inputText value="aloha.russas.ufc.br" disabled="true"/>  &nbsp; &nbsp;<p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
+                    <br/><br/>
+                    <p:commandButton value="Cancelar" validateClient="true"> </p:commandButton> &nbsp;
+                    <p:commandButton value="Salvar alterações" validateClient="true"> </p:commandButton>
                 </p:tab>
                 <p:tab title="Configurações do Banco de Dados">
                     <h:outputText value="Nesta página você pode realizar alterações nas configurações do banco de dados."/><br/><br/>
                     <h:panelGrid columns="3" cellpadding="10">
                         <h:outputText value="Nome do BD: " />
-                        <p:inputText id="feedback" value="aloha" />
-                        <br/>
+                        <p:inputText id="feedback" value="aloha" disabled="true"/>
+                        <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
                         
                         <h:outputText value="Login: " />
                         <p:inputText id="feedback" value="root" disabled="true" />
@@ -161,12 +164,13 @@
 
 
                         <h:outputText value="Senha: " />
-                        <p:password id="inlineFeedback" feedback="true" inline="true" value="aloha" disabled="true"/>
+                        <p:inputText id="inlineFeedback" value="**********" disabled="true"/>
                         <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
                         
-                        <p:commandButton value="Salvar " validateClient="true"> </p:commandButton>
                     </h:panelGrid>
-                    
+                    <br/>
+                    <p:commandButton value="Cancelar" validateClient="true"> </p:commandButton> &nbsp;
+                    <p:commandButton value="Salvar alterações" validateClient="true"> </p:commandButton>
                 </p:tab>
             </p:tabView>
             
