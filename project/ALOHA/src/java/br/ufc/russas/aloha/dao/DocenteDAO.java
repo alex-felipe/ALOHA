@@ -193,10 +193,26 @@ public class DocenteDAO implements Serializable{
                 pst.setInt(1, docente.getId());
                 rst = pst.executeQuery();
 
+<<<<<<< Updated upstream
                 ArrayList<Integer> horarios = new ArrayList<>();
                 while (rst.next()) {
                     int dia = rst.getInt("dia_semana");
                     horarios.add(dia);
+=======
+                ArrayList<DiasSemanaEnum> diasSemanaEnum = new ArrayList<>();
+                while (rst.next()) {
+                    int dia = rst.getInt("dia_semana");
+                    switch(dia){
+                        case 0: diasSemanaEnum.add(DiasSemanaEnum.DOMINGO); break;
+                        case 1: diasSemanaEnum.add(DiasSemanaEnum.SEGUNDA); break;
+                        case 2: diasSemanaEnum.add(DiasSemanaEnum.TERCA); break;
+                        case 3: diasSemanaEnum.add(DiasSemanaEnum.QUARTA); break;
+                        case 4: diasSemanaEnum.add(DiasSemanaEnum.QUINTA); break;
+                        case 5: diasSemanaEnum.add(DiasSemanaEnum.SEXTA); break;
+                        case 6: diasSemanaEnum.add(DiasSemanaEnum.SABADO); break;
+                    }
+                    
+>>>>>>> Stashed changes
                 }
                 System.out.println("a"+ Arrays.toString(horarios.toArray()));
                 docente.setDiasSemana(horarios);
@@ -214,6 +230,7 @@ public class DocenteDAO implements Serializable{
                 throw new DAOException("Não foi possível fechar a conexão", e);
             }
         }
+        System.out.println(listaDocentes.size());
         return listaDocentes;
     }
     
