@@ -5,11 +5,13 @@
  */
 package br.ufc.russas.aloha.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author projetosti
  */
-public class Horario {
+public class Horario implements Serializable{
     
     private int id;
     private String dia;

@@ -115,13 +115,14 @@ public class DocenteMB implements Serializable {
     public void remove() {
         if(docenteDAO.remove(docente)){
             try {
+                this.docente = new Docente();
+                this.listaDocentes = docenteDAO.selectALL();
                 FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");
                 enviaFeedBack("Operação realizada com sucesso!", "Os dados do docente foram removidos com sucesso!", 'i');
             } catch (IOException ex) {
                 Logger.getLogger(DocenteMB.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.docente = new Docente();
-            this.listaDocentes = docenteDAO.selectALL();        
+ 
         }else{
             enviaFeedBack("Erro!", "Não foi possível realizar o cadastro do docente!", 'e');
         }
