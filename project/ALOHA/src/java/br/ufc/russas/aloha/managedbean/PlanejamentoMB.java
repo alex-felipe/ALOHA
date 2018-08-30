@@ -261,6 +261,14 @@ public class PlanejamentoMB implements Serializable {
         }
 
     }
+    public void addVarFixa(){
+         System.out.println("AQUI");
+        if(this.varFix!=null){
+           
+            this.variaveisFixas.add(varFix);
+            this.varFix = new VariaveisFixas();
+        }
+    }
 
     public boolean isSkip() {
         return skip;

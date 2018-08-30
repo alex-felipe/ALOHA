@@ -255,8 +255,8 @@
                             <br/><br/>
                             <div style="width: 95%; margin: 0 auto;"  >
                                 <div class="form-group row" >
-                                    <p:outputLabel for="docente">Docente: &nbsp;</p:outputLabel>
-                                    <p:selectOneMenu id="docente" value="#{planejamentoMB.varFix.docente}" panelStyle="width:180px"
+                                    <p:outputLabel for="docente" style="width: 8%;">Docente: </p:outputLabel>
+                                    <p:selectOneMenu id="docente" value="#{planejamentoMB.varFix.docente}" style="width: 40%"
                                                      effect="fade" var="doc"  filter="true" filterMatchMode="startsWith">
                                         <f:selectItems value="#{planejamentoMB.docentesDisponiveis}" var="doce" itemLabel="#{doce.nome}" itemValue="#{doce}" />
                                         <p:column>
@@ -265,8 +265,18 @@
                                     </p:selectOneMenu> 
                                 </div>
                                 <div class="form-group row" >
-                                    <p:outputLabel for="combo">Combo: &nbsp;</p:outputLabel>
-                                    <p:selectOneMenu id="combo" value="#{planejamentoMB.varFix.combo}" panelStyle="width:100px" 
+                                    <p:outputLabel for="disciplina" style="width: 8%;">Disciplina: </p:outputLabel>
+                                    <p:selectOneMenu id="disciplina" value="#{planejamentoMB.varFix.disciplina}" style="width: 40%" 
+                                                     effect="fade" var="disc" filter="true" filterMatchMode="startsWith">
+                                        <f:selectItems value="#{planejamentoMB.turmasOfertadas}" var="di" itemLabel="#{di.disciplina.nome}" itemValue="#{di.disciplina}" />
+                                        <p:column>
+                                            <h:outputText value="#{disc.nome}" />
+                                        </p:column>
+                                    </p:selectOneMenu> 
+                                </div>
+                                <div class="form-group row" >
+                                    <p:outputLabel for="combo" style="width: 8%;">Combo: </p:outputLabel>
+                                    <p:selectOneMenu id="combo" value="#{planejamentoMB.varFix.combo}" style="width: 20%"
                                                      effect="fade" var="c"  filter="true" filterMatchMode="startsWith">
                                         <f:selectItems value="#{planejamentoMB.combos}" var="cb" itemLabel="#{cb.diasEstendido}" itemValue="#{cb}" />
                                         <p:column>
@@ -275,8 +285,8 @@
                                     </p:selectOneMenu> 
                                 </div>
                                 <div class="form-group row" >
-                                    <p:outputLabel for="horario">Horario: &nbsp;</p:outputLabel>
-                                    <p:selectOneMenu id="horario" value="#{planejamentoMB.varFix.horario}" panelStyle="width:100px" 
+                                    <p:outputLabel for="horario" style="width: 8%;">Horario: </p:outputLabel>
+                                    <p:selectOneMenu id="horario" value="#{planejamentoMB.varFix.horario}" style="width: 20%"
                                                      effect="fade" var="h"  filter="true" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="08:00 - 10:00" itemValue="08:00 - 10:00"/>
                                         <f:selectItem itemLabel="10:00 - 12:00" itemValue="10:00 - 12:00"/>
@@ -286,8 +296,8 @@
                                     </p:selectOneMenu> 
                                 </div>
                                 <div class="form-group row" >
-                                    <p:outputLabel for="sala">Disciplina: &nbsp;</p:outputLabel>
-                                    <p:selectOneMenu id="sala" value="#{planejamentoMB.varFix.sala}" panelStyle="width:100px" 
+                                    <p:outputLabel for="sala" style="width: 8%;">Sala: </p:outputLabel>
+                                    <p:selectOneMenu id="sala" value="#{planejamentoMB.varFix.sala}" style="width: 20%"
                                                      effect="fade" var="s" filter="true" filterMatchMode="startsWith">
                                         <f:selectItems value="#{planejamentoMB.salasAlocadas}" var="sl" itemLabel="#{sl.nome}" itemValue="#{sl}" />
                                         <p:column>
@@ -295,17 +305,10 @@
                                         </p:column>
                                     </p:selectOneMenu> 
                                 </div>
-                                <div class="form-group row" >
-                                    <p:outputLabel for="disciplina">Disciplina: &nbsp;</p:outputLabel>
-                                    <p:selectOneMenu id="disciplina" value="#{planejamentoMB.varFix.disciplina}" panelStyle="width:100px" 
-                                                     effect="fade" var="disc" filter="true" filterMatchMode="startsWith">
-                                        <f:selectItems value="#{planejamentoMB.turmasOfertadas}" var="di" itemLabel="#{di.disciplina.nome}" itemValue="#{di.disciplina}" />
-                                        <p:column>
-                                            <h:outputText value="#{disc.nome}" />
-                                        </p:column>
-                                    </p:selectOneMenu> 
-                                </div>
+                                <p:commandLink value="Adiconar" action="#{planejamentoMB.addVarFixa()}" update="form:tableVarFixa">
+                            </p:commandLink>
                             </div>
+                            
                             <hr></hr>
                             <h2 style="font-size: 22px;">Variáveis fixas</h2>
                             <div class="form-group row" >
@@ -334,6 +337,7 @@
                                     </p:column>
                                 </p:dataTable>
                             </div>
+                            
                         </p:panel>
 
                     </p:tab>
