@@ -135,18 +135,18 @@ public class DocenteDAO implements Serializable{
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, docente.getId());
-            if(ps.executeUpdate() != 0){
-                sql = "DELETE FROM `docente_dias_semana` WHERE id_docente = ?";
-                ps = con.prepareStatement(sql);
-                ps.setInt(1, docente.getId());
-                ps.executeUpdate();
-                
-                sql = "DELETE FROM `preferencia` WHERE id_docente = ?";
-                ps = con.prepareStatement(sql);
-                ps.setInt(1, docente.getId());
-                return ps.executeUpdate() != 0;
-            }
-            return false;
+            ps.executeUpdate();
+            sql = "DELETE FROM `docente_dias_semana` WHERE id_docente = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, docente.getId());
+            ps.executeUpdate();
+
+            sql = "DELETE FROM `preferencia` WHERE id_docente = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, docente.getId());
+            ps.executeUpdate();
+
+            return true;
         } catch (SQLException e) {
             throw new DAOException("Falha ao executar operação", e);
         } finally {
@@ -193,14 +193,12 @@ public class DocenteDAO implements Serializable{
                 pst.setInt(1, docente.getId());
                 rst = pst.executeQuery();
 
-                ArrayList<Integer> horarios = new ArrayList<>();
+                ArrayList<String> horarios = new ArrayList<>();
                 while (rst.next()) {
                     int dia = rst.getInt("dia_semana");
-                    horarios.add(dia);
+                    horarios.add(""+ dia);
                 }
-                System.out.println("a"+ Arrays.toString(horarios.toArray()));
                 docente.setDiasSemana(horarios);
-                
                 listaDocentes.add(docente);
             }
         } catch (SQLException e) {

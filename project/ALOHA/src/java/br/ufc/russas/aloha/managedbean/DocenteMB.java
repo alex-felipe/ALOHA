@@ -46,17 +46,25 @@ public class DocenteMB implements Serializable {
         this.horarios = new ArrayList<>();
         this.disciplinaDAO = new DisciplinaDAO();
         for (Disciplina d : disciplinaDAO.selectALL()) {
+            System.out.println(d.getNome());
             Preferencia p = new Preferencia(docente, d, 0);
             docente.getPreferencias().add(p);
         }
         addDiasSemana();
         this.horariosCheckbox = new ArrayList<>();
         addItensHorarios();
+        
     }
 
     public void novoDocente() {
         try {
             docente = new Docente();
+            for (Disciplina d : disciplinaDAO.selectALL()) {
+                System.out.println(d.getNome());
+                Preferencia p = new Preferencia(docente, d, 0);
+                docente.getPreferencias().add(p);
+            }
+            horariosSelecionados = new ArrayList<>();
             FacesContext.getCurrentInstance().getExternalContext().redirect("adicionar_docente.xhtml");
 
         } catch (IOException e) {
@@ -67,13 +75,15 @@ public class DocenteMB implements Serializable {
     public void adiciona() {
         if (validaDocente()) {
             try {
+                this.docente.setDiasSemana(horariosSelecionados);
                 if (docenteDAO.find(docente.getId()) != null) {
 
                     if (docenteDAO.update(docente)) {
                         try {
-                            FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");
                             docente = new Docente();
                             this.listaDocentes = docenteDAO.selectALL();
+                            horariosSelecionados = new ArrayList<>();
+                            FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");
                             enviaFeedBack("Operação realizada com sucesso", "O cadastro do docente foi realizado com sucesso!", 'i');
                         } catch (IOException e) {
                             System.out.println(e.getMessage());
@@ -82,10 +92,10 @@ public class DocenteMB implements Serializable {
                 } else {
                     if (docenteDAO.insert(this.docente)) {
                         try {
-
-                            FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");
-                            this.docente = new Docente();
+                            docente = new Docente();
                             this.listaDocentes = docenteDAO.selectALL();
+                            horariosSelecionados = new ArrayList<>();
+                            FacesContext.getCurrentInstance().getExternalContext().redirect("docentes.xhtml");
 
                         } catch (IOException e) {
                             System.out.println(e.getMessage());
@@ -100,12 +110,18 @@ public class DocenteMB implements Serializable {
 
     public void edita() {
         try {
+            
+
             this.horariosSelecionados = new ArrayList<>();
-            for(Horario h: docente.getDiasSemana()){
-                horariosSelecionados.add(""+h.getId());
+            for (Horario h : docente.getDiasSemana()) {
+                horariosSelecionados.add("" + h.getId());
             }
-            System.out.println(Arrays.toString(horariosSelecionados.toArray()));
+
+            
             FacesContext.getCurrentInstance().getExternalContext().redirect("adicionar_docente.xhtml");
+
+            
+            
 
         } catch (IOException e) {
             System.out.println(e.getMessage());

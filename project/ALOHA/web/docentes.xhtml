@@ -25,7 +25,7 @@
         <link href="css/creative.css" rel="stylesheet"/>
         <link href="css/style.css" rel="stylesheet"/>
     </h:head>
-    <h:body id="page-top">
+    <h:body id="page-top" >
         <nav class="navbar navbar-expand-lg navbar-light navbar-shrink" id="mainNav">
             <div class="container">
                 <a class="navbar-brand js-scroll-trigger" href="#page-top">ALOHA UFC</a>
@@ -107,7 +107,7 @@
                         <p:commandLink update=":form:docenteDetail"  styleClass="ui-icon ui-icon-search"  oncomplete="PF('docenteDialog').show();" style="float: left;">
                             <f:setPropertyActionListener value="#{docente}" target="#{docenteMB.docente}"/>
                         </p:commandLink>
-                        <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{docenteMB.edita()}" style="float: left;">
+                        <p:commandLink  styleClass="ui-icon ui-icon-pencil"  action="#{docenteMB.edita()}" style="float: left;">
                             <f:setPropertyActionListener value="#{docente}" target="#{docenteMB.docente}"/>
                         </p:commandLink>
                         <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{docenteMB.remove()}" style="float: left;">
