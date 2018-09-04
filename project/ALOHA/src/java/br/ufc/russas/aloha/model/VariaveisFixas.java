@@ -29,6 +29,7 @@ public class VariaveisFixas {
     }
 
     public void setDocente(Docente docente) {
+        System.out.println("ADD docente");
         this.docente = docente;
     }
 
@@ -54,6 +55,13 @@ public class VariaveisFixas {
         this.sala = new Sala();
         this.combo = new Combo();
     }
+
+    @Override
+    public String toString() {
+        return "VariaveisFixas{" + "docente=" + docente.getNome() + ", disciplina=" + disciplina.getNome() + ", horario=" + horario + ", sala=" + sala.getNome() + ", combo=" + combo.getDiasEstendido() + '}';
+    }
+    
+    
     
     
     

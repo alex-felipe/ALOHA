@@ -4,8 +4,10 @@ import br.ufc.russas.aloha.dao.*;
 import br.ufc.russas.aloha.model.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 import org.primefaces.event.FlowEvent;
 
 @ManagedBean
@@ -39,7 +41,49 @@ public class PlanejamentoMB implements Serializable {
     private ArrayList<Docente> docentesOut;
     private ArrayList<Turmas> disciplinasOut;
     private ArrayList<Sala> salasOut;
-
+    
+//selectItens
+    private List<SelectItem> selectDocentes;
+    private List<SelectItem> selectDisciplinas;
+    private List<SelectItem> selectCombos;
+    private List<SelectItem> selectHorarios;
+    private List<SelectItem> selectSalas;
+    
+    private void fillSelectItems(String op) {
+        selectDocentes = new ArrayList<SelectItem>();
+        selectDisciplinas = new ArrayList<SelectItem>();
+        selectCombos = new ArrayList<SelectItem>();
+        selectHorarios = new ArrayList<SelectItem>();
+        selectSalas = new ArrayList<SelectItem>();
+        
+        
+        switch(op){
+            case "d":
+                 for (Docente d : docentesDisponiveis) selectDocentes.add(new SelectItem(d, d.getNome()));
+                 break;
+            case "di":
+                 for (Turmas di : turmasOfertadas) selectDisciplinas.add(new SelectItem(di, di.getDisciplina().getNome()));
+                break;
+            case "c":
+                for (Combo c : comboDAO.selectALL()) selectDocentes.add(new SelectItem(c, c.getDiasEstendido()));
+                break;
+            case "h":
+                 //for (Horario d : docentesDisponiveis) selectDocentes.add(new SelectItem(d, d.getNome()));
+                break;
+            case "s":
+                for (Sala s : salasAlocadas) selectSalas.add(new SelectItem(s, s.getNome()));
+                break;
+            case "all":
+                for (Docente d : docentesDisponiveis) selectDocentes.add(new SelectItem(d, d.getNome()));
+                for (Turmas di : turmasOfertadas) selectDisciplinas.add(new SelectItem(di, di.getDisciplina().getNome()));
+                for (Combo c : comboDAO.selectALL()) selectDocentes.add(new SelectItem(c, c.getDiasEstendido()));
+                //for (Horario d : docentesDisponiveis) selectDocentes.add(new SelectItem(d, d.getNome()));
+                for (Sala s : salasAlocadas) selectSalas.add(new SelectItem(s, s.getNome()));
+                
+        }
+ 
+    }
+    
     public PlanejamentoMB() {
         this.disciplinaDAO = new DisciplinaDAO();
         this.salaDAO = new SalaDAO();
@@ -69,6 +113,7 @@ public class PlanejamentoMB implements Serializable {
         this.docenteTemp = new Docente();
         this.docenteFix = new Docente();
         this.varFix = new VariaveisFixas();
+        fillSelectItems("all");
 
     }
 
@@ -208,7 +253,9 @@ public class PlanejamentoMB implements Serializable {
                 this.turmasTmp.setQntTurmas(1);
             }
             this.turmasOfertadas.add(this.turmasTmp);
+            fillSelectItems("di");
         }
+        
 
     }
 
@@ -220,6 +267,7 @@ public class PlanejamentoMB implements Serializable {
                 this.turmasTmp.setQntTurmas(0);
                 this.disciplinasOut.add(turmasTmp);
                 this.turmasTmp = new Turmas();
+                fillSelectItems("di");
             } else {
                 int i = this.turmasOfertadas.indexOf(this.turmasTmp);
                 this.turmasOfertadas.get(i).setQntTurmas(this.turmasTmp.getQntTurmas() - 1);
@@ -233,6 +281,7 @@ public class PlanejamentoMB implements Serializable {
             this.salasAlocadas.remove(this.salaTmp);
             this.salasOut.add(this.salaTmp);
             this.salaTmp = new Sala();
+            fillSelectItems("s");
         }
     }
 
@@ -241,6 +290,7 @@ public class PlanejamentoMB implements Serializable {
             this.salasAlocadas.add(this.salaTmp);
             this.salasOut.remove(this.salaTmp);
             this.salaTmp = new Sala();
+            fillSelectItems("s");
         }
 
     }
@@ -250,6 +300,7 @@ public class PlanejamentoMB implements Serializable {
             this.docentesDisponiveis.remove(this.docenteTemp);
             this.docentesOut.add(this.docenteTemp);
             this.docenteTemp = new Docente();
+            fillSelectItems("d");
         }
     }
 
@@ -258,14 +309,15 @@ public class PlanejamentoMB implements Serializable {
             this.docentesDisponiveis.add(this.docenteTemp);
             this.docentesOut.remove(this.docenteTemp);
             this.docenteTemp = new Docente();
+            fillSelectItems("d");
         }
 
     }
     public void addVarFixa(){
-         System.out.println("AQUI");
-        if(this.varFix!=null){
-           
+         
+        if(this.varFix!=null){          
             this.variaveisFixas.add(varFix);
+            System.out.println(this.variaveisFixas.get(0));
             this.varFix = new VariaveisFixas();
         }
     }
@@ -287,4 +339,48 @@ public class PlanejamentoMB implements Serializable {
             return event.getNewStep();
         }
     }
+
+    public List<SelectItem> getSelectDocentes() {
+        return selectDocentes;
+    }
+
+    public void setSelectDocentes(List<SelectItem> selectDocentes) {
+        this.selectDocentes = selectDocentes;
+    }
+
+    public List<SelectItem> getSelectDisciplinas() {
+        return selectDisciplinas;
+    }
+
+    public void setSelectDisciplinas(List<SelectItem> selectDisciplinas) {
+        this.selectDisciplinas = selectDisciplinas;
+    }
+
+    public List<SelectItem> getSelectCombos() {
+        return selectCombos;
+    }
+
+    public void setSelectCombos(List<SelectItem> selectCombos) {
+        this.selectCombos = selectCombos;
+    }
+
+    public List<SelectItem> getSelectHorarios() {
+        return selectHorarios;
+    }
+
+    public void setSelectHorarios(List<SelectItem> selectHorarios) {
+        this.selectHorarios = selectHorarios;
+    }
+
+    public List<SelectItem> getSelectSalas() {
+        return selectSalas;
+    }
+
+    public void setSelectSalas(List<SelectItem> selectSalas) {
+        this.selectSalas = selectSalas;
+    }
+    
+    
+    
+    
 }
