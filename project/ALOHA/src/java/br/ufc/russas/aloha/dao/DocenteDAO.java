@@ -3,7 +3,7 @@ package br.ufc.russas.aloha.dao;
 
 import br.ufc.russas.aloha.model.DiasSemanaEnum;
 import br.ufc.russas.aloha.model.Docente;
-import br.ufc.russas.aloha.model.Horario;
+import br.ufc.russas.aloha.model.DiaSemana;
 import br.ufc.russas.aloha.model.Preferencia;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -52,7 +52,7 @@ public class DocenteDAO implements Serializable{
                 sql = "INSERT INTO `docente_dias_semana`(`id_docente`, `dia_semana`) VALUES (?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setInt(1, docente.getId());
-                ps.setInt(2, ((Horario)dia).getId());
+                ps.setInt(2, ((DiaSemana)dia).getId());
                 ps.executeUpdate();
             }
             
@@ -102,8 +102,8 @@ public class DocenteDAO implements Serializable{
                 ps.executeUpdate();
             }
 
-            ArrayList<Horario> listaDias = new ArrayList<>(docente.getDiasSemana());
-            for (Horario dia : listaDias) {
+            ArrayList<DiaSemana> listaDias = new ArrayList<>(docente.getDiasSemana());
+            for (DiaSemana dia : listaDias) {
                 sql = "INSERT INTO `docente_dias_semana`(`id_docente`, `dia_semana`) VALUES (?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setInt(1, docente.getId());

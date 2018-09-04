@@ -14,12 +14,12 @@ public class Docente implements Serializable {
     private String nome;
     private int crMin;
     private int crMax;
-    private List<Horario> diasSemana;
+    private List<DiaSemana> diasSemana;
     private List<Preferencia> preferencias;
 
     
     public Docente() {
-        this.diasSemana = new ArrayList<Horario>();
+        this.diasSemana = new ArrayList<DiaSemana>();
         this.preferencias = new ArrayList<Preferencia>();
     }
 
@@ -125,7 +125,7 @@ public class Docente implements Serializable {
         }
     }*/
 
-    public List<Horario> getDiasSemana() {
+    public List<DiaSemana> getDiasSemana() {
         return diasSemana;
     }
 
@@ -133,25 +133,25 @@ public class Docente implements Serializable {
         for(String dia: diasSemana){
             int d = Integer.parseInt(dia);
             switch(d){
-                case 0: this.diasSemana.add(new Horario(0, "Domingo", "Manhã")); break;
-                case 1: this.diasSemana.add(new Horario(1, "Domingo", "Tarde")); break;
-                case 2: this.diasSemana.add(new Horario(2, "Segunda", "Manhã")); break;
-                case 3: this.diasSemana.add(new Horario(3, "Segunda", "Tarde")); break;
-                case 4: this.diasSemana.add(new Horario(4, "Terça", "Manhã")); break;
-                case 5: this.diasSemana.add(new Horario(5, "Terça", "Tarde")); break;
-                case 6: this.diasSemana.add(new Horario(6, "Quarta", "Manhã"));break;
-                case 7: this.diasSemana.add(new Horario(7, "Quarta", "Tarde")); break;
-                case 8: this.diasSemana.add(new Horario(8, "Quinta", "Manhã")); break;
-                case 9: this.diasSemana.add(new Horario(9, "Quinta", "Tarde")); break;
-                case 10: this.diasSemana.add(new Horario(10, "Sexta", "Manhã")); break;
-                case 11: this.diasSemana.add(new Horario(11, "Sexta", "Tarde")); break;
-                case 12: this.diasSemana.add(new Horario(12, "Sábado", "Manhã")); break;
-                case 13: this.diasSemana.add(new Horario(13, "Sábado", "Tarde")); break;
+                case 0: this.diasSemana.add(new DiaSemana(0, "Domingo", "Manhã")); break;
+                case 1: this.diasSemana.add(new DiaSemana(1, "Domingo", "Tarde")); break;
+                case 2: this.diasSemana.add(new DiaSemana(2, "Segunda", "Manhã")); break;
+                case 3: this.diasSemana.add(new DiaSemana(3, "Segunda", "Tarde")); break;
+                case 4: this.diasSemana.add(new DiaSemana(4, "Terça", "Manhã")); break;
+                case 5: this.diasSemana.add(new DiaSemana(5, "Terça", "Tarde")); break;
+                case 6: this.diasSemana.add(new DiaSemana(6, "Quarta", "Manhã"));break;
+                case 7: this.diasSemana.add(new DiaSemana(7, "Quarta", "Tarde")); break;
+                case 8: this.diasSemana.add(new DiaSemana(8, "Quinta", "Manhã")); break;
+                case 9: this.diasSemana.add(new DiaSemana(9, "Quinta", "Tarde")); break;
+                case 10: this.diasSemana.add(new DiaSemana(10, "Sexta", "Manhã")); break;
+                case 11: this.diasSemana.add(new DiaSemana(11, "Sexta", "Tarde")); break;
+                case 12: this.diasSemana.add(new DiaSemana(12, "Sábado", "Manhã")); break;
+                case 13: this.diasSemana.add(new DiaSemana(13, "Sábado", "Tarde")); break;
             }
         }
     }
 
-    public void setHorario(List<Horario> horarios) {
+    public void setHorario(List<DiaSemana> horarios) {
         this.diasSemana = horarios;
     }
 

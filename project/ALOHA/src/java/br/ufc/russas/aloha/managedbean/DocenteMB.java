@@ -5,7 +5,7 @@ import br.ufc.russas.aloha.dao.DocenteDAO;
 import br.ufc.russas.aloha.model.Disciplina;
 import br.ufc.russas.aloha.model.Docente;
 import br.ufc.russas.aloha.model.Preferencia;
-import br.ufc.russas.aloha.model.Horario;
+import br.ufc.russas.aloha.model.DiaSemana;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -30,7 +30,7 @@ public class DocenteMB implements Serializable {
     private Disciplina[] disciplinasSelecionadas;
     DisciplinaDAO disciplinaDAO;
     DocenteDAO docenteDAO;
-    private List<Horario> horarios;
+    private List<DiaSemana> horarios;
 
     private List<String> horariosSelecionados; // preselected
 
@@ -113,7 +113,7 @@ public class DocenteMB implements Serializable {
             
 
             this.horariosSelecionados = new ArrayList<>();
-            for (Horario h : docente.getDiasSemana()) {
+            for (DiaSemana h : docente.getDiasSemana()) {
                 horariosSelecionados.add("" + h.getId());
             }
 
@@ -168,7 +168,7 @@ public class DocenteMB implements Serializable {
         this.disciplinasSelecionadas = disciplinasSelecionadas;
     }
 
-    public List<Horario> getHorarios() {
+    public List<DiaSemana> getHorarios() {
         return horarios;
     }
 
@@ -201,25 +201,25 @@ public class DocenteMB implements Serializable {
     
     
     private void addDiasSemana(){
-        this.horarios.add(new Horario(0, "Domingo", "Manhã"));
-        this.horarios.add(new Horario(1, "Domingo", "Tarde"));
-        this.horarios.add(new Horario(2, "Segunda", "Manhã"));
-        this.horarios.add(new Horario(3, "Segunda", "Tarde"));
-        this.horarios.add(new Horario(4, "Terça", "Manhã"));
-        this.horarios.add(new Horario(5, "Terça", "Tarde"));
-        this.horarios.add(new Horario(6, "Quarta", "Manhã"));
-        this.horarios.add(new Horario(7, "Quarta", "Tarde"));
-        this.horarios.add(new Horario(8, "Quinta", "Manhã"));
-        this.horarios.add(new Horario(9, "Quinta", "Tarde"));
-        this.horarios.add(new Horario(10, "Sexta", "Manhã"));
-        this.horarios.add(new Horario(11, "Sexta", "Tarde"));
-        this.horarios.add(new Horario(12, "Sábado", "Manhã"));
-        this.horarios.add(new Horario(13, "Sábado", "Tarde"));
+        this.horarios.add(new DiaSemana(0, "Domingo", "Manhã"));
+        this.horarios.add(new DiaSemana(1, "Domingo", "Tarde"));
+        this.horarios.add(new DiaSemana(2, "Segunda", "Manhã"));
+        this.horarios.add(new DiaSemana(3, "Segunda", "Tarde"));
+        this.horarios.add(new DiaSemana(4, "Terça", "Manhã"));
+        this.horarios.add(new DiaSemana(5, "Terça", "Tarde"));
+        this.horarios.add(new DiaSemana(6, "Quarta", "Manhã"));
+        this.horarios.add(new DiaSemana(7, "Quarta", "Tarde"));
+        this.horarios.add(new DiaSemana(8, "Quinta", "Manhã"));
+        this.horarios.add(new DiaSemana(9, "Quinta", "Tarde"));
+        this.horarios.add(new DiaSemana(10, "Sexta", "Manhã"));
+        this.horarios.add(new DiaSemana(11, "Sexta", "Tarde"));
+        this.horarios.add(new DiaSemana(12, "Sábado", "Manhã"));
+        this.horarios.add(new DiaSemana(13, "Sábado", "Tarde"));
 
     }
 
     private void addItensHorarios() {
-        for(Horario h: horarios){
+        for(DiaSemana h: horarios){
             this.horariosCheckbox.add(new SelectItem(h.getId(), h.getDia() + " (" + h.getTurno() + ")"));
         }
 

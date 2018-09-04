@@ -89,16 +89,16 @@
                     <h:outputText value="Nesta página você pode realizar alterações nos seus dados."/><br/><br/>
                     <h:panelGrid columns="3" cellpadding="5">
                         <h:outputText value="Nome: " />
-                        <p:inputText id="nonFeedback" value="Dmontier Aragão" />
+                        <p:inputText id="nome" value="Dmontier Aragão" />
                         <br/>
 
                         <h:outputText value="Login: " />
-                        <p:inputText id="feedback" value="dmontier@ufc.br"  disabled="true"/>
+                        <p:inputText id="loginUser" value="dmontier@ufc.br"  disabled="true"/>
                         <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
 
 
                         <h:outputText value="Senha: " />
-                        <p:inputText id="inlineFeedback" value="**********" disabled="true"/>
+                        <p:inputText id="senhaUser" value="**********" disabled="true"/>
                         <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
                     </h:panelGrid>
                     <br/>
@@ -121,50 +121,69 @@
                         </div>
                         <br/>
                         <h:outputText value="Nome do curso: " /> &nbsp;
-                        <p:inputText id="feedback" value=""  /> &nbsp;
+                        <p:inputText id="nomeCurso" value=""  /> &nbsp;
                         <p:commandButton value="Adicionar novo curso"/>
                     </div>
                     <div style="position: absolute; width: 50%; left: 50%;">
                         <div style="width: 450px;">
-                            <p:dataList value="#{configuracoesMB.horarios}" var="horario" type="none" >
-                                
-                                <f:facet name="header">
-                                    Horários
-                                </f:facet>
-                                <h:panelGrid columns="3" cellpadding="5">
-                                    &nbsp; #{horario} <p:commandLink  styleClass="ui-icon ui-icon-trash" ></p:commandLink> 
-                                </h:panelGrid>
-                            </p:dataList>
+                            <h:form>
+                                <p:dataList value="#{configuracoesMB.horarios}" var="horario" type="none" >
+
+                                    <f:facet name="header">
+                                        Horários
+                                    </f:facet>
+                                    <h:panelGrid columns="3" cellpadding="5">
+                                        &nbsp; #{horario.descricao} 
+                                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{configuracoesMB.removeHorario()}" style="left: 40%;position: relative;">
+                                            <f:setPropertyActionListener value="#{horario}" target="#{configuracoesMB.horarioSelecionado}"/>
+                                            <p:confirm header="Confirmação" message="Deseja realmente excluir este horário?" icon="ui-icon-trash"/>
+                                        </p:commandLink>
+                                    </h:panelGrid>
+                                </p:dataList>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="margin-left: 200px"/>
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 5px"/>
+                                </p:confirmDialog>
+                            </h:form>
                         </div>
                         <br/>
-                        <h:outputText value="Horário: " /> &nbsp;
-                        <p:inputMask  mask="99:99" style="width: 60px;" /> &nbsp; às &nbsp;<p:inputMask  mask="99:99" style="width: 60px;" /> &nbsp;
-                        <p:commandButton value="Adicionar novo horário"/>
+                        <h:form id="form">
+                            <h:outputText value="Horário: " /> &nbsp;
+                            <p:inputMask  mask="99:99" style="width: 60px;" value="#{configuracoesMB.novoHorario1}"/> &nbsp; às &nbsp;<p:inputMask  mask="99:99" style="width: 60px;" value="#{configuracoesMB.novoHorario2}"/> &nbsp;
+                            <p:commandButton value="Adicionar novo horário" actionListener="#{configuracoesMB.adicionaHorario()}"/>                        
+                        </h:form>
+
                     </div>
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
                 </p:tab>
                 <p:tab title="Configurações do Servidor">
-                    <h:outputText value="Nesta página você pode realizar alterações nas configurações do servidor."/><br/><br/>
-                    <h:outputText value="URL do Servidor: "/><p:inputText value="aloha.russas.ufc.br" disabled="true"/>  &nbsp; &nbsp;<p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
-                    <br/><br/>
-                    <p:commandButton value="Cancelar" validateClient="true"> </p:commandButton> &nbsp;
-                    <p:commandButton value="Salvar alterações" validateClient="true"> </p:commandButton>
+                    <h:form>
+                        <h:outputText value="Nesta página você pode realizar alterações nas configurações do servidor."/><br/><br/>
+                        <h:outputText value="URL do Servidor: "/><p:inputText value="#{configuracoesMB.urlDoServidor}" disabled="true"/>  &nbsp; &nbsp;<p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
+                        <br/><br/>
+                        <p:commandButton value="Cancelar" validateClient="true"> </p:commandButton> &nbsp;
+                        <p:commandButton value="Salvar alterações" validateClient="true"> </p:commandButton>                        
+                    </h:form>
                 </p:tab>
                 <p:tab title="Configurações do Banco de Dados">
                     <h:outputText value="Nesta página você pode realizar alterações nas configurações do banco de dados."/><br/><br/>
                     <h:panelGrid columns="3" cellpadding="10">
                         <h:outputText value="Nome do BD: " />
-                        <p:inputText id="feedback" value="aloha" disabled="true"/>
+                        <p:inputText id="nomeBD" value="#{configuracoesMB.nomeDoBD}" disabled="true"/>
                         <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
                         
                         <h:outputText value="Login: " />
-                        <p:inputText id="feedback" value="root" disabled="true" />
-                        <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
+                        <p:inputText id="login" value="#{configuracoesMB.login}" disabled="#{configuracoesMB.habCampoLogin}" >
+                            
+                        </p:inputText>
+                        <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil">
+                            <p:ajax event="click" update="login" listener="#{configuracoesMB.alternaLogin()}" />
+                        </p:commandButton>
 
 
                         <h:outputText value="Senha: " />
-                        <p:inputText id="inlineFeedback" value="**********" disabled="true"/>
+                        <p:inputText id="senha" value="#{configuracoesMB.senha}" disabled="true"/>
                         <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
                         
                     </h:panelGrid>
@@ -178,22 +197,6 @@
             
         </div>
         <br/>
-
-
-        <!-- Bootstrap core JavaScript -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-
-        <!-- Plugin JavaScript -->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-        <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
         
     </h:body>
 </html>
