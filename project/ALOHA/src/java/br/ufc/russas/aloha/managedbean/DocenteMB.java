@@ -110,19 +110,11 @@ public class DocenteMB implements Serializable {
 
     public void edita() {
         try {
-            
-
             this.horariosSelecionados = new ArrayList<>();
             for (DiaSemana h : docente.getDiasSemana()) {
                 horariosSelecionados.add("" + h.getId());
             }
-
-            
             FacesContext.getCurrentInstance().getExternalContext().redirect("adicionar_docente.xhtml");
-
-            
-            
-
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

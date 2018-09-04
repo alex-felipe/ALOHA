@@ -88,7 +88,7 @@ public class DocenteDAO implements Serializable{
             ps.setInt(1, docente.getId());
             ps.executeUpdate();
             
-            sql = "DELETE FROM `docente_dias_semana` WHERE `id_docente` = ?";
+            sql = "DELETE FROM `docente_dias_semana` WHERE id_docente = ?";
             ps = con.prepareStatement(sql);
             ps.setInt(1, docente.getId());
             ps.executeUpdate();
@@ -102,8 +102,7 @@ public class DocenteDAO implements Serializable{
                 ps.executeUpdate();
             }
 
-            ArrayList<DiaSemana> listaDias = new ArrayList<>(docente.getDiasSemana());
-            for (DiaSemana dia : listaDias) {
+            for (DiaSemana dia : docente.getDiasSemana()) {
                 sql = "INSERT INTO `docente_dias_semana`(`id_docente`, `dia_semana`) VALUES (?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setInt(1, docente.getId());

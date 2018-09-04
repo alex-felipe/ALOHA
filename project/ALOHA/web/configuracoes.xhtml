@@ -89,11 +89,11 @@
                     <h:outputText value="Nesta página você pode realizar alterações nos seus dados."/><br/><br/>
                     <h:panelGrid columns="3" cellpadding="5">
                         <h:outputText value="Nome: " />
-                        <p:inputText id="nome" value="Dmontier Aragão" />
+                        <p:inputText id="nome" value="#{configuracoesMB.user.nome}" />
                         <br/>
 
                         <h:outputText value="Login: " />
-                        <p:inputText id="loginUser" value="dmontier@ufc.br"  disabled="true"/>
+                        <p:inputText id="loginUser" value="#{configuracoesMB.user.login}"  disabled="true"/>
                         <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
 
 
@@ -109,20 +109,32 @@
                     <h:outputText value="Nesta página você pode realizar alterações nas configurações de planejamento da alocação de horários."/><br/><br/>
                     <div style="position: absolute; width: 50%; ">
                         <div style="width: 450px;">
-                            <p:dataList value="#{configuracoesMB.cursos}" var="curso" type="none" >
-                                <f:facet name="header">
-                                    Curso
-                                </f:facet>
-                                <h:panelGrid columns="3" cellpadding="5">
-                                    &nbsp; #{curso} <p:commandLink  styleClass="ui-icon ui-icon-trash" ></p:commandLink> 
-                                </h:panelGrid>
-
-                            </p:dataList>
+                            <h:form>
+                                <p:dataList value="#{configuracoesMB.cursos}" var="curso" type="none" >
+                                    <f:facet name="header">
+                                        Curso
+                                    </f:facet>
+                                    <h:panelGrid columns="3" cellpadding="5">
+                                        &nbsp; #{curso.nome} 
+                                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{configuracoesMB.removeCurso()}" style="left: 40%;position: relative;">
+                                            <f:setPropertyActionListener value="#{curso}" target="#{configuracoesMB.cursoSelecionado}"/>
+                                            <p:confirm header="Confirmação" message="Deseja realmente excluir este curso?" icon="ui-icon-trash"/>
+                                        </p:commandLink>
+                                    </h:panelGrid>
+                                </p:dataList>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="margin-left: 200px"/>
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 5px"/>
+                                </p:confirmDialog>
+                            </h:form>
                         </div>
                         <br/>
-                        <h:outputText value="Nome do curso: " /> &nbsp;
-                        <p:inputText id="nomeCurso" value=""  /> &nbsp;
-                        <p:commandButton value="Adicionar novo curso"/>
+                        <h:form>
+                            <h:outputText value="Nome do curso: " /> &nbsp;
+                            <p:inputText value="#{configuracoesMB.nomeNovoCurso}"  /> &nbsp;
+                            <p:commandButton value="Adicionar novo curso" actionListener="#{configuracoesMB.adicionaCurso()}"/>                              
+                        </h:form>
+
                     </div>
                     <div style="position: absolute; width: 50%; left: 50%;">
                         <div style="width: 450px;">

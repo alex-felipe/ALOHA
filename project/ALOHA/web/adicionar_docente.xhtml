@@ -150,7 +150,8 @@
                         </p:dataTable>
 
                     </div>
-                    <p:commandButton value="Salvar" actionListener="#{docenteMB.adiciona()}"  update="feedback" validateClient="true"> </p:commandButton>
+                    <a href="docentes.xhtml" class="btn " style="border-radius: 0.5em; left: 80%; position: absolute;">Cancelar</a>
+                    <p:commandButton value="Salvar" action="#{docenteMB.adiciona()}"  update="feedback" validateClient="true" style=" left: 90%; position: absolute;"> </p:commandButton>
                 </h:form>
             </div>
         </div>

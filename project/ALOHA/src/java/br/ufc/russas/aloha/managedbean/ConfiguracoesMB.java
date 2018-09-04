@@ -1,8 +1,12 @@
 package br.ufc.russas.aloha.managedbean;
 
 
+import br.ufc.russas.aloha.dao.CursoDAO;
 import br.ufc.russas.aloha.dao.HorarioDAO;
+import br.ufc.russas.aloha.dao.UsuarioDAO;
+import br.ufc.russas.aloha.model.Curso;
 import br.ufc.russas.aloha.model.Horario;
+import br.ufc.russas.aloha.model.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
@@ -18,13 +22,20 @@ public class ConfiguracoesMB implements Serializable{
 
     private String urlDoServidor;
     private String nomeDoBD, login, senha;
-    private String[] cursos = {"Engenharia de Software", "Ciência da Computação"};
     private List<Horario> horarios;
+    private List<Curso> cursos;
     
     private HorarioDAO horarioDAO;
     private String novoHorario1, novoHorario2;
     private Horario horarioSelecionado;
+    
+    private CursoDAO cursoDAO;
+    private String nomeNovoCurso;
+    private Curso cursoSelecionado;
 
+    private UsuarioDAO usuarioDAO;
+    private Usuario user;
+    
     private boolean habCampoLogin = true;
     public ConfiguracoesMB() {
         urlDoServidor = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("urlDoServidor");
@@ -35,17 +46,16 @@ public class ConfiguracoesMB implements Serializable{
         horarioDAO = new HorarioDAO();
         horarios = horarioDAO.selectALL();
         horarioSelecionado = new Horario();
+        
+        cursoDAO = new CursoDAO();
+        cursos = cursoDAO.selectALL();
+        cursoSelecionado = new Curso();
+        
+        usuarioDAO = new UsuarioDAO();
+        user = usuarioDAO.select("user", "123");
     }
     
     
-    public String[] getCursos() {
-        return cursos;
-    }
-
-    public void setCursos(String[] cursos) {
-        this.cursos = cursos;
-    }
-
     public List<Horario> getHorarios() {
         return horarios;
     }
@@ -123,26 +133,60 @@ public class ConfiguracoesMB implements Serializable{
     public void setHabCampoLogin(boolean habCampoLogin) {
         this.habCampoLogin = habCampoLogin;
     }
-        
-    public void alternaLogin(){
-        if(habCampoLogin) habCampoLogin = false;
-        else habCampoLogin = true;
+
+    public List<Curso> getCursos() {
+        return cursos;
     }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public String getNomeNovoCurso() {
+        return nomeNovoCurso;
+    }
+
+    public void setNomeNovoCurso(String nomeNovoCurso) {
+        this.nomeNovoCurso = nomeNovoCurso;
+    }
+
+    public Curso getCursoSelecionado() {
+        return cursoSelecionado;
+    }
+
+    public void setCursoSelecionado(Curso cursoSelecionado) {
+        this.cursoSelecionado = cursoSelecionado;
+    }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+        
+
 
     public void adicionaHorario(){
         if((novoHorario1 != null) && (! novoHorario1.isEmpty()) && (novoHorario2 != null) && (! novoHorario2.isEmpty())){
             String descricao = novoHorario1 + " - " + novoHorario2;
             Horario novoHorario = new Horario();
             novoHorario.setDescricao(descricao);
-            horarioDAO.insert(novoHorario);
-            novoHorario1 = null;
-            novoHorario2 = null;
-            horarios = horarioDAO.selectALL();
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("configuracoes.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(ConfiguracoesMB.class.getName()).log(Level.SEVERE, null, ex);
+            if(novoHorario.getDescricao() == null){
+                
+            }else{
+                horarioDAO.insert(novoHorario);
+                novoHorario1 = null;
+                novoHorario2 = null;
+                horarios = horarioDAO.selectALL();
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("configuracoes.xhtml");
+                } catch (IOException ex) {
+                    Logger.getLogger(ConfiguracoesMB.class.getName()).log(Level.SEVERE, null, ex);
+                }                
             }
+
         }
     }
     
@@ -153,6 +197,37 @@ public class ConfiguracoesMB implements Serializable{
                 FacesContext.getCurrentInstance().getExternalContext().redirect("configuracoes.xhtml");
                 horarioSelecionado = new Horario();
                 this.horarios = horarioDAO.selectALL();
+
+            } else {
+                System.out.println("Erro Não foi possível remover este combo!");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void adicionaCurso() {
+        if ((nomeNovoCurso != null) && (!nomeNovoCurso.isEmpty())) {
+            Curso novoCurso = new Curso();
+            novoCurso.setNome(nomeNovoCurso);
+            cursoDAO.insert(novoCurso);
+            nomeNovoCurso = null;
+            cursos = cursoDAO.selectALL();
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("configuracoes.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(ConfiguracoesMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
+
+    public void removeCurso() {
+        try {
+            if (!cursoDAO.delete(cursoSelecionado)) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("configuracoes.xhtml");
+                cursoSelecionado = new Curso();
+                this.cursos = cursoDAO.selectALL();
 
             } else {
                 System.out.println("Erro Não foi possível remover este combo!");

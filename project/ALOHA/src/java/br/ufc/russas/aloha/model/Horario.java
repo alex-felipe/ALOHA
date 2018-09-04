@@ -5,6 +5,8 @@
  */
 package br.ufc.russas.aloha.model;
 
+import java.util.Arrays;
+
 /**
  *
  * @author projetosti
@@ -37,10 +39,28 @@ public class Horario {
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        String novaDescricao = descricao.replaceAll(" ", "");
+        int meio = novaDescricao.indexOf("-");
+        String[] horario1 = novaDescricao.substring(0, meio).split(":");
+        String[] horario2 = novaDescricao.substring(meio + 1, novaDescricao.length()).split(":");
+        
+        int hora1 = Integer.parseInt(horario1[0]);
+        int hora2 = Integer.parseInt(horario2[0]);
+        
+        int min1 = Integer.parseInt(horario1[1]);
+        int min2 = Integer.parseInt(horario2[1]);
+        if((hora1 >= 0) && (hora1 < 24) && (hora2 >= 0) && (hora2 < 24)){
+            if((hora1 < hora2) || ((hora1 == hora2) && (min1 < min2))){
+                this.descricao = descricao;
+            }
+        }
     }
     
     
+    public static void main(String[] args) {
+        Horario h = new Horario();
+        h.setDescricao("08:00 - 10:00");
+    }
     /* O código será composto por:
         * 1) As 3 primeiras letras do nome do horario
         * 2) Identificador do horario no banco de dados
