@@ -115,6 +115,28 @@ public class SalaDAO {
 
         return s;
     }
+        public Sala find(String nome) throws SQLException {
+        Connection con = null;
+        Sala s = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT * from sala where nome = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nome);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                s = map(rs);
+            }
+            pst.close();
+            con.close();
+        } catch (SQLException e1) {
+            System.out.println(e1.getMessage());
+        }
+
+        return s;
+    }
 
     public ArrayList<Sala> selectALL() {
         //int id, String codigoModelo, String nome, String tipo, int capacidade, String bloco

@@ -80,6 +80,28 @@ public class DisciplinaDAO implements Serializable{
 
         return s;
     }
+        public Disciplina find(String nome) throws SQLException {
+        Connection con = null;
+        Disciplina s = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT * from disciplina where nome = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nome);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                s = map(rs);
+            }
+            pst.close();
+            con.close();
+        } catch (SQLException e1) {
+            System.out.println(e1.getMessage());
+        }
+
+        return s;
+    }
 
     public boolean update(Disciplina disciplina) {
         Connection con = null;

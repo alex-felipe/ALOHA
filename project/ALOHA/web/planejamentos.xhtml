@@ -254,67 +254,37 @@
                             <h2 style="font-size: 22px;">Cadastro variáveis fixas</h2>
                             <br/><br/>
                             <div style="width: 95%; margin: 0 auto;"  >
-                                <h:form>
-                                    <div class="form-group row" >
-                                        <p:outputLabel for="docente" style="width: 8%;">Docente: </p:outputLabel>
-                                        <p:selectOneMenu id="docente" value="#{planejamentoMB.varFix.docente}" style="width: 40%"
-                                                         effect="fade" var="doc"  filter="true" filterMatchMode="startsWith" converter="docenteConverter">
-                                            <f:selectItem itemLabel="Selecione..." itemValue="" /> 
-                                            <f:selectItems value="#{planejamentoMB.selectDocentes}" var="doce" itemLabel="#{doce.nome}" itemValue="#{doce}" />
-                                            <p:column>
-                                                <h:outputText value="#{doc.nome}" />
-                                            </p:column>
-                                        </p:selectOneMenu> 
-                                    </div>
-
-                                    <div class="form-group row" >
-                                        <p:outputLabel for="disciplina" style="width: 8%;">Disciplina: </p:outputLabel>
-                                        <p:selectOneMenu id="disciplina" value="#{planejamentoMB.varFix.disciplina}" style="width: 40%" 
-                                                         effect="fade" var="disc" filter="true" filterMatchMode="startsWith">
-                                            <f:selectItem itemLabel="Selecione..." itemValue="" /> 
-                                            <f:selectItems value="#{planejamentoMB.turmasOfertadas}" var="di" itemLabel="#{di.disciplina.nome}" itemValue="#{di.disciplina}" />
-                                            <p:column>
-                                                <h:outputText value="#{disc.nome}" />
-                                            </p:column>
-                                        </p:selectOneMenu> 
-                                    </div>
-                                    <div class="form-group row" >
-                                        <p:outputLabel for="combo" style="width: 8%;">Combo: </p:outputLabel>
-                                        <p:selectOneMenu id="combo" value="#{planejamentoMB.varFix.combo}" style="width: 20%"
-                                                         effect="fade" var="c"  filter="true" filterMatchMode="startsWith">
-                                            <f:selectItem itemLabel="Selecione..." itemValue="" /> 
-                                            <f:selectItems value="#{planejamentoMB.combos}" var="cb" itemLabel="#{cb.diasEstendido}" itemValue="#{cb}" />
-                                            <p:column>
-                                                <h:outputText value="#{c.diasEstendido}" />
-                                            </p:column>
-                                        </p:selectOneMenu> 
-                                    </div>
-                                    <div class="form-group row" >
-                                        <p:outputLabel for="horario" style="width: 8%;">Horario: </p:outputLabel>
-                                        <p:selectOneMenu id="horario" value="#{planejamentoMB.varFix.horario}" style="width: 20%"
-                                                         effect="fade" var="h"  filter="true" filterMatchMode="startsWith">
-                                            <f:selectItem itemLabel="Selecione..." itemValue="" /> 
-                                            <f:selectItem itemLabel="08:00 - 10:00" itemValue="08:00 - 10:00"/>
-                                            <f:selectItem itemLabel="10:00 - 12:00" itemValue="10:00 - 12:00"/>
-                                            <f:selectItem itemLabel="13:30 - 13:30" itemValue="13:30 - 15:30"/>
-                                            <f:selectItem itemLabel="15:30 - 17:30" itemValue="15:30 - 17:30"/>
-
-                                        </p:selectOneMenu> 
-                                    </div>
-                                    <div class="form-group row" >
-                                        <p:outputLabel for="sala" style="width: 8%;">Sala: </p:outputLabel>
-                                        <p:selectOneMenu id="sala" value="#{planejamentoMB.varFix.sala}" style="width: 20%"
-                                                         effect="fade" var="s" filter="true" filterMatchMode="startsWith">
-                                            <f:selectItem itemLabel="Selecione..." itemValue="" /> 
-                                            <f:selectItems value="#{planejamentoMB.salasAlocadas}" var="sl" itemLabel="#{sl.nome}" itemValue="#{sl}" />
-                                            <p:column>
-                                                <h:outputText value="#{s.nome}" />
-                                            </p:column>
-                                        </p:selectOneMenu> 
-                                    </div>
-                                </h:form>
+                                
+                                <div class="form-group row" >
+                                    <p:outputLabel class="col-form-label" style="width: 7%;">Docente: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu value="#{planejamentoMB.varFix.docente}" effect="fade" converter="docenteConverter"
+                                                     filter="true" filterMatchMode="startsWith" style="width:30%">     
+                                        <f:selectItem itemLabel="Selecione um docente" itemValue=""/>
+                                        <f:selectItems value="#{planejamentoMB.docentesDisponiveis}" var="item" itemLabel="#{item.nome}" itemValue="#{item}" />
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="form-group row" >
+                                    <p:outputLabel class="col-form-label" style="width: 7%;">Disciplina: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu value="#{planejamentoMB.varFix.disciplina}" effect="fade" converter="disciplinaConverter"
+                                                     filter="true" filterMatchMode="startsWith" style="width:30%">     
+                                        <f:selectItem itemLabel="Selecione uma disciplina" itemValue=""/>
+                                        <f:selectItems value="#{planejamentoMB.turmasOfertadas}" var="disc" itemLabel="#{disc.disciplina.nome}" itemValue="#{disc.disciplina}" />
+                                    </p:selectOneMenu>
+                                </div>
+                                
+                                <div class="form-group row" >
+                                    <p:outputLabel class="col-form-label" style="width: 7%;">Sala: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu value="#{planejamentoMB.varFix.sala}" effect="fade" converter="salaConverter"
+                                                     filter="true" filterMatchMode="startsWith" style="width:30%">     
+                                        <f:selectItem itemLabel="Selecione uma sala" itemValue=""/>
+                                        <f:selectItems value="#{planejamentoMB.salasAlocadas}" var="sl" itemLabel="#{sl.nome}" itemValue="#{sl}" />
+                                    </p:selectOneMenu>
+                                </div>
+                                
+                                
+                                
                                 <p:commandButton value="Adiconar" actionListener="#{planejamentoMB.addVarFixa()}" update=":form:tableVarFixa" ></p:commandButton>
-
+                                
                             </div>
 
                             <hr></hr>
@@ -330,7 +300,7 @@
                                         <h:outputText value="#{varFixa.combo.diasEstendido}" />
                                     </p:column>
                                     <p:column headerText="Horário">
-                                        <h:outputText value="#{varFixa.horario}" />
+                                        <h:outputText value="#{varFixa.horario.descricao}" />
                                     </p:column>
                                     <p:column headerText="Sala">
                                         <h:outputText value="#{varFixa.sala.nome}" />

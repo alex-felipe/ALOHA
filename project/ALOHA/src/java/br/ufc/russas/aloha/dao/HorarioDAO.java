@@ -1,4 +1,3 @@
-
 package br.ufc.russas.aloha.dao;
 
 import br.ufc.russas.aloha.model.Combo;
@@ -15,14 +14,15 @@ public class HorarioDAO {
 
     public HorarioDAO() {
     }
+
     public boolean insert(Horario horario) {
         Connection con = null;
         try {
             con = ConexaoFactory.getConnection();
-            String sql = "INSERT INTO horario (descricao) VALUES (?)" ; 
+            String sql = "INSERT INTO horario (descricao) VALUES (?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, "" + horario.getDescricao());
-            if(pst.executeUpdate() == 1){
+            if (pst.executeUpdate() == 1) {
                 sql = "SELECT * FROM horario WHERE descricao = ?";
                 pst = con.prepareStatement(sql);
                 pst.setString(1, horario.getDescricao());
@@ -30,12 +30,12 @@ public class HorarioDAO {
                 while (rs.next()) {
                     horario.setId(rs.getInt("id"));
                 }
-                
+
                 sql = "UPDATE `horario` SET `codigo_modelo`= ? WHERE id = ?";
                 pst = con.prepareStatement(sql);
                 pst.setString(1, horario.getCodigo());
                 pst.setInt(2, horario.getId());
-                
+
                 pst.executeUpdate();
                 return true;
             }
@@ -52,7 +52,7 @@ public class HorarioDAO {
         }
         return false;
     }
-    
+
     public boolean delete(Horario horario) {
         Connection con = null;
         try {
@@ -77,8 +77,8 @@ public class HorarioDAO {
             }
         }
     }
-    
-    public ArrayList<Horario> selectALL(){
+
+    public ArrayList<Horario> selectALL() {
         Connection con = null;
         ArrayList<Horario> listaHorarios = new ArrayList<>();
         try {
@@ -106,6 +106,31 @@ public class HorarioDAO {
         }
         return listaHorarios;
     }
-    
+
+    public Horario find(String descricao) throws SQLException {
+        Connection con = null;
+        Horario horario = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT * FROM horario WHERE descricao = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, descricao);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                horario = new Horario();
+                horario.setId(rs.getInt("id"));
+                horario.setCodigo_modelo(rs.getString("codigo_modelo"));
+                horario.setDescricao(rs.getString("descricao"));
+            }
+            pst.close();
+            con.close();
+        } catch (SQLException e1) {
+            System.out.println(e1.getMessage());
+        }
+
+        return horario;
+    }
 
 }

@@ -14,9 +14,12 @@ import java.util.Arrays;
 public class Horario {
     private int id;
     private String codigo_modelo;
-    // Ex: 08:00 - 10:00
     private String descricao;
 
+    public Horario() {
+    }
+
+    
     
     public int getId() {
         return id;
@@ -57,10 +60,7 @@ public class Horario {
     }
     
     
-    public static void main(String[] args) {
-        Horario h = new Horario();
-        h.setDescricao("08:00 - 10:00");
-    }
+
     /* O código será composto por:
         * 1) As 3 primeiras letras do nome do horario
         * 2) Identificador do horario no banco de dados

@@ -258,6 +258,28 @@ public class DocenteDAO implements Serializable{
 
         return 0;
     }
+    
+     public Docente findDocente(String nome) throws SQLException{
+        Connection con = null;
+        Docente s = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT * FROM `docente` WHERE `nome` = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nome);
+            ResultSet rs = pst.executeQuery();
+
+           if (rs.next()) {
+                s = map(rs);
+            }
+            pst.close();
+            con.close();
+        } catch (SQLException e1) {
+            System.out.println(e1.getMessage());
+        }
+
+        return s;
+    }
     private Docente map(ResultSet rs) throws SQLException {
         Docente d = new Docente(rs.getInt("id"), rs.getString("codigo_modelo"), rs.getString("nome"), rs.getInt("cr_minimo"), rs.getInt("cr_maximo"));
         return d;

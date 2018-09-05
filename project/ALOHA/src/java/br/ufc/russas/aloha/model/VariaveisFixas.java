@@ -4,7 +4,7 @@ package br.ufc.russas.aloha.model;
 public class VariaveisFixas {
     private Docente docente;
     private Disciplina disciplina;
-    private String horario;
+    private Horario horario;
     private Sala sala;
     private Combo combo;
 
@@ -29,17 +29,18 @@ public class VariaveisFixas {
     }
 
     public void setDocente(Docente docente) {
-        System.out.println("ADD docente");
         this.docente = docente;
     }
 
-    public String getHorario() {
+    public Horario getHorario() {
         return horario;
     }
 
-    public void setHorario(String horario) {
+    public void setHorario(Horario horario) {
         this.horario = horario;
     }
+
+
 
     public Sala getSala() {
         return sala;
@@ -54,6 +55,7 @@ public class VariaveisFixas {
         this.disciplina = new Disciplina();
         this.sala = new Sala();
         this.combo = new Combo();
+        this.horario = new Horario();
     }
 
     @Override
