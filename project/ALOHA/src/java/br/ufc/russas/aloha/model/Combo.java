@@ -2,6 +2,7 @@ package br.ufc.russas.aloha.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Combo {
@@ -87,6 +88,40 @@ public class Combo {
         }
         return stb.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + this.id;
+        hash = 23 * hash + Objects.hashCode(this.codigo_modelo);
+        hash = 23 * hash + Objects.hashCode(this.dias);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Combo other = (Combo) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.codigo_modelo, other.codigo_modelo)) {
+            return false;
+        }
+        if (!Objects.equals(this.dias, other.dias)) {
+            return false;
+        }
+        return true;
+    }
+    
 
     
 }

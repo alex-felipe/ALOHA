@@ -16,7 +16,6 @@ public class HorarioConverter implements Converter {
     private static HorarioDAO horarioDAO = new HorarioDAO();
 
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-
         if (value != null && value.trim().length() > 0) {
             try {
                  Horario hr = horarioDAO.find(value);

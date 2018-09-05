@@ -20,12 +20,13 @@ public class ComboConverter implements Converter {
 
     // Actions ------------------------------------------------------------------------------------
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-
         if (value != null && value.trim().length() > 0) {
             try {
                 List<Combo> combos = comboDAO.selectALL();
-                for (Combo c : combos) {
-                    if(c.getDiasEstendido().equals(value)) return c;
+                for (Combo c : combos) {   
+                    if(c.getDiasEstendido().equals(value)){ 
+                        return c;
+                    }
                 } 
                 return null;// Convert the unique String representation of Foo to the actual Foo object.
             } catch (Exception ex) {

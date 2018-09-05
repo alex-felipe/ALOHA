@@ -3,6 +3,7 @@ package br.ufc.russas.aloha.dao;
 
 import br.ufc.russas.aloha.model.Combo;
 import br.ufc.russas.aloha.model.DiasSemanaEnum;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ComboDAO {
+public class ComboDAO implements Serializable{
 
     public ComboDAO() {
     }

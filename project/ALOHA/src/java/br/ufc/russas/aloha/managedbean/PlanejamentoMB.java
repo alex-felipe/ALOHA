@@ -12,7 +12,7 @@ import org.primefaces.event.FlowEvent;
 
 @ManagedBean
 @SessionScoped
-public class PlanejamentoMB  {
+public class PlanejamentoMB {
 
     //Variáveis para manusear o BD
     DisciplinaDAO disciplinaDAO;
@@ -25,10 +25,11 @@ public class PlanejamentoMB  {
     private Turmas turmasTmp;
     private Sala salaTmp;
     private Docente docenteTemp;
-    private Docente docenteFix;
     private VariaveisFixas varFix;
-    
+    private String combo;
+
     private boolean skip;
+    private String nome;
 
 //Listas para gerar modelo
     private ArrayList<Docente> docentesDisponiveis;
@@ -43,14 +44,13 @@ public class PlanejamentoMB  {
     private ArrayList<Docente> docentesOut;
     private ArrayList<Turmas> disciplinasOut;
     private ArrayList<Sala> salasOut;
-    
-    
+
     public PlanejamentoMB() {
         this.disciplinaDAO = new DisciplinaDAO();
         this.salaDAO = new SalaDAO();
         this.docenteDAO = new DocenteDAO();
         this.comboDAO = new ComboDAO();
-        this.horarioDAO = new HorarioDAO();       
+        this.horarioDAO = new HorarioDAO();
         this.varFix = new VariaveisFixas();
         this.disciplinasOut = new ArrayList<>();
         this.docentesOut = new ArrayList<>();
@@ -62,12 +62,12 @@ public class PlanejamentoMB  {
         try {
             this.combos = comboDAO.selectALL();
             this.docentesDisponiveis = docenteDAO.selectALL();
-            this.salasAlocadas = salaDAO.selectALL();           
+            this.salasAlocadas = salaDAO.selectALL();
             for (Disciplina d : this.disciplinaDAO.selectALL()) {
                 this.turmasOfertadas.add(new Turmas(d, 1));
             }
             this.horarios = this.horarioDAO.selectALL();
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -75,13 +75,8 @@ public class PlanejamentoMB  {
         this.turmasTmp = new Turmas();
         this.salaTmp = new Sala();
         this.docenteTemp = new Docente();
-        this.docenteFix = new Docente();
-        
-
 
     }
-
-
 
     public void addDisciplina() {
         if (this.turmasOfertadas.contains(this.turmasTmp)) {
@@ -95,7 +90,6 @@ public class PlanejamentoMB  {
             }
             this.turmasOfertadas.add(this.turmasTmp);
         }
-        
 
     }
 
@@ -147,41 +141,64 @@ public class PlanejamentoMB  {
         }
 
     }
-    public void addVarFixa(){
-        System.out.println(this.varFix.getHorario()==null);
-        if(this.varFix!=null){          
+
+    public void addVarFixa() {
+        if (this.varFix != null) {
             this.variaveisFixas.add(varFix);
             this.varFix = new VariaveisFixas();
         }
     }
 
+    public void removeVarFixa() {
+        System.out.println("aqui");
+        if (this.varFix != null && this.variaveisFixas.contains(this.varFix)) {
+            this.variaveisFixas.remove(varFix);
+            this.varFix = new VariaveisFixas();
+        }
+    }
 
+    public String getCombo() {
+        return combo;
+    }
+
+    public void setCombo(String combo) {
+        this.combo = combo;
+    }
 
     public String onFlowProcess(FlowEvent event) {
         if (skip) {
             skip = false;   //reset in case user goes back
             return "confirm";
         } else {
-
             return event.getNewStep();
         }
     }
-        public boolean isSkip() {
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        System.out.println(nome);
+        this.nome = nome;
+    }
+
+    
+    public boolean isSkip() {
         return skip;
     }
 
     public void setSkip(boolean skip) {
         this.skip = skip;
     }
-    
-        public ArrayList<Combo> getCombos() {
+
+    public ArrayList<Combo> getCombos() {
         return combos;
     }
 
     public void setCombos(ArrayList<Combo> combos) {
         this.combos = combos;
     }
-    
 
     public VariaveisFixas getVarFix() {
         return varFix;
@@ -197,16 +214,6 @@ public class PlanejamentoMB  {
 
     public void setVariaveisFixas(ArrayList<VariaveisFixas> variaveisFixas) {
         this.variaveisFixas = variaveisFixas;
-    }
-
-    
-    
-    public Docente getDocenteFix() {
-        return docenteFix;
-    }
-
-    public void setDocenteFix(Docente docenteFix) {
-        this.docenteFix = docenteFix;
     }
 
     //---------------------------------------------------------------------------
@@ -305,5 +312,5 @@ public class PlanejamentoMB  {
     public void setHorarios(ArrayList<Horario> horarios) {
         this.horarios = horarios;
     }
-    
+
 }

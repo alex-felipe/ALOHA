@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 05/09/2018 às 00:17
--- Versão do servidor: 10.1.32-MariaDB
--- Versão do PHP: 7.2.5
+-- Generation Time: Sep 05, 2018 at 09:46 PM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `ALOHA`
+-- Database: `ALOHA`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `combo`
+-- Table structure for table `combo`
 --
 
 CREATE TABLE `combo` (
@@ -34,7 +34,7 @@ CREATE TABLE `combo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Fazendo dump de dados para tabela `combo`
+-- Dumping data for table `combo`
 --
 
 INSERT INTO `combo` (`id`, `codigo_modelo`) VALUES
@@ -49,7 +49,7 @@ INSERT INTO `combo` (`id`, `codigo_modelo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `combo_dias`
+-- Table structure for table `combo_dias`
 --
 
 CREATE TABLE `combo_dias` (
@@ -58,7 +58,7 @@ CREATE TABLE `combo_dias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Fazendo dump de dados para tabela `combo_dias`
+-- Dumping data for table `combo_dias`
 --
 
 INSERT INTO `combo_dias` (`id_combo`, `id_dia`) VALUES
@@ -82,7 +82,19 @@ INSERT INTO `combo_dias` (`id_combo`, `id_dia`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `disciplina`
+-- Table structure for table `curso`
+--
+
+CREATE TABLE `curso` (
+  `id` int(11) NOT NULL,
+  `codigo_modelo` varchar(6) COLLATE utf8_bin NOT NULL,
+  `nome` varchar(45) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `disciplina`
 --
 
 CREATE TABLE `disciplina` (
@@ -97,7 +109,7 @@ CREATE TABLE `disciplina` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Fazendo dump de dados para tabela `disciplina`
+-- Dumping data for table `disciplina`
 --
 
 INSERT INTO `disciplina` (`id`, `codigo_modelo`, `codigo_disciplina`, `nome`, `cr_praticos`, `cr_teoricos`, `vagas`, `tipo_sala`) VALUES
@@ -109,7 +121,7 @@ INSERT INTO `disciplina` (`id`, `codigo_modelo`, `codigo_disciplina`, `nome`, `c
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `disciplina_curso_semestre`
+-- Table structure for table `disciplina_curso_semestre`
 --
 
 CREATE TABLE `disciplina_curso_semestre` (
@@ -120,7 +132,7 @@ CREATE TABLE `disciplina_curso_semestre` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Fazendo dump de dados para tabela `disciplina_curso_semestre`
+-- Dumping data for table `disciplina_curso_semestre`
 --
 
 INSERT INTO `disciplina_curso_semestre` (`id`, `id_disciplina`, `curso`, `semestre`) VALUES
@@ -134,7 +146,7 @@ INSERT INTO `disciplina_curso_semestre` (`id`, `id_disciplina`, `curso`, `semest
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `docente`
+-- Table structure for table `docente`
 --
 
 CREATE TABLE `docente` (
@@ -146,16 +158,17 @@ CREATE TABLE `docente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Fazendo dump de dados para tabela `docente`
+-- Dumping data for table `docente`
 --
 
 INSERT INTO `docente` (`id`, `codigo_modelo`, `nome`, `cr_minimo`, `cr_maximo`) VALUES
-(44, 'DOC0044', 'zxczzczxc', 10, 12);
+(44, 'DOC0044', 'zxczzczxc', 10, 12),
+(45, 'DOC0045', 'vbccv', 7, 9);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `docente_dias_semana`
+-- Table structure for table `docente_dias_semana`
 --
 
 CREATE TABLE `docente_dias_semana` (
@@ -163,10 +176,18 @@ CREATE TABLE `docente_dias_semana` (
   `dia_semana` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `docente_dias_semana`
+--
+
+INSERT INTO `docente_dias_semana` (`id_docente`, `dia_semana`) VALUES
+(45, 3),
+(45, 4);
+
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `horario`
+-- Table structure for table `horario`
 --
 
 CREATE TABLE `horario` (
@@ -175,10 +196,20 @@ CREATE TABLE `horario` (
   `descricao` varchar(45) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `horario`
+--
+
+INSERT INTO `horario` (`id`, `codigo_modelo`, `descricao`) VALUES
+(1, 'HOR001', '08:00 - 10:00'),
+(2, 'HOR002', '10:00 - 12:00'),
+(3, 'HOR003', '13:30 - 15:30'),
+(4, 'HOR004', '15:30 - 17:30');
+
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `planejamento`
+-- Table structure for table `planejamento`
 --
 
 CREATE TABLE `planejamento` (
@@ -190,7 +221,7 @@ CREATE TABLE `planejamento` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `planejamento_disciplina`
+-- Table structure for table `planejamento_disciplina`
 --
 
 CREATE TABLE `planejamento_disciplina` (
@@ -202,7 +233,7 @@ CREATE TABLE `planejamento_disciplina` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `planejamento_docente`
+-- Table structure for table `planejamento_docente`
 --
 
 CREATE TABLE `planejamento_docente` (
@@ -214,7 +245,7 @@ CREATE TABLE `planejamento_docente` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `planejamento_sala`
+-- Table structure for table `planejamento_sala`
 --
 
 CREATE TABLE `planejamento_sala` (
@@ -226,7 +257,7 @@ CREATE TABLE `planejamento_sala` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `planejamento_variaveis_fixas`
+-- Table structure for table `planejamento_variaveis_fixas`
 --
 
 CREATE TABLE `planejamento_variaveis_fixas` (
@@ -238,7 +269,7 @@ CREATE TABLE `planejamento_variaveis_fixas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `preferencia`
+-- Table structure for table `preferencia`
 --
 
 CREATE TABLE `preferencia` (
@@ -248,7 +279,7 @@ CREATE TABLE `preferencia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Fazendo dump de dados para tabela `preferencia`
+-- Dumping data for table `preferencia`
 --
 
 INSERT INTO `preferencia` (`id_docente`, `id_disciplina`, `preferencia`) VALUES
@@ -291,12 +322,16 @@ INSERT INTO `preferencia` (`id_docente`, `id_disciplina`, `preferencia`) VALUES
 (38, 5, 100),
 (38, 6, 0),
 (38, 7, 0),
-(38, 8, 0);
+(38, 8, 0),
+(45, 5, 0),
+(45, 6, 35),
+(45, 7, 0),
+(45, 8, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `sala`
+-- Table structure for table `sala`
 --
 
 CREATE TABLE `sala` (
@@ -309,17 +344,31 @@ CREATE TABLE `sala` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Fazendo dump de dados para tabela `sala`
+-- Dumping data for table `sala`
 --
 
 INSERT INTO `sala` (`id`, `codigo_modelo`, `nome`, `tipo`, `capacidade`, `bloco`) VALUES
 (1, 'SAL001', 'Sala 002', 'Sala', 60, 'Bloco A'),
-(3, 'Sal0002', 'Sala Teste', 'Sala', 50, 'Bloco A');
+(3, 'Sal0002', 'Sala Teste', 'Sala', 50, 'Bloco A'),
+(4, 'Sal0003', 'Sala Auxiliar I', 'Sala', 30, 'Bloco A');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `variaveis_fixas`
+-- Table structure for table `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(45) COLLATE utf8_bin NOT NULL,
+  `login` varchar(45) COLLATE utf8_bin NOT NULL,
+  `senha` varchar(45) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `variaveis_fixas`
 --
 
 CREATE TABLE `variaveis_fixas` (
@@ -333,160 +382,184 @@ CREATE TABLE `variaveis_fixas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Índices de tabelas apagadas
+-- Indexes for dumped tables
 --
 
 --
--- Índices de tabela `combo`
+-- Indexes for table `combo`
 --
 ALTER TABLE `combo`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `codigoModelo` (`codigo_modelo`);
 
 --
--- Índices de tabela `disciplina`
+-- Indexes for table `curso`
+--
+ALTER TABLE `curso`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `disciplina`
 --
 ALTER TABLE `disciplina`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `disciplina_curso_semestre`
+-- Indexes for table `disciplina_curso_semestre`
 --
 ALTER TABLE `disciplina_curso_semestre`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `docente`
+-- Indexes for table `docente`
 --
 ALTER TABLE `docente`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `horario`
+-- Indexes for table `horario`
 --
 ALTER TABLE `horario`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `planejamento`
+-- Indexes for table `planejamento`
 --
 ALTER TABLE `planejamento`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `planejamento_disciplina`
+-- Indexes for table `planejamento_disciplina`
 --
 ALTER TABLE `planejamento_disciplina`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `planejamento_docente`
+-- Indexes for table `planejamento_docente`
 --
 ALTER TABLE `planejamento_docente`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `planejamento_sala`
+-- Indexes for table `planejamento_sala`
 --
 ALTER TABLE `planejamento_sala`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `planejamento_variaveis_fixas`
+-- Indexes for table `planejamento_variaveis_fixas`
 --
 ALTER TABLE `planejamento_variaveis_fixas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `preferencia`
+-- Indexes for table `preferencia`
 --
 ALTER TABLE `preferencia`
   ADD PRIMARY KEY (`id_docente`,`id_disciplina`);
 
 --
--- Índices de tabela `sala`
+-- Indexes for table `sala`
 --
 ALTER TABLE `sala`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `variaveis_fixas`
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `variaveis_fixas`
 --
 ALTER TABLE `variaveis_fixas`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de tabelas apagadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `combo`
+-- AUTO_INCREMENT for table `combo`
 --
 ALTER TABLE `combo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
--- AUTO_INCREMENT de tabela `disciplina`
+-- AUTO_INCREMENT for table `curso`
+--
+ALTER TABLE `curso`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `disciplina`
 --
 ALTER TABLE `disciplina`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de tabela `disciplina_curso_semestre`
+-- AUTO_INCREMENT for table `disciplina_curso_semestre`
 --
 ALTER TABLE `disciplina_curso_semestre`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de tabela `docente`
+-- AUTO_INCREMENT for table `docente`
 --
 ALTER TABLE `docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT de tabela `horario`
+-- AUTO_INCREMENT for table `horario`
 --
 ALTER TABLE `horario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de tabela `planejamento`
+-- AUTO_INCREMENT for table `planejamento`
 --
 ALTER TABLE `planejamento`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `planejamento_disciplina`
+-- AUTO_INCREMENT for table `planejamento_disciplina`
 --
 ALTER TABLE `planejamento_disciplina`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `planejamento_docente`
+-- AUTO_INCREMENT for table `planejamento_docente`
 --
 ALTER TABLE `planejamento_docente`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `planejamento_sala`
+-- AUTO_INCREMENT for table `planejamento_sala`
 --
 ALTER TABLE `planejamento_sala`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `planejamento_variaveis_fixas`
+-- AUTO_INCREMENT for table `planejamento_variaveis_fixas`
 --
 ALTER TABLE `planejamento_variaveis_fixas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `sala`
+-- AUTO_INCREMENT for table `sala`
 --
 ALTER TABLE `sala`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de tabela `variaveis_fixas`
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `variaveis_fixas`
 --
 ALTER TABLE `variaveis_fixas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

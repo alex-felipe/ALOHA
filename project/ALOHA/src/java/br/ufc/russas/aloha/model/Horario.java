@@ -6,6 +6,7 @@
 package br.ufc.russas.aloha.model;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  *
@@ -79,5 +80,39 @@ public class Horario {
         builder.append(getId()); // Adiciona o identificador
         return builder.toString();
     }    
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.codigo_modelo);
+        hash = 53 * hash + Objects.hashCode(this.descricao);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Horario other = (Horario) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.codigo_modelo, other.codigo_modelo)) {
+            return false;
+        }
+        if (!Objects.equals(this.descricao, other.descricao)) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }
