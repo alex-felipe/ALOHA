@@ -91,7 +91,7 @@
             <h:form id="form" prependId="false">
                 <p:messages id="messages" showDetail="true" closable="true">
                 </p:messages>
-                <p:dataTable value="#{comboMB.listaCombos}" var="combo" paginator="true"
+                <p:dataTable value="#{comboMB.listaCombos}" rows="15" var="combo" paginator="true"
                                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                       rowsPerPageTemplate="5,10,15">
                     <p:column headerText="Código" width="90">

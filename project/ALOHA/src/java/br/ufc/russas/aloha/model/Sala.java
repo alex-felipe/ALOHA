@@ -38,9 +38,9 @@ public class Sala {
             
     public String geraCodigo(){
         String cod;
-        if(id<10) cod = this.nome.substring(0,3)+"000"+this.id;
-        else if(id<100) cod = this.nome.substring(0,2)+"00"+this.id;
-        else if(id<1000) cod = this.nome.substring(0,2)+"0"+this.id;
+        if(id<10) cod = this.tipo.substring(0,3)+"000"+this.id;
+        else if(id<100) cod = this.tipo.substring(0,3)+"00"+this.id;
+        else if(id<1000) cod = this.tipo.substring(0,3)+"0"+this.id;
         else cod = this.nome.substring(0,2)+this.id;
         return cod;
         

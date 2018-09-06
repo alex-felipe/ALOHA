@@ -76,27 +76,28 @@
             </div>
         </div>
 
-        <div class="container col-lg-9">
+        <div class="container col-lg-9" >
             <h2 class="section-heading float-left" style="font-size: 22px;">ADICIONAR SALA</h2>
             <br/><br/><br/>
-            <div style="margin-left: 100px">
+            <div style="margin: auto">
                 <h:form id="frm">
+                    <p:panel style="width: 80%">
                     <div class="form-group row" >
-                        <p:outputLabel class="col-form-label">Nome: &nbsp;</p:outputLabel>
-                        <p:inputText value="#{salaMB.sala.nome}" placeholder="Digite o nome da sala"></p:inputText>
+                        <p:outputLabel class="col-form-label" style="width: 7%">Nome:</p:outputLabel>
+                        <p:inputText value="#{salaMB.sala.nome}" placeholder="Digite o nome da sala" style="width: 20%"></p:inputText>
                     </div>
                     
                     <div class="form-group row" >
-                        <p:outputLabel class="col-form-label">Tipo: &nbsp;</p:outputLabel>
+                        <p:outputLabel class="col-form-label"  style="width: 7%">Tipo: </p:outputLabel>
                         <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.tipo}">
                             <f:selectItem itemLabel="Selecione tipo" itemValue="" />
-                            <f:selectItem itemLabel="Sala" itemValue="Sala" />
-                            <f:selectItem itemLabel="Laboratório" itemValue="Laboratorio" />
+                            <f:selectItem itemLabel="Sala" itemValue="SALA" />
+                            <f:selectItem itemLabel="Laboratório" itemValue="LABORATÓRIO" />
                         </h:selectOneMenu>
                     </div>
                     
                     <div class="form-group row" >
-                        <p:outputLabel class="col-form-label">Bloco: &nbsp;</p:outputLabel>
+                        <p:outputLabel class="col-form-label" style="width: 7%">Bloco: </p:outputLabel>
                         <h:selectOneMenu class="custom-select"  style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.bloco}">
                             <f:selectItem itemLabel="Selecione uma opção" itemValue="" />
                             <f:selectItem itemLabel="Bloco A" itemValue="Bloco A" />
@@ -106,15 +107,16 @@
                         </h:selectOneMenu>
                     </div>
                     <div class="form-group row" >
-                        <p:outputLabel class="col-form-label">Capacidade: &nbsp;</p:outputLabel>
-                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 70px;"  value="#{salaMB.sala.capacidade}"/>
+                        <p:outputLabel class="col-form-label"  style="width: 7%">Capacidade: </p:outputLabel>
+                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 10%;"  value="#{salaMB.sala.capacidade}"/>
                     </div>
-                   
+                   </p:panel>
                 </h:form>
-                
-                     <a href="salas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 80%; position: absolute;">Cancelar</a>
-                    <p:commandButton  style="left: 90%; position: absolute;"  value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>
-                
+                <br/>
+                <div class="form-group row" >
+                    <a href="salas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 66%; position: relative;">Cancelar</a>
+                    <p:commandButton  style="left: 66%; position: relative; border-radius: 0.5em; width: 7%"  value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>
+                </div>
             </div>
         </div>
 
