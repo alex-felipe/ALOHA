@@ -1,51 +1,73 @@
 
 package br.ufc.russas.aloha.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Planejamento {
-    private int ano;
-    private int periodo;
-    private List<Disciplina> Turmas;
-    private List<Docente> professores;
+    
+    private int id;
+    private String nome;
+    private List<Turmas> turmas;
+    private List<Docente> docentes;
     private List<Sala> salas;
+    private List<VariaveisFixas> variaveisFixas;
+    private boolean finalizado;
 
-    public Planejamento(int ano, int periodo) {
-        this.ano = ano;
-        this.periodo = periodo;
+    public Planejamento() {
+        this.turmas = new ArrayList<>();
+        this.docentes =  new ArrayList<>();
+        this.salas = new ArrayList<>();
+        this.variaveisFixas = new ArrayList<>();
+    }
+    public Planejamento(String nome){
+        super();
+        this.nome = nome;
+        this.finalizado = false;
     }
 
-    public int getAno() {
-        return ano;
+    public Planejamento(String nome, List<Turmas> turmas, List<Docente> docentes, List<Sala> salas, List<VariaveisFixas> variaveisFixas, boolean isFinalizado) {
+        this.nome = nome;
+        this.turmas = turmas;
+        this.docentes = docentes;
+        this.salas = salas;
+        this.variaveisFixas = variaveisFixas;
+        this.finalizado = isFinalizado;
     }
 
-    public void setAno(int ano) {
-        this.ano = ano;
+    public int getId() {
+        return id;
     }
 
-    public int getPeriodo() {
-        return periodo;
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
+
+    public String getNome() {
+        return nome;
     }
 
-    public void setPeriodo(int periodo) {
-        this.periodo = periodo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public List<Disciplina> getTurmas() {
-        return Turmas;
+    public List<Turmas> getTurmas() {
+        return turmas;
     }
 
-    public void setTurmas(List<Disciplina> Turmas) {
-        this.Turmas = Turmas;
+    public void setTurmas(List<Turmas> turmas) {
+        this.turmas = turmas;
     }
 
-    public List<Docente> getProfessores() {
-        return professores;
+    public List<Docente> getDocentes() {
+        return docentes;
     }
 
-    public void setProfessores(List<Docente> professores) {
-        this.professores = professores;
+    public void setDocentes(List<Docente> docentes) {
+        this.docentes = docentes;
     }
 
     public List<Sala> getSalas() {
@@ -55,6 +77,25 @@ public class Planejamento {
     public void setSalas(List<Sala> salas) {
         this.salas = salas;
     }
+
+    public List<VariaveisFixas> getVariaveisFixas() {
+        return variaveisFixas;
+    }
+
+    public void setVariaveisFixas(List<VariaveisFixas> variaveisFixas) {
+        this.variaveisFixas = variaveisFixas;
+    }
+
+    public boolean isFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(boolean finalizado) {
+        this.finalizado = finalizado;
+    }
+    
+
+  
     
     
     

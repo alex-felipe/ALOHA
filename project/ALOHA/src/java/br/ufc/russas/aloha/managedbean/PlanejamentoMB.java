@@ -2,11 +2,16 @@ package br.ufc.russas.aloha.managedbean;
 
 import br.ufc.russas.aloha.dao.*;
 import br.ufc.russas.aloha.model.*;
+import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.FlowEvent;
 
@@ -20,6 +25,7 @@ public class PlanejamentoMB {
     DocenteDAO docenteDAO;
     ComboDAO comboDAO;
     HorarioDAO horarioDAO;
+    PlanejamentoDAO planejamentoDAO;
 
 //Variáveis para Auxiliares
     private Turmas turmasTmp;
@@ -51,6 +57,7 @@ public class PlanejamentoMB {
         this.docenteDAO = new DocenteDAO();
         this.comboDAO = new ComboDAO();
         this.horarioDAO = new HorarioDAO();
+        this.planejamentoDAO = new PlanejamentoDAO();
         this.varFix = new VariaveisFixas();
         this.disciplinasOut = new ArrayList<>();
         this.docentesOut = new ArrayList<>();
@@ -154,6 +161,16 @@ public class PlanejamentoMB {
         if (this.varFix != null && this.variaveisFixas.contains(this.varFix)) {
             this.variaveisFixas.remove(varFix);
             this.varFix = new VariaveisFixas();
+        }
+    }
+    
+    public void salvar(){
+        Planejamento current = new Planejamento(this.nome, this.turmasOfertadas, this.docentesDisponiveis, this.salasAlocadas, this.variaveisFixas, false);
+        planejamentoDAO.insert(current);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("planejamentos.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(PlanejamentoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -48,7 +48,7 @@ public class Disciplina {
         
     }
     
-    public String geraCodigo( int id) {
+    public String geraCodigo() {
         String cod;
         if (id < 10) {
             cod = "DISC" + "0000" + id;

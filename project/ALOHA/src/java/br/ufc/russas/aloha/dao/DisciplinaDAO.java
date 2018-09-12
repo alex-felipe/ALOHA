@@ -13,8 +13,6 @@ import java.util.List;
 public class DisciplinaDAO implements Serializable{
 
     public boolean insert(Disciplina disciplina) {
-        int id = this.gerarIdDisciplina();
-        disciplina.setCodigoModelo(disciplina.geraCodigo(id));
         Connection con = null;
         int tmp;
         try {
@@ -22,7 +20,7 @@ public class DisciplinaDAO implements Serializable{
             con = ConexaoFactory.getConnection();
             String sql = "INSERT INTO disciplina (codigo_modelo, codigo_disciplina, nome, cr_praticos, cr_teoricos, vagas, tipo_sala) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, disciplina.getCodigoModelo());
+            ps.setString(1, "NULL");
             ps.setString(2, disciplina.getCodigo());
             ps.setString(3, disciplina.getNome());
             ps.setInt(4, disciplina.getCrPraticos());
@@ -31,6 +29,16 @@ public class DisciplinaDAO implements Serializable{
             ps.setString(7, disciplina.getTipoSala());
            
             tmp = ps.executeUpdate();
+            
+            disciplina.setId(findCodigoDisc(disciplina.getCodigo()).getId());
+            disciplina.setCodigoModelo(disciplina.geraCodigo());
+            
+            sql = "UPDATE `disciplina` SET `codigo_modelo` = ? WHERE id = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, disciplina.getCodigoModelo());
+            ps.setInt(1, disciplina.getId());
+            ps.executeUpdate();
+            
             for (CursoSemestre cs : disciplina.getCursosSemestres()) {
                 sql = "INSERT INTO `disciplina_curso_semestre` (`id_disciplina`, `curso`, `semestre`) "
                         + "VALUES ((SELECT id FROM disciplina WHERE codigo_modelo =?), ?, ?)";
@@ -103,6 +111,29 @@ public class DisciplinaDAO implements Serializable{
         return s;
     }
 
+        public Disciplina findCodigoDisc(String cod) throws SQLException {
+        Connection con = null;
+        Disciplina s = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT * from disciplina where codigo_disciplina = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, cod);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                s = map(rs);
+            }
+            pst.close();
+            con.close();
+        } catch (SQLException e1) {
+            System.out.println(e1.getMessage());
+        }
+
+        return s;
+    }
+        
     public boolean update(Disciplina disciplina) {
         Connection con = null;
         

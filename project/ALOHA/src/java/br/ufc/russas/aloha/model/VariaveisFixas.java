@@ -4,12 +4,23 @@ package br.ufc.russas.aloha.model;
 import java.util.Objects;
 
 public class VariaveisFixas {
+    private int id;
     private Docente docente;
     private Disciplina disciplina;
     private Horario horario;
     private Sala sala;
     private Combo combo;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
+    
     public Disciplina getDisciplina() {
         return disciplina;
     }
