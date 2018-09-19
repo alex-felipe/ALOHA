@@ -81,37 +81,41 @@
             <br/><br/><br/>
             <div style="margin: auto">
                 <h:form id="frm">
-                    <p:growl id="feedback" showDetail="true" sticky="true" />  
+                    <p:growl id="feedback" showDetail="false" sticky="false" autoUpdate="true" globalOnly="true"/>  
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label" style="width: 7%">Nome:</p:outputLabel>
-                        <p:inputText value="#{salaMB.sala.nome}" id="nome" placeholder="Digite o nome da sala" style="width: 20%" required="true" requiredMessage="É necessário inserir um nome para a sala">
+                        <p:inputText value="#{salaMB.sala.nome}" id="nome" placeholder="Digite o nome da sala" style="width: 20%" required="true" requiredMessage="Por favor, informe o nome da sala">
                             <f:validateLength minimum="5" maximum="50" />
                             <p:clientValidator />
                         </p:inputText>
+                        <p:message for="nome" />
                     </div>
                     
                     <div class="form-group row" >
-                        <p:outputLabel class="col-form-label"  style="width: 7%">Tipo: </p:outputLabel>
-                        <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.tipo}" required="true" requiredMessage="É necessário selecionar uma das opções de 'tipo de sala'">
-                            <f:selectItem itemLabel="Selecione tipo" itemValue="#{null}" noSelectionOption="true"/>
-                            <f:selectItem itemLabel="Sala" itemValue="SALA" />
+                        <p:outputLabel class="col-form-label"  style="width: 7%">Tipo de sala: </p:outputLabel>
+                        <h:selectOneMenu id="tipoSala" class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.tipo}" required="true" requiredMessage="Informe o tipo de sala">
+                            <f:selectItem itemLabel="Selecione o tipo" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Sala comum" itemValue="SALA" />
                             <f:selectItem itemLabel="Laboratório" itemValue="LABORATÓRIO" />
                         </h:selectOneMenu>
+                        <p:message for="tipoSala" />
                     </div>
                     
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label" style="width: 7%">Bloco: </p:outputLabel>
-                        <h:selectOneMenu class="custom-select"  style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.bloco}" required="true" requiredMessage="É necessário selecionar uma das opções de 'bloco'">
+                        <h:selectOneMenu id="bloco" class="custom-select"  style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.bloco}" required="true" requiredMessage="Informe o bloco onde a sala está contida">
                             <f:selectItem itemLabel="Selecione uma opção" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Bloco A" itemValue="Bloco A" />
                             <f:selectItem itemLabel="Bloco B" itemValue="Bloco B" />
                         </h:selectOneMenu>
+                        <p:message for="bloco" />
                     </div>
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label"  style="width: 7%">Capacidade: </p:outputLabel>
-                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 10%;"  value="#{salaMB.sala.capacidade}">
+                        <p:inputText id="capacidade" type="number" class="form-control" style="font-size: 12px; width: 10%;"  value="#{salaMB.sala.capacidade}" required="true" requiredMessage="A capacidade da sala deve estar entre os valores 1 e 100">
                             <f:validateDoubleRange minimum="1" maximum="100" />
                         </p:inputText>
+                        <p:message for="capacidade" showSummary="false"/>
                     </div>
                     <br/>
                     <div class="form-group row" >

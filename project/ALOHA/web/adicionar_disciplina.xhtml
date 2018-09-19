@@ -50,7 +50,7 @@
                             <a class="nav-link js-scroll-trigger" href="planejamentos.xhtml">Planejamentos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="confifiracoes.xhtml">Configurações</a>
+                            <a class="nav-link js-scroll-trigger" href="configuracoes.xhtml">Configurações</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="sobre.xhtml">Sobre</a>
@@ -67,8 +67,8 @@
                     <nav aria-label="breadcrumb" style="width: 75%;">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.xhtml">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="salas.xhtml">Gerenciamento de Salas</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Adicionar Sala</li>
+                            <li class="breadcrumb-item"><a href="disciplinas.xhtml">Gerenciamento de Disciplinas</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Adicionar Disciplina</li>
                         </ol>
                     </nav>
                 </center>
@@ -81,23 +81,30 @@
             <br/><br/><br/>
             <div style="margin-left: 100px">
                 <h:form id="frm" >
-
+                    <p:growl id="feedback" showDetail="false" sticky="false" autoUpdate="true" globalOnly="true"/> 
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label" style="width: 10%;">Código Disciplina:</p:outputLabel>
-                        <p:inputText class="form-control" style="font-size: 12px; width: 200px; " value="#{disciplinaMB.disciplina.codigo}" placeholder="Digite o código da disciplina" ></p:inputText>
+                        <p:inputText id="codDisciplina" class="form-control" style="font-size: 12px; width: 210px; " value="#{disciplinaMB.disciplina.codigo}" placeholder="Digite o código da disciplina" required="true" requiredMessage="É necessário inserir o código da disciplina">
+                            <f:validateLength minimum="5" maximum="10" />
+                            <p:clientValidator />
+                        </p:inputText>
+                        <p:message for="codDisciplina" />
                     </div>
 
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label" style="width: 10%;">Nome: &nbsp;</p:outputLabel>
-                        <p:inputText class="form-control" style="font-size: 12px; width: 200px; " value="#{disciplinaMB.disciplina.nome}" placeholder="Digite o nome da disciplina"></p:inputText>
+                        <p:inputText class="form-control" style="font-size: 12px; width: 210px;" value="#{disciplinaMB.disciplina.nome}" placeholder="Digite o nome da disciplina" required="true" requiredMessage="É necessário inserir o nome da disciplina">
+                            <f:validateLength minimum="5" maximum="100" />
+                            <p:clientValidator />
+                        </p:inputText>
                     </div>
 
 
                     <div class="form-group row" >  
                         <p:outputLabel class="col-form-label" style="width: 10%;">Créditos Teóricos: </p:outputLabel>
-                        <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{disciplinaMB.disciplina.crTeoricos}">
-                            <f:selectItem itemLabel="Teóricos" itemValue="" />
-                            <f:selectItem itemLabel="0" itemValue="10" />
+                        <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 210px; height: 30px;" value="#{disciplinaMB.disciplina.crTeoricos}" required="true" requiredMessage="É necessário informar a quantidade de créditos teóricos">
+                            <f:selectItem itemLabel="Número de Créditos Teóricos" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="0" itemValue="0" />
                             <f:selectItem itemLabel="1" itemValue="1" />
                             <f:selectItem itemLabel="2" itemValue="2" />
                             <f:selectItem itemLabel="3" itemValue="3" />
@@ -111,38 +118,42 @@
                     </div>
                     <div class="form-group row">
                         <p:outputLabel class="col-form-label" style="width: 10%;"> Créditos Práricos:</p:outputLabel>
-                        <h:selectOneMenu  class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{disciplinaMB.disciplina.crPraticos}">
-                            <f:selectItem itemLabel="Práticos" itemValue="0" />
-                            <f:selectItem itemLabel="0" itemValue="10" />
+                        <h:selectOneMenu  class="custom-select" style="font-size: 12px; width: 210px; height: 30px;" value="#{disciplinaMB.disciplina.crPraticos}" required="true" requiredMessage="É necessário informar a quantidade de créditos práticos">
+                            <f:selectItem itemLabel="Número de Créditos Práticos" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="0" itemValue="0" />
                             <f:selectItem itemLabel="1" itemValue="1" />
                             <f:selectItem itemLabel="2" itemValue="2" />
                             <f:selectItem itemLabel="3" itemValue="3" />
                             <f:selectItem itemLabel="4" itemValue="4" />
                             <f:selectItem itemLabel="5" itemValue="5" />
                             <f:selectItem itemLabel="6" itemValue="6" />
-
                         </h:selectOneMenu>
+                    </div>
+                    <div class="form-group row">
+                        <p:outputLabel class="col-form-label" style="width: 10%;"> Quantidade de vagas:</p:outputLabel>&nbsp;&nbsp;&nbsp;
+                        <p:inputText  id="vagas" type="number" class="form-control" style="font-size: 12px; width: 210px; height: 30px;margin-left: -8px;"  value="#{disciplinaMB.disciplina.vagas}">
+                            <f:validateDoubleRange minimum="1" maximum="100" />
+                        </p:inputText>
                     </div>
                     <div class="form-group row" >  
 
 
                         <p:outputLabel class="col-form-label" style="width: 10%;"> Sala Especifica: </p:outputLabel>
-                        <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{disciplinaMB.disciplina.tipoSala}">
-                            <f:selectItem itemLabel="Sala" itemValue="Sala" />
+                        <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 210px; height: 30px;" value="#{disciplinaMB.disciplina.tipoSala}">
+                            <f:selectItem itemLabel="Nenhuma sala específica selecionada..." itemValue="" />
                             <f:selectItem itemLabel="Laboratório de Química" itemValue="Laboratório de Química" />
                             <f:selectItem itemLabel="Laboratório de Informática" itemValue="Laboratório de Informática" />
                             <f:selectItem itemLabel="Laboratório de Física" itemValue="Laboratório de Física" />
                             <f:selectItem itemLabel="Sala de Desenho" itemValue="Sala de Desenho" />
 
                         </h:selectOneMenu>
-                        <p:outputLabel class="col-form-label" style="width: 5%; margin-left: 1%"> Vagas:</p:outputLabel>
-                        <p:inputText  id="text" type="number" class="form-control" style="font-size: 12px; width: 9%; "  value="#{disciplinaMB.disciplina.vagas}"/>
+
                     </div>  
                     <div>
                         <div class="form-group row" >
                             <p:outputLabel class="col-form-label" style="width: 10%;">Curso / Semestre: </p:outputLabel>
-                            <h:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.curso}"  class="custom-select" style="font-size: 12px; width: 200px; height: 30px;">
-                                <f:selectItem itemLabel="Curso" itemValue="" />
+                            <h:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.curso}"  class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" required="true" requiredMessage="É necessário informar o curso que a disciplina pertence">
+                                <f:selectItem itemLabel="Curso" itemValue="" noSelectionOption="true"/>
                                 <f:selectItem itemLabel="Ciência da Computação" itemValue="Ciência da Computação" />
                                 <f:selectItem itemLabel="Engenharia Civil" itemValue="Engenharia Civil" />
                                 <f:selectItem itemLabel="Engenharia de Produção" itemValue="Engenharia de Produção" />
@@ -150,7 +161,7 @@
                                 <f:selectItem itemLabel="Engenharia de Mecânica" itemValue="Engenharia Mecânica" />
                             </h:selectOneMenu>
                             &nbsp;&nbsp;
-                            <h:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.semestre}"  class="custom-select" style="font-size: 12px; width: 100px; height: 30px;margin-left: 5px;">
+                            <h:selectOneMenu value="#{disciplinaMB.cursoSemCurrent.semestre}"  class="custom-select" style="font-size: 12px; width: 100px; height: 30px;margin-left: 5px;" required="true" requiredMessage="É necessário informar o curso que a disciplina pertence"> 
                                 <f:selectItem itemLabel="Semestre" itemValue="0" />
                                 <f:selectItem itemLabel="1" itemValue="1" />
                                 <f:selectItem itemLabel="2" itemValue="2" />
@@ -186,10 +197,10 @@
 
 
                     </div>
-
+                    <a href="disciplinas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 80%; position: absolute;">Cancelar</a>
+                    <p:commandButton value="Salvar" action="#{disciplinaMB.adicionar()}" style=" left: 90%; position: absolute;"></p:commandButton>
                 </h:form>
-                <a href="disciplinas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 80%; position: absolute;">Cancelar</a>
-                <p:commandButton value="Salvar" actionListener="#{disciplinaMB.adicionar()}" style=" left: 90%; position: absolute;"></p:commandButton>
+
 
             </div>
         </div>

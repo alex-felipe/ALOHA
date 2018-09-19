@@ -3,7 +3,10 @@ package br.ufc.russas.aloha.managedbean;
 import br.ufc.russas.aloha.dao.DisciplinaDAO;
 import br.ufc.russas.aloha.model.CursoSemestre;
 import br.ufc.russas.aloha.model.Disciplina;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -51,7 +54,6 @@ public class DisciplinaMB {
 
     public void adicionar() {
         try {
-            System.out.println(disciplina.getId());
             if (disciplinaDAO.find(disciplina.getId()) != null) {  
                 
                 if (disciplinaDAO.update(disciplina)) {
@@ -60,12 +62,11 @@ public class DisciplinaMB {
                         FacesContext.getCurrentInstance().getExternalContext().redirect("disciplinas.xhtml");
                         disciplina = new Disciplina();
                         this.disciplinas = disciplinaDAO.selectALL();
-                    } catch (Exception e) {
+                    } catch (IOException e) {
                         e.getMessage();
                     }
                 }
             } else {
-                System.out.println(this.disciplina.getCursosSemestres().size());
                 if (disciplinaDAO.insert(this.disciplina)) {
                     
                     try {
@@ -74,16 +75,16 @@ public class DisciplinaMB {
                         this.disciplina = new Disciplina();
                         this.disciplinas = disciplinaDAO.selectALL();
 
-                    } catch (Exception e) {
+                    } catch (IOException e) {
                         System.out.println("Erro");
                         e.getMessage();
                     }
                 }
                 else{
-                    System.out.println("Aqui 2");
+                    enviaFeedBack("Erro", "Não foi possível realizar o cadastro da disciplina", 'e');
                 }
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
 
         }
 
@@ -93,7 +94,7 @@ public class DisciplinaMB {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("adicionar_disciplina.xhtml");
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.getMessage();
         }
     }
@@ -110,9 +111,9 @@ public class DisciplinaMB {
                 this.disciplinas = disciplinaDAO.selectALL();
 
             } else {
-                System.out.println("Deu erro");
+                enviaFeedBack("Erro", "Falha ao remover a disciplina", 'e');
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.getMessage();
         }
     }
@@ -122,7 +123,7 @@ public class DisciplinaMB {
             disciplina = new Disciplina();
             FacesContext.getCurrentInstance().getExternalContext().redirect("adicionar_disciplina.xhtml");
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.getMessage();
         }
     }
@@ -144,6 +145,29 @@ public class DisciplinaMB {
             this.cursoSemCurrent = new CursoSemestre();
         }
 
+    }
+    
+    public void enviaFeedBack(String titulo, String msg, char severidade) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        FacesMessage.Severity s = null;
+        switch (severidade) {
+            case 'i':
+                s = FacesMessage.SEVERITY_INFO;
+                break;
+            case 'a':
+                s = FacesMessage.SEVERITY_WARN;
+                break;
+            case 'e':
+                s = FacesMessage.SEVERITY_ERROR;
+                break;
+            case 'f':
+                s = FacesMessage.SEVERITY_FATAL;
+                break;
+            default:
+                s = FacesMessage.SEVERITY_INFO;
+                break;
+        }
+        context.addMessage(null, new FacesMessage(s, titulo, msg));
     }
 
 }
