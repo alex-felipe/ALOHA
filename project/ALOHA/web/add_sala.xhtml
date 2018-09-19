@@ -81,16 +81,19 @@
             <br/><br/><br/>
             <div style="margin: auto">
                 <h:form id="frm">
-                    <p:panel style="width: 80%">
+                    <p:growl id="feedback" showDetail="true" sticky="true" />  
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label" style="width: 7%">Nome:</p:outputLabel>
-                        <p:inputText value="#{salaMB.sala.nome}" placeholder="Digite o nome da sala" style="width: 20%"></p:inputText>
+                        <p:inputText value="#{salaMB.sala.nome}" id="nome" placeholder="Digite o nome da sala" style="width: 20%" required="true" requiredMessage="É necessário inserir um nome para a sala">
+                            <f:validateLength minimum="5" maximum="50" />
+                            <p:clientValidator />
+                        </p:inputText>
                     </div>
                     
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label"  style="width: 7%">Tipo: </p:outputLabel>
-                        <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.tipo}">
-                            <f:selectItem itemLabel="Selecione tipo" itemValue="" />
+                        <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.tipo}" required="true" requiredMessage="É necessário selecionar uma das opções de 'tipo de sala'">
+                            <f:selectItem itemLabel="Selecione tipo" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Sala" itemValue="SALA" />
                             <f:selectItem itemLabel="Laboratório" itemValue="LABORATÓRIO" />
                         </h:selectOneMenu>
@@ -98,25 +101,25 @@
                     
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label" style="width: 7%">Bloco: </p:outputLabel>
-                        <h:selectOneMenu class="custom-select"  style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.bloco}">
-                            <f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+                        <h:selectOneMenu class="custom-select"  style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.bloco}" required="true" requiredMessage="É necessário selecionar uma das opções de 'bloco'">
+                            <f:selectItem itemLabel="Selecione uma opção" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Bloco A" itemValue="Bloco A" />
                             <f:selectItem itemLabel="Bloco B" itemValue="Bloco B" />
-                            <f:selectItem itemLabel="Bloco C" itemValue="Bloco C" />
-                            <f:selectItem itemLabel="Bloco D" itemValue="Bloco D" />
                         </h:selectOneMenu>
                     </div>
                     <div class="form-group row" >
                         <p:outputLabel class="col-form-label"  style="width: 7%">Capacidade: </p:outputLabel>
-                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 10%;"  value="#{salaMB.sala.capacidade}"/>
+                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 10%;"  value="#{salaMB.sala.capacidade}">
+                            <f:validateDoubleRange minimum="1" maximum="100" />
+                        </p:inputText>
                     </div>
-                   </p:panel>
+                    <br/>
+                    <div class="form-group row" >
+                        <a href="salas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 66%; position: relative;">Cancelar</a>
+                        <p:commandButton  style="left: 66%; position: relative; border-radius: 0.5em; width: 7%"  value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>
+                    </div>
                 </h:form>
-                <br/>
-                <div class="form-group row" >
-                    <a href="salas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 66%; position: relative;">Cancelar</a>
-                    <p:commandButton  style="left: 66%; position: relative; border-radius: 0.5em; width: 7%"  value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>
-                </div>
+
             </div>
         </div>
 

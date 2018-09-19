@@ -90,7 +90,7 @@
                     </div>                        
                     <div class="form-group row" >  
                         <p:outputLabel>Quantidade Mínima de Créditos: &nbsp;</p:outputLabel>
-                        <p:inputText id="crMin" value="#{docenteMB.docente.crMin}" label="Créditos Mínimos" >
+                        <p:inputText type="number" id="crMin" value="#{docenteMB.docente.crMin}" label="Créditos Mínimos" required='true'>
                             <f:validateLongRange minimum="0" maximum="20" />
                             <p:clientValidator />
                         </p:inputText>
@@ -99,7 +99,7 @@
 
                     <div class="form-group row" >  
                         <p:outputLabel>Quantidade Máxima de Créditos &nbsp;</p:outputLabel>
-                        <p:inputText id="crMax" value="#{docenteMB.docente.crMax}" label="Créditos Máximos" >
+                        <p:inputText type="number" id="crMax" value="#{docenteMB.docente.crMax}" label="Créditos Máximos" required='true'>
                             <f:validateLongRange minimum="0" maximum="20" />
                             <p:clientValidator />
                         </p:inputText>

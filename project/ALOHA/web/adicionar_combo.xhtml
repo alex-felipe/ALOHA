@@ -134,7 +134,7 @@
         <h:form id="frm">
             <p:messages id="messages" showDetail="true" closable="true">
             </p:messages>
-            <p:selectManyCheckbox id="dias_da_semana" value="#{comboMB.combo.dias}">
+            <p:selectManyCheckbox id="dias_da_semana" value="#{comboMB.combo.dias}" layout="grid" columns="2"> 
                 <f:selectItem itemLabel="Domingo (Manhã)" itemValue="0"/>
                 <f:selectItem itemLabel="Domingo (Tarde)" itemValue="1"/>
                 <f:selectItem itemLabel="Segunda (Manhã)" itemValue="2"/>
