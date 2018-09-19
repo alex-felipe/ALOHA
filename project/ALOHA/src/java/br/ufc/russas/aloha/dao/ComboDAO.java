@@ -120,6 +120,37 @@ public class ComboDAO implements Serializable{
         return listaCombos;
     }
     
+     public Combo find(int id){
+        Connection con = null;
+        Combo combo = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT * FROM combo WHERE id = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                combo = new Combo();
+                combo.setId(rs.getInt("id"));
+                combo.setCodigo_modelo(rs.getString("codigo_modelo"));
+                combo.setDias(selectDiasDaSemanaDoCombo(combo));
+               
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Falha na execução do SQL", e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException("Não foi possível fechar a conexão", e);
+            }
+        }
+        return combo;
+    }
+    
     public ArrayList<DiasSemanaEnum> selectDiasDaSemanaDoCombo(Combo combo){
         int id_combo = combo.getId();
         ArrayList<DiasSemanaEnum> listaDias = new ArrayList<>();

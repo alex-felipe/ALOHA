@@ -44,7 +44,8 @@ input{
     text-align:left;  
     padding-left: 1%;
     height:50px;
-    width:170px;
+    padding-right: 20px;
+    width: 18%;
     -webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
     clip-path: polygon(80% 0%, 90% 50%, 80% 100%, 0% 100%, 0% 50%, 0% 0%);
     
@@ -54,20 +55,24 @@ input{
     line-height: 35px;
     text-align:left;  
     padding-left: 2.5%;
-    margin-left: -2.5% !important;
+    padding-right: 2.5%;
+    margin-left: -35px !important;
      height:50px;
-    width:200px;
+    width: 18%;
     -webkit-clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
     clip-path: polygon(80% 0%, 90% 50%, 80% 100%, 0% 100%, 10% 50%, 0% 0%);
+    
+    
+        
 }
 
 .lastTab{
     line-height: 35px;
     text-align:left; 
     padding-left: 2.5%;
-    margin-left: -2.5% !important;
+    margin-left: -35px !important;
      height:50px;
-    width:170px;
+    width: 18%;
     -webkit-clip-path: polygon(25% 0%, 100% 1%, 100% 100%, 25% 100%, 55% 50%);
     clip-path: polygon(100% 0%, 100% 50%, 100% 100%, 0% 100%, 10% 50%, 0% 0%);
 }

@@ -23,6 +23,7 @@ public class PlanejamentoDAO {
             ps.executeUpdate();
 
             planejamento.setId(find(planejamento.getNome()));
+            //____________________________________________________________________________________________________________________
             //Inserção das disciplinas
             for (Turmas d : planejamento.getTurmas()) {
                 for (int i = 0; i < d.getQntTurmas(); i++) {
@@ -33,6 +34,7 @@ public class PlanejamentoDAO {
                     ps.executeUpdate();
                 }
             }
+            //____________________________________________________________________________________________________________________
             //Inserção dos docentes do planejamento
             for (Docente doc : planejamento.getDocentes()) {
                 sql = "INSERT INTO `planejamento_docente` (`id_planejamento`, `id_docente`) VALUES (?, ?);";
@@ -41,6 +43,7 @@ public class PlanejamentoDAO {
                 ps.setInt(2, doc.getId());
                 ps.executeUpdate();
             }
+            //____________________________________________________________________________________________________________________
             //Inserção das salas do planejamento
             for (Sala s: planejamento.getSalas()) {
                 sql = "INSERT INTO `planejamento_sala` (`id_planejamento`, `id_sala`) VALUES (?, ?);";
@@ -49,14 +52,31 @@ public class PlanejamentoDAO {
                 ps.setInt(2, s.getId());
                 ps.executeUpdate();
             }
+            //____________________________________________________________________________________________________________________
             //Inserção das variáveis fixas do planejamento
+            VariaveisFixasDAO varDAO = new VariaveisFixasDAO();
             for (VariaveisFixas v: planejamento.getVariaveisFixas()) {
-                sql = "INSERT INTO `planejamento_variaveis_fixas` (`id_planejamento`, `id_var_fixa`) VALUES (?, ?);";
-                ps = con.prepareStatement(sql);
-                ps.setInt(1, planejamento.getId());
-                ps.setInt(2, v.getId());
-                ps.executeUpdate();
+                
+                try{
+                    varDAO.insert(v);
+                    
+                }catch(Exception e){
+                    System.out.println("Erro ao inserir variável fixa");
+                    
+                }
+                if(varDAO.retrunId(v) != 0){
+                    v.setId(varDAO.retrunId(v));
+                    sql = "INSERT INTO `planejamento_variaveis_fixas` (`id_planejamento`, `id_var_fixa`) VALUES (?, ?);";
+                    ps = con.prepareStatement(sql);
+                    ps.setInt(1, planejamento.getId());
+                    ps.setInt(2, v.getId());
+                    ps.executeUpdate();
+                }else{
+                    System.out.println("Não foi possivel recuperar os dados da variável fixa");
+                }
+                
             }
+            //____________________________________________________________________________________________________________________
 
             return true;
         } catch (SQLException e) {

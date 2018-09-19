@@ -13,7 +13,14 @@ set SEMESTRE := S1 S2;
 
 set CURSO := CC SOFT;
 
+
+
+
 # A partir daqui
+
+param X:= 
+[Prof01, FUP1, CB01, h0800_1000, Sala01] := 1
+[Prof01, FUP1, CB01, h0800_1000, Sala02] := 0;
 
 param: MINHp MAXHp:=
 Prof01 4 20

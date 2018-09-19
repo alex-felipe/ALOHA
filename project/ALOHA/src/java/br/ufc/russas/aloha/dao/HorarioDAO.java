@@ -132,5 +132,30 @@ public class HorarioDAO {
 
         return horario;
     }
+    public Horario find(int id) throws SQLException {
+        Connection con = null;
+        Horario horario = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT * FROM horario WHERE id = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, id);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                horario = new Horario();
+                horario.setId(rs.getInt("id"));
+                horario.setCodigo_modelo(rs.getString("codigo_modelo"));
+                horario.setDescricao(rs.getString("descricao"));
+            }
+            pst.close();
+            con.close();
+        } catch (SQLException e1) {
+            System.out.println(e1.getMessage());
+        }
+
+        return horario;
+    }
 
 }
