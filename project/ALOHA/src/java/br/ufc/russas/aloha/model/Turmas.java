@@ -37,7 +37,7 @@ public class Turmas implements Comparable<Turmas> {
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + Objects.hashCode(this.disciplina);
-        hash = 79 * hash + this.qntTurmas;
+
         return hash;
     }
 
@@ -53,9 +53,7 @@ public class Turmas implements Comparable<Turmas> {
             return false;
         }
         final Turmas other = (Turmas) obj;
-        if (this.qntTurmas != other.qntTurmas) {
-            return false;
-        }
+        
         if (!Objects.equals(this.disciplina, other.disciplina)) {
             return false;
         }

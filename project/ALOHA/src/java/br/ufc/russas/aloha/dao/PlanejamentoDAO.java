@@ -13,7 +13,7 @@ public class PlanejamentoDAO {
         //docente.setCodigoModelo(docente.getCodigo());
         Connection con = null;
         try {
-            
+
             con = ConexaoFactory.getConnection();
             //Inserção do planejamento
             String sql = "INSERT INTO `planejamento` (`nome`, `status`) VALUES (?, ?);";
@@ -45,7 +45,7 @@ public class PlanejamentoDAO {
             }
             //____________________________________________________________________________________________________________________
             //Inserção das salas do planejamento
-            for (Sala s: planejamento.getSalas()) {
+            for (Sala s : planejamento.getSalas()) {
                 sql = "INSERT INTO `planejamento_sala` (`id_planejamento`, `id_sala`) VALUES (?, ?);";
                 ps = con.prepareStatement(sql);
                 ps.setInt(1, planejamento.getId());
@@ -55,26 +55,26 @@ public class PlanejamentoDAO {
             //____________________________________________________________________________________________________________________
             //Inserção das variáveis fixas do planejamento
             VariaveisFixasDAO varDAO = new VariaveisFixasDAO();
-            for (VariaveisFixas v: planejamento.getVariaveisFixas()) {
-                
-                try{
+            for (VariaveisFixas v : planejamento.getVariaveisFixas()) {
+
+                try {
                     varDAO.insert(v);
-                    
-                }catch(Exception e){
+
+                } catch (Exception e) {
                     System.out.println("Erro ao inserir variável fixa");
-                    
+
                 }
-                if(varDAO.retrunId(v) != 0){
+                if (varDAO.retrunId(v) != 0) {
                     v.setId(varDAO.retrunId(v));
                     sql = "INSERT INTO `planejamento_variaveis_fixas` (`id_planejamento`, `id_var_fixa`) VALUES (?, ?);";
                     ps = con.prepareStatement(sql);
                     ps.setInt(1, planejamento.getId());
                     ps.setInt(2, v.getId());
                     ps.executeUpdate();
-                }else{
+                } else {
                     System.out.println("Não foi possivel recuperar os dados da variável fixa");
                 }
-                
+
             }
             //____________________________________________________________________________________________________________________
 
@@ -114,8 +114,88 @@ public class PlanejamentoDAO {
 
         return 0;
     }
-    
+
+    public Planejamento find(int id) throws SQLException {
+        Connection con = null;
+        Planejamento p = null;
+        DocenteDAO doc = new DocenteDAO();
+        DisciplinaDAO disc = new DisciplinaDAO();
+        SalaDAO s = new SalaDAO();
+        VariaveisFixasDAO v = new VariaveisFixasDAO();
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT * FROM planejamento";
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            p = new Planejamento();
+            p.setId(rs.getInt("id"));
+            p.setNome(rs.getString("nome"));
+            p.setFinalizado(rs.getBoolean("status"));
+
+            ResultSet rsAux;
+
+            sql = "SELECT * FROM planejamento_disciplina WHERE id_planejamento = ?";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, p.getId());
+            rsAux = pst.executeQuery();
+            Disciplina d;
+            while (rsAux.next()) {
+                d = disc.find(rsAux.getInt("id_disciplina"));
+                if (p.getTurmas().contains(new Turmas(d, 1))) {
+                    int i = p.getTurmas().get(p.getTurmas().indexOf(new Turmas(d, 1))).getQntTurmas();
+                    p.getTurmas().get(p.getTurmas().indexOf(new Turmas(d, 1))).setQntTurmas(i++);
+                } else {
+                    p.getTurmas().add(new Turmas(d, 1));
+                }
+            }
+
+            sql = "SELECT * FROM planejamento_docente WHERE id_planejamento = ?";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, p.getId());
+            rsAux = pst.executeQuery();
+            Docente docente;
+            while (rsAux.next()) {
+                docente = doc.find(rsAux.getInt("id_docente"));
+                p.getDocentes().add(docente);
+
+            }
+
+            sql = "SELECT * FROM planejamento_sala WHERE id_planejamento = ?";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, p.getId());
+            rsAux = pst.executeQuery();
+            Sala sala;
+            while (rsAux.next()) {
+                sala = s.find(rsAux.getInt("id_sala"));
+                p.getSalas().add(sala);
+
+            }
+
+            sql = "SELECT * FROM planejamento_variaveis_fixas WHERE id_planejamento = ?";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, p.getId());
+            rsAux = pst.executeQuery();
+            VariaveisFixas variavel;
+            while (rsAux.next()) {
+                variavel = v.find(rsAux.getInt("id_var_fixa"));
+                p.getVariaveisFixas().add(variavel);
+
+            }
+            return p;
+
+        } catch (SQLException e1) {
+            System.out.println(e1.getMessage());
+        }
+
+        return null;
+    }
+
     public ArrayList<Planejamento> selectALL() {
+        DocenteDAO doc = new DocenteDAO();
+        DisciplinaDAO disc = new DisciplinaDAO();
+        SalaDAO s = new SalaDAO();
+        VariaveisFixasDAO v = new VariaveisFixasDAO();
         Connection con = null;
         ArrayList<Planejamento> listaPlanejamentos = new ArrayList<>();
         try {
@@ -123,22 +203,63 @@ public class PlanejamentoDAO {
             String sql = "SELECT * FROM planejamento";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
+            Planejamento p;
             while (rs.next()) {
-                Planejamento p =  new Planejamento();
+                p = new Planejamento();
                 p.setId(rs.getInt("id"));
                 p.setNome(rs.getString("nome"));
                 p.setFinalizado(rs.getBoolean("status"));
-                
-                
+
                 ResultSet rsAux;
-                
+
                 sql = "SELECT * FROM planejamento_disciplina WHERE id_planejamento = ?";
                 pst = con.prepareStatement(sql);
                 pst.setInt(1, p.getId());
                 rsAux = pst.executeQuery();
-                while(rsAux.next()){
-                    
+                Disciplina d;
+                while (rsAux.next()) {
+                    d = disc.find(rsAux.getInt("id_disciplina"));
+                    if (p.getTurmas().contains(new Turmas(d, 1))) {
+                        int i = p.getTurmas().get(p.getTurmas().indexOf(new Turmas(d, 1))).getQntTurmas();
+                        p.getTurmas().get(p.getTurmas().indexOf(new Turmas(d, 1))).setQntTurmas(i++);
+                    } else {
+                        p.getTurmas().add(new Turmas(d, 1));
+                    }
                 }
+
+                sql = "SELECT * FROM planejamento_docente WHERE id_planejamento = ?";
+                pst = con.prepareStatement(sql);
+                pst.setInt(1, p.getId());
+                rsAux = pst.executeQuery();
+                Docente docente;
+                while (rsAux.next()) {
+                    docente = doc.find(rsAux.getInt("id_docente"));
+                    p.getDocentes().add(docente);
+
+                }
+
+                sql = "SELECT * FROM planejamento_sala WHERE id_planejamento = ?";
+                pst = con.prepareStatement(sql);
+                pst.setInt(1, p.getId());
+                rsAux = pst.executeQuery();
+                Sala sala;
+                while (rsAux.next()) {
+                    sala = s.find(rsAux.getInt("id_sala"));
+                    p.getSalas().add(sala);
+
+                }
+
+                sql = "SELECT * FROM planejamento_variaveis_fixas WHERE id_planejamento = ?";
+                pst = con.prepareStatement(sql);
+                pst.setInt(1, p.getId());
+                rsAux = pst.executeQuery();
+                VariaveisFixas variavel;
+                while (rsAux.next()) {
+                    variavel = v.find(rsAux.getInt("id_var_fixa"));
+                    p.getVariaveisFixas().add(variavel);
+
+                }
+                listaPlanejamentos.add(p);
             }
 
         } catch (SQLException e) {
@@ -154,4 +275,5 @@ public class PlanejamentoDAO {
         }
         return listaPlanejamentos;
     }
+
 }

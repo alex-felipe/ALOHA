@@ -72,7 +72,7 @@ public class VariaveisFixasDAO {
             pst.setInt(2, var.getDisciplina().getId());
             pst.setInt(3, var.getCombo().getId());
             pst.setInt(4, var.getHorario().getId());
-            pst.setInt(4, var.getSala().getId());
+            pst.setInt(5, var.getSala().getId());
             ResultSet rs = pst.executeQuery();
 
             rs.next();

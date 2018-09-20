@@ -73,7 +73,8 @@ public class VariaveisFixas {
 
     @Override
     public String toString() {
-        return "VariaveisFixas{" + "docente=" + docente.getNome() + ", disciplina=" + disciplina.getNome() + ", horario=" + horario + ", sala=" + sala.getNome() + ", combo=" + combo.getDiasEstendido() + '}';
+        return disciplina.getNome() + " ministrada por " + docente.getNome() +", na "+ sala.getNome() +", "+ combo.getDiasEstendido()+" " + horario.getDescricao() ;
+        //return  "Docente:" + docente.getNome() + ", Disciplina:" + disciplina.getNome() + ", Horario:" + horario.getDescricao() + ", Sala:" + sala.getNome() + ", Combo:" + combo.getDiasEstendido();
     }
 
     @Override

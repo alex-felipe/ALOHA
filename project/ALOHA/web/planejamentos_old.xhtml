@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="utf-8"/>
@@ -55,7 +56,7 @@
                             <a class="nav-link js-scroll-trigger" href="configuracoes.xhtml">Configurações</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="sobre.xhtml">Sobre</a>
+                            <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
                         </li>
                     </ul>
                 </div>
@@ -67,8 +68,8 @@
                 <center>
                     <nav aria-label="breadcrumb" style="width: 75%;">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.xhtml">Inicio</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Disciplinas</li>
+                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Gerenciamento de planejamentos</li>
                         </ol>
                     </nav>
                 </center>
@@ -77,113 +78,115 @@
         </div>
         <div class="container col-lg-9">
             <form class="form-inline my-2 my-lg-0">
-                    <h2 class="section-heading float-left" style="font-size: 22px;">GERENCIAMENTO DE DISCIPLINAS</h2>
+                <h2 class="section-heading float-left" style="font-size: 22px;">GERENCIAMENTO DE PLANEJAMENTOS</h2>
                 <hr class="my-4"/>
-                <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar disciplina..." aria-label="Pesquisar disciplina..." style="width: 201px;"/>
+                <input class="form-control mr-sm-2 float-right" type="search" placeholder="Pesquisar planejamento..." aria-label="Pesquisar planejamento..." style="width: 201px;"/>
                 <button class="btn btn-outline-primary my-2 my-sm-0" style="border-radius: 0.5em;" type="submit">Pesquisar</button>
             </form>
             <br/>
+            
             <h:form id="form" prependId="false">
-                <p:dataTable value="#{disciplinaMB.disciplinas}" var="disciplina" paginator="true" rows="5"
+                <p:dataTable value="#{planejamentoAuxMB.planejamentos}" rows="15" var="pl" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
-
-                    <p:column headerText="Código" width="100" >
-                        <h:outputText value="#{disciplina.codigoModelo}" />
+                    <p:column headerText="id" width="90">
+                        <h:outputText value="#{pl.id}" />
                     </p:column>
-
-                    <p:column headerText="Cod. Disciplina" width="130" >
-                        <h:outputText value="#{disciplina.codigo}" />
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{pl.nome}" />
                     </p:column>
-
-                    <p:column headerText="Nome" >
-                        <h:outputText value="#{disciplina.nome}" />
+                    <p:column headerText="Tipo">
+                        <h:outputText value="Em andamento" rendered="#{!pl.finalizado}" />
+                        <h:outputText value="Finalizado" rendered="#{pl.finalizado}" />
                     </p:column>
-
-                    <p:column headerText="Vagas" width="80">
-                        <h:outputText value="#{disciplina.vagas}" />
-                    </p:column>
-                    <p:column headerText="Tipo de Sala" width="130">
-                        <h:outputText value="#{disciplina.tipoSala}" />
-                    </p:column>
-                    <p:column headerText="CR Práticos" width="100">
-                        <h:outputText value="#{disciplina.crPraticos}" />
-                    </p:column>
-                    <p:column headerText="CR Teóricos" width="100">
-                        <h:outputText value="#{disciplina.crTeoricos}" />
-                    </p:column>
-                    <p:column headerText="Ações" style="text-align: center" width="70">
-                        <p:commandLink update=":form:disciplinaDetail"  styleClass="ui-icon ui-icon-search"  oncomplete="PF('disciplinaDialog').show();" style="float: left;">
-                            <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaMB.disciplina}"/>
-                        </p:commandLink>
-                        <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{disciplinaMB.editar()}" style="float: left;">
-                            <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaMB.disciplina}"/>
-                        </p:commandLink>
-                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{disciplinaMB.remover()}" style="float: left;">
-                            <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaMB.disciplina}"/>
-                            <p:confirm header="Confirmação" message="Deseja realmente excluir a disciplina ?" />
-                        </p:commandLink>
+                    
+                    <p:column headerText="Ações" style="text-align:center;" width="70">
+                        <div style="display: inline; position: relative;" >
+                            <p:commandLink update=":form:plDetail"  styleClass="ui-icon ui-icon-search"  oncomplete="PF('plDialog').show();" style="float: left;">
+                                <f:setPropertyActionListener value="#{pl}" target="#{planejamentoAuxMB.planejamento}"/>
+                            </p:commandLink>
+                            <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{salaMB.editar()}" style="float: left;">
+                                <f:setPropertyActionListener value="#{pl}" target="#{planejamentoAuxMB.planejamento}"/>
+                            </p:commandLink>
+                            <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{salaMB.remover()}" style="float: left;">                               
+                                <f:setPropertyActionListener value="#{pl}" target="#{planejamentoAuxMB.planejamento}"/>
+                                <p:confirm header="Confirmação" message="Deseja realmente excluir a sala ?" />
+                            </p:commandLink>
+                        </div>
 
                     </p:column>
                 </p:dataTable>
+                <br/>
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
                     <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="margin-left: 200px"/>
                     <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 5px"/>
-
+                    
                 </p:confirmDialog>
+                <p:dialog  header="Informações do planejamento" widgetVar="plDialog" modal="true" width="800" showEffect="blind" hideEffect="explode" resizable="false">
+                    <p:outputPanel id="plDetail" style="text-align:center;" rendered="#{not empty planejamentoAuxMB.planejamento}">
 
-                <p:dialog  header="Informações da disciplina" widgetVar="disciplinaDialog" modal="true" width="400" showEffect="blind" hideEffect="explode" resizable="false">
-                    <p:outputPanel id="disciplinaDetail" style="text-align:center;" rendered="#{not empty disciplinaMB.disciplina}">
-                        <div class="modal-body">
+                        <div class="modal-body" >
                             <div class="row" >
-                                <b>Código Modelo: &nbsp;</b> <h:outputText value="#{disciplinaMB.disciplina.codigoModelo}" />
+                                <b>Nome: &nbsp;</b> <h:outputText value="#{planejamentoAuxMB.planejamento.nome}" />
                             </div>
                             <div class="row" >
-                                <b>Código Disciplina: &nbsp;</b> <h:outputText value="#{disciplinaMB.disciplina.codigo}" />
+                                <b>Situação: &nbsp;</b> 
+                                <h:outputText value="Em andamento" rendered="#{!pl.finalizado}" />
+                                <h:outputText value="Finalizado" rendered="#{pl.finalizado}" />
                             </div>
                             <div class="row" >
-                                <b>Nome: &nbsp; </b> <h:outputText value="#{disciplinaMB.disciplina.nome}" />
+                                <b>Docentes: &nbsp;&nbsp;&nbsp;&nbsp;</b>
                             </div>
                             <div class="row" >
-                                <b>Cursos / Sesmestre: &nbsp;  </b>
-                                <p:dataList value="#{disciplinaMB.disciplina.cursosSemestres}" var="cs" type="ordered">
-                                    #{cs.curso} - #{cs.semestre}º Semestre &nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:dataList value="#{planejamentoAuxMB.planejamento.docentes}" var="d" type="ordered">
+                                    <div align="justify">#{d.nome} &nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </p:dataList>
+                                
                             </div>
                             <div class="row" >
-                                <b>CR Teóricos: &nbsp;</b> <h:outputText value="#{disciplinaMB.disciplina.crTeoricos}" />
+                                <b>Disciplinas: &nbsp; </b> 
                             </div>
                             <div class="row" >
-                                <b>CR Práticos: &nbsp;</b> <h:outputText value="#{disciplinaMB.disciplina.crPraticos}" />
+                                <p:dataList value="#{planejamentoAuxMB.planejamento.turmas}" var="di" type="ordered">
+                                    <div align="justify">#{di.disciplina.nome} &nbsp; </div>
+                                </p:dataList>
+                                
                             </div>
                             <div class="row" >
-                                <b>Sala Específica: &nbsp;</b> <h:outputText value="#{disciplinaMB.disciplina.tipoSala}" />
+                                <b>Salas: &nbsp;</b> 
                             </div>
                             <div class="row" >
-                                <b>Vagas: &nbsp; </b> <h:outputText value="#{disciplinaMB.disciplina.vagas}" />
-                            </div> 
+                                <p:dataList value="#{planejamentoAuxMB.planejamento.salas}" var="s" type="ordered">
+                                    <div align="justify">#{s.nome} - #{s.bloco} &nbsp; </div>
+                                </p:dataList>
+                                
+                            </div>
                             <div class="row" >
-                                <b>Optativa: &nbsp; </b> 
-                                <h:outputText value="Sim" rendered="#{disciplinaMB.disciplina.optativa}" />
-                                <h:outputText value="Não" rendered="#{!disciplinaMB.disciplina.optativa}" />
-                               
-                            </div>  
+                                <b>Variáveis Fixas: &nbsp;</b>
+                            </div>
+                            <div class="row" >
+                                <p:dataList value="#{planejamentoAuxMB.planejamento.variaveisFixas}" var="v" type="ordered">
+                                    <div align="justify">#{v} &nbsp; </div>
+                                </p:dataList>
+                                
+                            </div>
+                                                         
                         </div>
                         <div class="modal-footer">
                             <p:commandButton onclick="dialog.hide()" process="@none" value="Cancelar" />
-                            <p:commandButton value="Editar Informações" actionListener="#{disciplinaMB.editar()}" ></p:commandButton>
+                            <p:commandButton value="Editar Informações" actionListener="#{salaMB.editar()}" ></p:commandButton>
 
                         </div>
                     </p:outputPanel>
                 </p:dialog>
-                <br/>
-                <p:commandButton style="position: absolute; left: 83%" value="Adicionar disciplina" icon="ui-icon-plus" actionListener="#{disciplinaMB.novaDisciplina()}"></p:commandButton>
+                <p:commandButton style="position: relative; left: 91%" value="Adicionar Sala" icon="ui-icon-plus" actionListener="#{salaMB.novaSala()}"></p:commandButton>
             </h:form>  
+
             <br/>
-            
-            
+
         </div>
         <br/>
+
     </h:body>
 </html>
 
