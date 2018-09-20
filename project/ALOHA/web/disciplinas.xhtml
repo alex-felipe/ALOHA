@@ -161,7 +161,13 @@
                             </div>
                             <div class="row" >
                                 <b>Vagas: &nbsp; </b> <h:outputText value="#{disciplinaMB.disciplina.vagas}" />
-                            </div>                               
+                            </div> 
+                            <div class="row" >
+                                <b>Optativa: &nbsp; </b> 
+                                <h:outputText value="Sim" rendered="#{disciplinaMB.disciplina.optativa}" />
+                                <h:outputText value="Não" rendered="#{!disciplinaMB.disciplina.optativa}" />
+                               
+                            </div>  
                         </div>
                         <div class="modal-footer">
                             <p:commandButton onclick="dialog.hide()" process="@none" value="Cancelar" />

@@ -147,8 +147,10 @@
                             <f:selectItem itemLabel="Sala de Desenho" itemValue="Sala de Desenho" />
 
                         </h:selectOneMenu>
+                        
 
-                    </div>  
+                    </div> 
+
                     <div>
                         <div class="form-group row" >
                             <p:outputLabel class="col-form-label" style="width: 10%;">Curso / Semestre: </p:outputLabel>
@@ -193,6 +195,12 @@
                                 </p:column>
 
                             </p:dataTable>
+                        </div>
+                        <div class="form-group row" > 
+                            <p:outputLabel class="col-form-label" style="width: 10%;"> </p:outputLabel>
+                               <p:selectBooleanCheckbox value="#{disciplinaMB.disciplina.optativa}"/>
+                               <p:outputLabel style="margin-left: 10px"> Optativa </p:outputLabel>
+
                         </div>
 
 

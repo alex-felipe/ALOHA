@@ -16,6 +16,7 @@ public class Disciplina {
     private int crTeoricos;
     private int vagas;
     private String tipoSala;
+    private boolean optativa;
     private List<CursoSemestre> cursosSemestres;
     
 
@@ -36,7 +37,7 @@ public class Disciplina {
         setVagas(vagas);
     }
 
-    public Disciplina(int id, String codigoModelo, String codigo, String nome, int crPraticos, int crTeoricos, int vagas, String tipoSala) {
+    public Disciplina(int id, String codigoModelo, String codigo, String nome, int crPraticos, int crTeoricos, int vagas, String tipoSala,boolean optativa) {
         this.id = id;
         this.codigoModelo = codigoModelo;
         this.codigo = codigo;
@@ -45,8 +46,11 @@ public class Disciplina {
         this.crTeoricos = crTeoricos;
         this.vagas = vagas;
         this.tipoSala = tipoSala;
+        this.optativa = optativa;
         
     }
+    
+    
     
     public String geraCodigo() {
         String cod;
@@ -138,6 +142,16 @@ public class Disciplina {
     public void setVagas(int vagas) {
         if (vagas >0) this.vagas = vagas;
     }
+
+    public boolean isOptativa() {
+        return optativa;
+    }
+
+    public void setOptativa(boolean optativa) {
+        this.optativa = optativa;
+    }
+    
+    
 
     @Override
     public int hashCode() {
