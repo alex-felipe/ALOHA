@@ -20,7 +20,7 @@ public class VariaveisFixasDAO {
             ps.setInt(2, varFix.getDisciplina().getId());
             ps.setInt(3, varFix.getCombo().getId());
             ps.setInt(4, varFix.getHorario().getId());
-            ps.setInt(4, varFix.getSala().getId());
+            ps.setInt(5, varFix.getSala().getId());
             ps.executeUpdate();
             
             return true;
