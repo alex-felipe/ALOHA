@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -38,20 +39,49 @@ public class PlanejamentoMB {
     private String nome;
 
 //Listas para gerar modelo
-    private ArrayList<Docente> docentesDisponiveis;
-    private ArrayList<Turmas> turmasOfertadas;
-    private ArrayList<Turmas> filteredDiscip;
-    private ArrayList<Sala> salasAlocadas;
-    private ArrayList<VariaveisFixas> variaveisFixas;
-    private ArrayList<Combo> combos;
-    private ArrayList<Horario> horarios;
+    private List<Docente> docentesDisponiveis;
+    private List<Turmas> turmasOfertadas;
+    private List<Turmas> filteredDiscip;
+    private List<Sala> salasAlocadas;
+    private List<VariaveisFixas> variaveisFixas;
+    private List<Combo> combos;
+    private List<Horario> horarios;
 
 //listaRemovidos
-    private ArrayList<Docente> docentesOut;
-    private ArrayList<Turmas> disciplinasOut;
-    private ArrayList<Sala> salasOut;
+    private List<Docente> docentesOut;
+    private List<Turmas> disciplinasOut;
+    private List<Sala> salasOut;
+    
+    private Planejamento planejamentoEdit;
+
+    public Planejamento getPlanejamentoEdit() {
+        return planejamentoEdit;
+    }
+
+    public void setPlanejamentoEdit(Planejamento planejamentoEdit) {
+        this.planejamentoEdit = planejamentoEdit;
+        this.nome = this.planejamentoEdit.getNome();
+        
+        this.docentesDisponiveis.removeAll(planejamentoEdit.getDocentes());
+        this.docentesOut = this.docentesDisponiveis;
+        this.docentesDisponiveis = planejamentoEdit.getDocentes();
+        
+        this.turmasOfertadas.removeAll(planejamentoEdit.getTurmas());
+        this.disciplinasOut = this.turmasOfertadas;
+        this.turmasOfertadas = planejamentoEdit.getTurmas();
+        
+        this.salasAlocadas.removeAll(planejamentoEdit.getSalas());
+        this.salasOut = this.salasAlocadas;
+        this.salasAlocadas = planejamentoEdit.getSalas();
+        
+        this.variaveisFixas = planejamentoEdit.getVariaveisFixas();
+        
+    }
+ 
+    
 
     public PlanejamentoMB() {
+        
         this.disciplinaDAO = new DisciplinaDAO();
         this.salaDAO = new SalaDAO();
         this.docenteDAO = new DocenteDAO();
@@ -82,6 +112,7 @@ public class PlanejamentoMB {
         this.turmasTmp = new Turmas();
         this.salaTmp = new Sala();
         this.docenteTemp = new Docente();
+        planejamentoEdit = new Planejamento();
 
     }
 
@@ -163,8 +194,8 @@ public class PlanejamentoMB {
             this.varFix = new VariaveisFixas();
         }
     }
-    
-    public void salvar(){
+
+    public void salvar() {
         Planejamento current = new Planejamento(this.nome, this.turmasOfertadas, this.docentesDisponiveis, this.salasAlocadas, this.variaveisFixas, false);
         planejamentoDAO.insert(current);
         try {
@@ -200,7 +231,6 @@ public class PlanejamentoMB {
         this.nome = nome;
     }
 
-    
     public boolean isSkip() {
         return skip;
     }
@@ -209,7 +239,7 @@ public class PlanejamentoMB {
         this.skip = skip;
     }
 
-    public ArrayList<Combo> getCombos() {
+    public List<Combo> getCombos() {
         return combos;
     }
 
@@ -225,7 +255,7 @@ public class PlanejamentoMB {
         this.varFix = varFix;
     }
 
-    public ArrayList<VariaveisFixas> getVariaveisFixas() {
+    public List<VariaveisFixas> getVariaveisFixas() {
         return variaveisFixas;
     }
 
@@ -234,7 +264,7 @@ public class PlanejamentoMB {
     }
 
     //---------------------------------------------------------------------------
-    public ArrayList<Docente> getDocentesDisponiveis() {
+    public List<Docente> getDocentesDisponiveis() {
         return docentesDisponiveis;
     }
 
@@ -243,7 +273,7 @@ public class PlanejamentoMB {
     }
 
     //---------------------------------------------------------------------------
-    public ArrayList<Turmas> getTurmasOfertadas() {
+    public List<Turmas> getTurmasOfertadas() {
         return turmasOfertadas;
     }
 
@@ -252,7 +282,7 @@ public class PlanejamentoMB {
     }
 
     //---------------------------------------------------------------------------
-    public ArrayList<Docente> getDocentesOut() {
+    public List<Docente> getDocentesOut() {
         return docentesOut;
     }
 
@@ -261,7 +291,7 @@ public class PlanejamentoMB {
     }
 
     //---------------------------------------------------------------------------
-    public ArrayList<Turmas> getDisciplinasOut() {
+    public List<Turmas> getDisciplinasOut() {
         return disciplinasOut;
     }
 
@@ -270,7 +300,7 @@ public class PlanejamentoMB {
     }
 
     //---------------------------------------------------------------------------
-    public ArrayList<Sala> getSalasOut() {
+    public List<Sala> getSalasOut() {
         return salasOut;
     }
 
@@ -279,7 +309,7 @@ public class PlanejamentoMB {
     }
 
     //---------------------------------------------------------------------------
-    public ArrayList<Sala> getSalasAlocadas() {
+    public List<Sala> getSalasAlocadas() {
         return this.salasAlocadas;
     }
 
@@ -314,7 +344,7 @@ public class PlanejamentoMB {
         this.docenteTemp = docenteTemp;
     }
 
-    public ArrayList<Turmas> getFilteredDiscip() {
+    public List<Turmas> getFilteredDiscip() {
         return filteredDiscip;
     }
 
@@ -322,7 +352,7 @@ public class PlanejamentoMB {
         this.filteredDiscip = filteredDiscip;
     }
 
-    public ArrayList<Horario> getHorarios() {
+    public List<Horario> getHorarios() {
         return horarios;
     }
 

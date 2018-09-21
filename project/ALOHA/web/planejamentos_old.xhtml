@@ -105,8 +105,8 @@
                             <p:commandLink update=":form:plDetail"  styleClass="ui-icon ui-icon-search"  oncomplete="PF('plDialog').show();" style="float: left;">
                                 <f:setPropertyActionListener value="#{pl}" target="#{planejamentoAuxMB.planejamento}"/>
                             </p:commandLink>
-                            <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{salaMB.editar()}" style="float: left;">
-                                <f:setPropertyActionListener value="#{pl}" target="#{planejamentoAuxMB.planejamento}"/>
+                            <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{planejamentoAuxMB.editar()}" style="float: left;">
+                                <f:setPropertyActionListener value="#{pl}" target="#{planejamentoMB.planejamentoEdit}"/>
                             </p:commandLink>
                             <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{planejamentoAuxMB.remover()}" style="float: left;">                               
                                 <f:setPropertyActionListener value="#{pl}" target="#{planejamentoAuxMB.planejamento}"/>
