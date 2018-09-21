@@ -25,6 +25,7 @@ public class PlanejamentoAuxMB {
 
     public PlanejamentoAuxMB() {
         planejamentoDAO = new PlanejamentoDAO();
+        planejamentos = new ArrayList<>();
         planejamento = new Planejamento();
         try {
             planejamentos = planejamentoDAO.selectALL();
@@ -51,21 +52,27 @@ public class PlanejamentoAuxMB {
 
     public void remover() {
         try {
-            
+
             if (planejamentoDAO.delete(planejamento)) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("planejamentos_old.xhtml");
                 planejamento = new Planejamento();
                 this.planejamentos = planejamentoDAO.selectALL();
-                
-            }else{
+
+            } else {
                 System.out.println("Deu erro");
             }
         } catch (IOException e) {
-                e.getMessage();
+            e.getMessage();
         }
     }
 
-
-    
+    public void editar() {
+       
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("novo_planejamento.xhtml");
+        } catch (IOException e) {
+            e.getMessage();
+        }
+    }
 
 }
