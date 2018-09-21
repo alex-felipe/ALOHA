@@ -49,7 +49,21 @@ public class PlanejamentoAuxMB {
         this.planejamento = planejamento;
     }
 
-
+    public void remover() {
+        try {
+            
+            if (planejamentoDAO.delete(planejamento)) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("planejamentos_old.xhtml");
+                planejamento = new Planejamento();
+                this.planejamentos = planejamentoDAO.selectALL();
+                
+            }else{
+                System.out.println("Deu erro");
+            }
+        } catch (IOException e) {
+                e.getMessage();
+        }
+    }
 
 
     

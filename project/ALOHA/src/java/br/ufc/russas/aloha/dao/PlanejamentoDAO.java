@@ -276,4 +276,49 @@ public class PlanejamentoDAO {
         return listaPlanejamentos;
     }
 
+    public boolean delete(Planejamento planejamento) {
+        Connection con = null;
+        boolean res;
+        try {
+            con = ConexaoFactory.getConnection();
+            
+            String sql = "DELETE FROM planejamento WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, planejamento.getId());
+            res = ps.executeUpdate() != 0;
+            
+            sql = "DELETE FROM planejamento_disciplina WHERE id_planejamento = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, planejamento.getId());
+            res = ps.executeUpdate() != 0;
+            
+            sql = "DELETE FROM planejamento_docente WHERE id_planejamento = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, planejamento.getId());
+            res = ps.executeUpdate() != 0;
+            
+            sql = "DELETE FROM planejamento_sala WHERE id_planejamento = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, planejamento.getId());
+            res = ps.executeUpdate() != 0;
+            
+            sql = "DELETE FROM planejamento_variaveis_fixas WHERE id_planejamento = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, planejamento.getId());
+            res = ps.executeUpdate() != 0;
+
+            //Executando os comandos
+            return res;
+        } catch (SQLException e) {
+            throw new DAOException("Operação não realizada com sucesso.", e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException("Não foi possível fechar a conexão.", e);
+            }
+        }
+    }
 }

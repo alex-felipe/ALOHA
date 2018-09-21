@@ -108,9 +108,9 @@
                             <p:commandLink  styleClass="ui-icon ui-icon-pencil"  actionListener="#{salaMB.editar()}" style="float: left;">
                                 <f:setPropertyActionListener value="#{pl}" target="#{planejamentoAuxMB.planejamento}"/>
                             </p:commandLink>
-                            <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{salaMB.remover()}" style="float: left;">                               
+                            <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{planejamentoAuxMB.remover()}" style="float: left;">                               
                                 <f:setPropertyActionListener value="#{pl}" target="#{planejamentoAuxMB.planejamento}"/>
-                                <p:confirm header="Confirmação" message="Deseja realmente excluir a sala ?" />
+                                <p:confirm header="Deseja realmente excluir o planejamento ?" message=" Após a confirmação os dados não poderão ser recuperados" />
                             </p:commandLink>
                         </div>
 
