@@ -51,7 +51,7 @@ public class PlanejamentoMB {
     private List<Docente> docentesOut;
     private List<Turmas> disciplinasOut;
     private List<Sala> salasOut;
-    
+
     private Planejamento planejamentoEdit;
 
     public Planejamento getPlanejamentoEdit() {
@@ -61,27 +61,25 @@ public class PlanejamentoMB {
     public void setPlanejamentoEdit(Planejamento planejamentoEdit) {
         this.planejamentoEdit = planejamentoEdit;
         this.nome = this.planejamentoEdit.getNome();
-        
+
         this.docentesDisponiveis.removeAll(planejamentoEdit.getDocentes());
         this.docentesOut = this.docentesDisponiveis;
         this.docentesDisponiveis = planejamentoEdit.getDocentes();
-        
+
         this.turmasOfertadas.removeAll(planejamentoEdit.getTurmas());
         this.disciplinasOut = this.turmasOfertadas;
         this.turmasOfertadas = planejamentoEdit.getTurmas();
-        
+
         this.salasAlocadas.removeAll(planejamentoEdit.getSalas());
         this.salasOut = this.salasAlocadas;
         this.salasAlocadas = planejamentoEdit.getSalas();
-        
+
         this.variaveisFixas = planejamentoEdit.getVariaveisFixas();
-        
+
     }
- 
-    
 
     public PlanejamentoMB() {
-        
+
         this.disciplinaDAO = new DisciplinaDAO();
         this.salaDAO = new SalaDAO();
         this.docenteDAO = new DocenteDAO();
@@ -188,7 +186,6 @@ public class PlanejamentoMB {
     }
 
     public void removeVarFixa() {
-        System.out.println("aqui");
         if (this.varFix != null && this.variaveisFixas.contains(this.varFix)) {
             this.variaveisFixas.remove(varFix);
             this.varFix = new VariaveisFixas();
@@ -196,8 +193,14 @@ public class PlanejamentoMB {
     }
 
     public void salvar() {
-        Planejamento current = new Planejamento(this.nome, this.turmasOfertadas, this.docentesDisponiveis, this.salasAlocadas, this.variaveisFixas, false);
-        planejamentoDAO.insert(current);
+        if (this.planejamentoEdit.getId() != 0) {
+            Planejamento current = new Planejamento(this.nome, this.turmasOfertadas, this.docentesDisponiveis, this.salasAlocadas, this.variaveisFixas, false);
+            current.setId(planejamentoEdit.getId());
+            planejamentoDAO.update(current);
+        } else {
+            Planejamento current = new Planejamento(this.nome, this.turmasOfertadas, this.docentesDisponiveis, this.salasAlocadas, this.variaveisFixas, false);
+            planejamentoDAO.insert(current);
+        }
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("planejamentos.xhtml");
         } catch (IOException ex) {
@@ -227,7 +230,7 @@ public class PlanejamentoMB {
     }
 
     public void setNome(String nome) {
-        System.out.println(nome);
+        //System.out.println(nome);
         this.nome = nome;
     }
 

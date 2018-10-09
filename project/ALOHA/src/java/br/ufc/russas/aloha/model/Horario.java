@@ -20,7 +20,38 @@ public class Horario {
     public Horario() {
     }
 
-    
+    public boolean isManha(){
+        String novaDescricao = descricao.replaceAll(" ", "");
+        int meio = novaDescricao.indexOf("-");
+        String[] horario1 = novaDescricao.substring(0, meio).split(":");
+        String[] horario2 = novaDescricao.substring(meio + 1, novaDescricao.length()).split(":");
+
+        int hora1 = Integer.parseInt(horario1[0]);
+        int hora2 = Integer.parseInt(horario2[0]);
+        return (hora1 > 6 && hora1 < 12);
+    }
+
+    public boolean isTarde() {
+        String novaDescricao = descricao.replaceAll(" ", "");
+        int meio = novaDescricao.indexOf("-");
+        String[] horario1 = novaDescricao.substring(0, meio).split(":");
+        String[] horario2 = novaDescricao.substring(meio + 1, novaDescricao.length()).split(":");
+
+        int hora1 = Integer.parseInt(horario1[0]);
+        int hora2 = Integer.parseInt(horario2[0]);
+        return (hora1 >= 12 && hora1 < 18);
+    }
+
+    public boolean isNoite() {
+        String novaDescricao = descricao.replaceAll(" ", "");
+        int meio = novaDescricao.indexOf("-");
+        String[] horario1 = novaDescricao.substring(0, meio).split(":");
+        String[] horario2 = novaDescricao.substring(meio + 1, novaDescricao.length()).split(":");
+
+        int hora1 = Integer.parseInt(horario1[0]);
+        int hora2 = Integer.parseInt(horario2[0]);
+        return ((hora1 >= 18 && hora1 < 23) || (hora1 >= 0 && hora2 < 6));
+    }
     
     public int getId() {
         return id;

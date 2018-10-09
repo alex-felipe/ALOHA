@@ -10,6 +10,12 @@ public class Combo {
     private String codigo_modelo;
     private List<DiasSemanaEnum> dias;
 
+    public Combo(int id, String codigo_modelo, List<DiasSemanaEnum> dias) {
+        this.id = id;
+        this.codigo_modelo = codigo_modelo;
+        this.dias = dias;
+    }
+
     
     public Combo(){
         this.dias = new ArrayList<>();

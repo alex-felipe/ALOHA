@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PlanejamentoDAO {
 
@@ -281,7 +283,7 @@ public class PlanejamentoDAO {
         boolean res;
         try {
             con = ConexaoFactory.getConnection();
-            
+
             String sql = "DELETE FROM planejamento WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, planejamento.getId());
@@ -291,12 +293,12 @@ public class PlanejamentoDAO {
             ps = con.prepareStatement(sql);
             ps.setInt(1, planejamento.getId());
             res = ps.executeUpdate() != 0;
-            
+
             sql = "DELETE FROM planejamento_docente WHERE id_planejamento = ?";
             ps = con.prepareStatement(sql);
             ps.setInt(1, planejamento.getId());
             res = ps.executeUpdate() != 0;
-            
+           
             sql = "DELETE FROM planejamento_sala WHERE id_planejamento = ?";
             ps = con.prepareStatement(sql);
             ps.setInt(1, planejamento.getId());
@@ -306,10 +308,127 @@ public class PlanejamentoDAO {
             ps = con.prepareStatement(sql);
             ps.setInt(1, planejamento.getId());
             res = ps.executeUpdate() != 0;
+            
+            VariaveisFixasDAO varDAO = new VariaveisFixasDAO();
+            for (VariaveisFixas v : planejamento.getVariaveisFixas()) {
+                try {
+                    varDAO.delete(v);
+                } catch (Exception e) {
+                    System.out.println("Erro ao remover variável fixa");
+                }
+            }
 
-            //Executando os comandos
             return res;
         } catch (SQLException e) {
+            throw new DAOException("Operação não realizada com sucesso.", e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException("Não foi possível fechar a conexão.", e);
+            }
+        }
+    }
+
+    public boolean update(Planejamento planejamento) {
+        Connection con = null;
+
+        System.out.println(planejamento.getId());
+
+        int tmp = 0;
+        try {
+            con = ConexaoFactory.getConnection();
+            //Inserção do planejamento
+            String sql = "UPDATE `planejamento` SET `nome` = ? , `status` = ? WHERE `planejamento`.`id` = ? ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, planejamento.getNome());
+            ps.setBoolean(2, planejamento.isFinalizado());
+            ps.setInt(3, planejamento.getId());
+            ps.executeUpdate();
+            
+            sql = "DELETE FROM planejamento_disciplina WHERE id_planejamento = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, planejamento.getId());
+            tmp = ps.executeUpdate();
+
+            sql = "DELETE FROM planejamento_docente WHERE id_planejamento = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, planejamento.getId());
+            tmp = ps.executeUpdate();
+           
+            sql = "DELETE FROM planejamento_sala WHERE id_planejamento = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, planejamento.getId());
+            tmp = ps.executeUpdate();
+            
+            sql = "DELETE FROM planejamento_variaveis_fixas WHERE id_planejamento = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, planejamento.getId());
+            tmp = ps.executeUpdate();
+            
+            VariaveisFixasDAO varDAO = new VariaveisFixasDAO();
+            for (VariaveisFixas v : planejamento.getVariaveisFixas()) {
+                try {
+                    varDAO.delete(v);
+                } catch (Exception e) {
+                    System.out.println("Erro ao remover variável fixa");
+                }
+            }
+             //____________________________________________________________________________________________________________________
+            //Inserção das disciplinas
+            for (Turmas d : planejamento.getTurmas()) {
+                for (int i = 0; i < d.getQntTurmas(); i++) {
+                    sql = "INSERT INTO `planejamento_disciplina` (`id_planejamento`, `id_disciplina`) VALUES (?, ?);";
+                    ps = con.prepareStatement(sql);
+                    ps.setInt(1, planejamento.getId());
+                    ps.setInt(2, d.getDisciplina().getId());
+                    ps.executeUpdate();
+                }
+            }
+            //____________________________________________________________________________________________________________________
+            //Inserção dos docentes do planejamento
+            for (Docente doc : planejamento.getDocentes()) {
+                sql = "INSERT INTO `planejamento_docente` (`id_planejamento`, `id_docente`) VALUES (?, ?);";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, planejamento.getId());
+                ps.setInt(2, doc.getId());
+                ps.executeUpdate();
+            }
+            //____________________________________________________________________________________________________________________
+            //Inserção das salas do planejamento
+            for (Sala s : planejamento.getSalas()) {
+                sql = "INSERT INTO `planejamento_sala` (`id_planejamento`, `id_sala`) VALUES (?, ?);";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, planejamento.getId());
+                ps.setInt(2, s.getId());
+                ps.executeUpdate();
+            }
+            //____________________________________________________________________________________________________________________
+            //Inserção das variáveis fixas do planejamento
+            
+            for (VariaveisFixas v : planejamento.getVariaveisFixas()) {
+                try {
+                    varDAO.insert(v);
+                } catch (Exception e) {
+                    System.out.println("Erro ao inserir variável fixa");
+                }
+                if (varDAO.retrunId(v) != 0) {
+                    v.setId(varDAO.retrunId(v));
+                    sql = "INSERT INTO `planejamento_variaveis_fixas` (`id_planejamento`, `id_var_fixa`) VALUES (?, ?);";
+                    ps = con.prepareStatement(sql);
+                    ps.setInt(1, planejamento.getId());
+                    ps.setInt(2, v.getId());
+                    ps.executeUpdate();
+                } else {
+                    System.out.println("Não foi possivel recuperar os dados da variável fixa");
+                }
+
+            }
+            //____________________________________________________________________________________________________________________
+            return tmp == 1;
+        } catch (Exception e) {
             throw new DAOException("Operação não realizada com sucesso.", e);
         } finally {
             try {

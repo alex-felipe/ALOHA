@@ -130,5 +130,33 @@ public class VariaveisFixasDAO {
             }
         }
     }
+     
+    public boolean update(VariaveisFixas varfixa) {
+        Connection con = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "UPDATE `variaveis_fixas` SET `id_docente` = ?, `id_disciplina` = ?, `id_combo` = ?, `id_horario` = ?, `id_sala` = ? WHERE `variaveis_fixas`.`id` = ?;";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, varfixa.getDocente().getId());
+            ps.setInt(2, varfixa.getDisciplina().getId());
+            ps.setInt(3, varfixa.getCombo().getId());
+            ps.setInt(4, varfixa.getHorario().getId());
+            ps.setInt(5, varfixa.getSala().getId());
+            ps.setInt(6, varfixa.getId());
+            //Executando os comandos
+            return ps.executeUpdate() == 1;
+        } catch (SQLException e) {
+            throw new DAOException("Operação não realizada com sucesso.", e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new DAOException("Não foi possível fechar a conexão.", e);
+            }
+        }
+    }
     
 }
