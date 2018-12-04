@@ -356,14 +356,14 @@
 
 
                     <p:tab id="confirm" title="Confirmação" titleStyleClass="lastTab">
-                        <p:panel header="Confirmation" >
+                        <p:panel header="Arquivos para o solver" >
                             <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Apresentar informações para gerar o arquivo" />
-
-
                             </h:panelGrid>
-
-                            <p:commandButton value="Submit" actionListener="#" update="growl" process="@this"/>
+                            <p:commandButton value="Baixar arquivo de dados (.dat)" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                <p:fileDownload value="#{planejamentoMB.baixaArquivos()}" />
+                            </p:commandButton>
+                            
+                            
                         </p:panel>
                     </p:tab>
                 </p:wizard>

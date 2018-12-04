@@ -53,6 +53,7 @@ public class DisciplinaMB {
     }
 
     public void adicionar() {
+        System.out.println("AQUI");
         try {
             if (disciplinaDAO.find(disciplina.getId()) != null) {  
                 
@@ -67,6 +68,7 @@ public class DisciplinaMB {
                     }
                 }
             } else {
+                this.disciplina.setOptativa(false);
                 if (disciplinaDAO.insert(this.disciplina)) {
                     
                     try {
@@ -129,7 +131,7 @@ public class DisciplinaMB {
     }
 
     public void inserirCursoSemetre() {
-        
+        System.out.println("AQI");
         if (this.cursoSemCurrent.getCurso() != null && this.cursoSemCurrent.getSemestre() > 0) {
             
             this.disciplina.getCursosSemestres().add(this.cursoSemCurrent);

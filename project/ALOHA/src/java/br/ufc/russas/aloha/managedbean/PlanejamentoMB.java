@@ -2,7 +2,11 @@ package br.ufc.russas.aloha.managedbean;
 
 import br.ufc.russas.aloha.dao.*;
 import br.ufc.russas.aloha.model.*;
+import br.ufc.russas.aloha.model.data_for_solver.Compactador;
+import br.ufc.russas.aloha.model.data_for_solver.GeradorDAT;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +19,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.FlowEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 @ManagedBean
 @SessionScoped
@@ -206,6 +212,20 @@ public class PlanejamentoMB {
         } catch (IOException ex) {
             Logger.getLogger(PlanejamentoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public StreamedContent baixaArquivos(){
+        //InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/ALOHA/PlanejamentoAcademico.mod");
+        Planejamento current = new Planejamento(this.nome, this.turmasOfertadas, this.docentesDisponiveis, this.salasAlocadas, this.variaveisFixas, false);
+        return new DefaultStreamedContent(new GeradorDAT().geraArquivo(current), "file", current.getNome() + ".dat");
+        /*ArrayList<File> arquivos = new ArrayList<>();
+        arquivos.add(new File(new GeradorDAT().geraArquivo(new Planejamento(this.nome, this.turmasOfertadas, this.docentesDisponiveis, this.salasAlocadas, this.variaveisFixas, false))));
+        arquivos.add(new File(Compactador.PATH + "/src/java/br/ufc/russas/aloha/model/data_for_solver/PlanejamentoAcademico.mod"));
+        try {
+            Compactador.compactarParaZip(Compactador.PATH + "/src/java/br/ufc/russas/aloha/model/data_for_solver/PlanejamentoAcademico.zip", arquivos);
+        } catch (IOException ex) {
+            Logger.getLogger(PlanejamentoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     }
 
     public String getCombo() {

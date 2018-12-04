@@ -53,6 +53,34 @@ public class Horario {
         return ((hora1 >= 18 && hora1 < 23) || (hora1 >= 0 && hora2 < 6));
     }
     
+    public boolean isContidoNoIntervalo(Horario horario){
+        int horaInicial = getHorarioInicial()[0];
+        int minInicial = getHorarioInicial()[1];
+        
+        int horaFinal = getHorarioFinal()[0];
+        int minFinal = getHorarioFinal()[1];
+        
+        if(this.getHorarioFinal()[0] < horario.getHorarioInicial()[0]){
+            return false;
+        } else if((this.getHorarioFinal()[0].equals(horario.getHorarioInicial()[0])) && (this.getHorarioFinal()[1] <= horario.getHorarioInicial()[1])){
+            return false;
+        } else if(this.getHorarioInicial()[0] > horario.getHorarioFinal()[0]){
+            return false;
+        } else if((this.getHorarioInicial()[0].equals(horario.getHorarioFinal()[0])) && (this.getHorarioInicial()[1] >= horario.getHorarioFinal()[1])){
+            return false;
+        } else{
+            return true;
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        Horario a = new Horario();
+        Horario b = new Horario();
+        a.setDescricao("08:00-10:00");
+        b.setDescricao("08:00-10:00");
+        System.out.println(a.isContidoNoIntervalo(b));
+    }
     public int getId() {
         return id;
     }
@@ -73,6 +101,28 @@ public class Horario {
         return descricao;
     }
 
+    public Integer[] getHorarioInicial(){
+        String novaDescricao = descricao.replaceAll(" ", "");
+        int meio = novaDescricao.indexOf("-");
+        String[] horarioString = novaDescricao.substring(0, meio).split(":");
+        Integer[] horarioInteger = new Integer[2];
+        for(int i = 0;i < 2;i++){
+            horarioInteger[i] = Integer.parseInt(horarioString[i]);
+        }
+        return horarioInteger;        
+    }
+    
+    public Integer[] getHorarioFinal(){
+        String novaDescricao = descricao.replaceAll(" ", "");
+        int meio = novaDescricao.indexOf("-");
+        String[] horarioString = novaDescricao.substring(meio + 1, novaDescricao.length()).split(":");
+        Integer[] horarioInteger = new Integer[2];
+        for (int i = 0; i < 2; i++) {
+            horarioInteger[i] = Integer.parseInt(horarioString[i]);
+        }
+        return horarioInteger;     
+    }
+    
     public void setDescricao(String descricao) {
         String novaDescricao = descricao.replaceAll(" ", "");
         int meio = novaDescricao.indexOf("-");

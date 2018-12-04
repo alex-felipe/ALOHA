@@ -18,7 +18,7 @@ public class DisciplinaDAO implements Serializable{
         try {
             
             con = ConexaoFactory.getConnection();
-            String sql = "INSERT INTO disciplina (codigo_modelo, codigo_disciplina, nome, cr_praticos, cr_teoricos, vagas, tipo_sala,is_opitativa) VALUES (?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO disciplina (codigo_modelo, codigo_disciplina, nome, cr_praticos, cr_teoricos, vagas, tipo_sala, is_optativa) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "NULL");
             ps.setString(2, disciplina.getCodigo());
@@ -37,7 +37,7 @@ public class DisciplinaDAO implements Serializable{
             sql = "UPDATE `disciplina` SET `codigo_modelo` = ? WHERE id = ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, disciplina.getCodigoModelo());
-            ps.setInt(1, disciplina.getId());
+            ps.setInt(2, disciplina.getId());
             ps.executeUpdate();
             
             for (CursoSemestre cs : disciplina.getCursosSemestres()) {

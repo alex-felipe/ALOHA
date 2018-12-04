@@ -155,9 +155,6 @@ public class Docente{
         this.diasSemana = horarios;
     }
 
-    
-
-
 
     public List<Preferencia> getPreferencias() {
         return preferencias;
