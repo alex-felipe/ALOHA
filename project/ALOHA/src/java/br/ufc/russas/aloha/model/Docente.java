@@ -5,29 +5,33 @@ import br.ufc.russas.aloha.model.exception.QuantidadeCreditosInvalidoException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Docente implements Serializable {
+public class Docente{
 
     private int id;
     private String codigoModelo;
     private String nome;
     private int crMin;
     private int crMax;
-    private List<Combo> combos;
+    private List<DiaSemana> diasSemana;
     private List<Preferencia> preferencias;
 
+    
     public Docente() {
-        this.combos = new ArrayList<Combo>();
+        this.diasSemana = new ArrayList<DiaSemana>();
         this.preferencias = new ArrayList<Preferencia>();
     }
 
     public Docente(String nome, int crMin, int crMax) {
+        this();
         this.nome = nome;
         this.crMin = crMin;
         this.crMax = crMax;
     }
 
-    public Docente(int id, String codigoModelo, String nome, int crMin, int crMax) throws QuantidadeCreditosInvalidoException, NomeInvalidoException {
+    public Docente(int id, String codigoModelo, String nome, int crMin, int crMax) {
+        this(nome, crMin, crMax);
         this.id = id;
         this.codigoModelo = codigoModelo;
         setNome(nome);
@@ -60,10 +64,6 @@ public class Docente implements Serializable {
         preferencias.add(disciplina);
     }
 
-    public void addCombo(Combo combo) {
-        combos.add(combo);
-    }
-
     public int getId() {
         return id;
     }
@@ -84,32 +84,38 @@ public class Docente implements Serializable {
         return nome;
     }
 
-    public void setNome(String nome) throws NomeInvalidoException {
-        if (nome == null || nome.isEmpty()) {
-            throw new NomeInvalidoException("O campos 'nome do docente' precisa ser preenchido");
-        } else {
+    public void setNome(String nome)    {
+        if (nome != null && !nome.isEmpty()) {
             this.nome = nome;
-        }
+        } 
     }
 
     public int getCrMin() {
         return crMin;
     }
 
-    public void setCrMin(int crMin) throws QuantidadeCreditosInvalidoException {
-        System.out.println("CrMIn " + crMin + "| Crmax " + crMax);
-        if (crMin < 0) {
-            throw new QuantidadeCreditosInvalidoException("Quantidade de créditos mínimos não pode ser negativo");
-        } else {
-            this.crMin = crMin;
-        }
+
+    public void setCrMin(int crMin) {
+        this.crMin = crMin;
+    }
+
+    /*public void setCrMin(int crMin) throws QuantidadeCreditosInvalidoException {
+    System.out.println("CrMIn " + crMin + "| Crmax " + crMax);
+    if (crMin < 0) {
+    throw new QuantidadeCreditosInvalidoException("Quantidade de créditos mínimos não pode ser negativo");
+    } else {
+    this.crMin = crMin;
+    }
+    }*/
+    public void setCrMax(int crMax) {
+        this.crMax = crMax;
     }
 
     public int getCrMax() {
         return crMax;
     }
 
-    public void setCrMax(int crMax) throws QuantidadeCreditosInvalidoException {
+    /*public void setCrMax(int crMax) throws QuantidadeCreditosInvalidoException {
         if ((crMax < 0)) {
             throw new QuantidadeCreditosInvalidoException("Quantidade de créditos máximos não pode ser negativo");
         } else if (crMax < getCrMin()) {
@@ -117,15 +123,38 @@ public class Docente implements Serializable {
         } else {
             this.crMax = crMax;
         }
+    }*/
+
+    public List<DiaSemana> getDiasSemana() {
+        return diasSemana;
     }
 
-    public List<Combo> getCombos() {
-        return combos;
+    public void setDiasSemana(List<String> diasSemana) {
+        for(String dia: diasSemana){
+            int d = Integer.parseInt(dia);
+            switch(d){
+                case 0: this.diasSemana.add(new DiaSemana(0, "Domingo", "Manhã")); break;
+                case 1: this.diasSemana.add(new DiaSemana(1, "Domingo", "Tarde")); break;
+                case 2: this.diasSemana.add(new DiaSemana(2, "Segunda", "Manhã")); break;
+                case 3: this.diasSemana.add(new DiaSemana(3, "Segunda", "Tarde")); break;
+                case 4: this.diasSemana.add(new DiaSemana(4, "Terça", "Manhã")); break;
+                case 5: this.diasSemana.add(new DiaSemana(5, "Terça", "Tarde")); break;
+                case 6: this.diasSemana.add(new DiaSemana(6, "Quarta", "Manhã"));break;
+                case 7: this.diasSemana.add(new DiaSemana(7, "Quarta", "Tarde")); break;
+                case 8: this.diasSemana.add(new DiaSemana(8, "Quinta", "Manhã")); break;
+                case 9: this.diasSemana.add(new DiaSemana(9, "Quinta", "Tarde")); break;
+                case 10: this.diasSemana.add(new DiaSemana(10, "Sexta", "Manhã")); break;
+                case 11: this.diasSemana.add(new DiaSemana(11, "Sexta", "Tarde")); break;
+                case 12: this.diasSemana.add(new DiaSemana(12, "Sábado", "Manhã")); break;
+                case 13: this.diasSemana.add(new DiaSemana(13, "Sábado", "Tarde")); break;
+            }
+        }
     }
 
-    private void setCombos(List<Combo> combos) {
-        this.combos = combos;
+    public void setHorario(List<DiaSemana> horarios) {
+        this.diasSemana = horarios;
     }
+
 
     public List<Preferencia> getPreferencias() {
         return preferencias;
@@ -135,4 +164,51 @@ public class Docente implements Serializable {
         this.preferencias = preferencias;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + this.id;
+        hash = 47 * hash + Objects.hashCode(this.codigoModelo);
+        hash = 47 * hash + Objects.hashCode(this.nome);
+        hash = 47 * hash + this.crMin;
+        hash = 47 * hash + this.crMax;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Docente other = (Docente) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.crMin != other.crMin) {
+            return false;
+        }
+        if (this.crMax != other.crMax) {
+            return false;
+        }
+        if (!Objects.equals(this.codigoModelo, other.codigoModelo)) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Docente{" + "id=" + id + ", codigoModelo=" + codigoModelo + ", nome=" + nome + ", crMin=" + crMin + ", crMax=" + crMax + ", diasSemana=" + diasSemana + ", preferencias=" + preferencias + '}';
+    }
+
+    
 }

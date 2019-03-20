@@ -2,13 +2,20 @@ package br.ufc.russas.aloha.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Combo {
     private int id;
     private String codigo_modelo;
     private List<DiasSemanaEnum> dias;
-    private String[] dias_semana;
+
+    public Combo(int id, String codigo_modelo, List<DiasSemanaEnum> dias) {
+        this.id = id;
+        this.codigo_modelo = codigo_modelo;
+        this.dias = dias;
+    }
+
     
     public Combo(){
         this.dias = new ArrayList<>();
@@ -41,9 +48,7 @@ public class Combo {
         this.dias = dias;
     }
     
-    public String[] getDias_Semana(){
-        return dias_semana;
-    }
+
     
     /* O código será composto por:
         * 1) As 3 primeiras letras do nome do combo
@@ -70,16 +75,59 @@ public class Combo {
         StringBuilder stb = new StringBuilder();
         for(DiasSemanaEnum dia: dias){
             switch(dia){
-                case DOMINGO: stb.append("Domingo"); break;
-                case SEGUNDA: stb.append("Segunda-feira"); break;
-                case TERCA: stb.append("Terça-feira"); break;
-                case QUARTA: stb.append("Quarta-feira"); break;
-                case QUINTA: stb.append("Quinta-feira"); break;
-                case SEXTA: stb.append("Sexta-feira"); break;
-                case SABADO: stb.append("Sabádo"); break;      
+                case DOMINGO_MANHA: stb.append("Domingo (Manhã)"); break;
+                case DOMINGO_TARDE: stb.append("Domingo (Tarde)"); break;
+                case SEGUNDA_MANHA: stb.append("Segunda (Manhã)"); break;
+                case SEGUNDA_TARDE: stb.append("Segunda (Tarde)"); break;
+                case TERCA_MANHA: stb.append("Terça (Manhã)"); break;
+                case TERCA_TARDE: stb.append("Terça (Tarde)"); break;
+                case QUARTA_MANHA: stb.append("Quarta (Manhã)"); break;
+                case QUARTA_TARDE: stb.append("Quarta (Tarde)"); break;
+                case QUINTA_MANHA: stb.append("Quinta (Manhã)"); break;
+                case QUINTA_TARDE: stb.append("Quinta (Tarde)"); break;
+                case SEXTA_MANHA: stb.append("Sexta (Manhã)"); break;
+                case SEXTA_TARDE: stb.append("Sexta (Tarde)"); break;
+                case SABADO_MANHA: stb.append("Sábado (Manhã)"); break;
+                case SABADO_TARDE: stb.append("Sábado (Tarde)"); break;
             }
             stb.append("; ");
         }
         return stb.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + this.id;
+        hash = 23 * hash + Objects.hashCode(this.codigo_modelo);
+        hash = 23 * hash + Objects.hashCode(this.dias);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Combo other = (Combo) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.codigo_modelo, other.codigo_modelo)) {
+            return false;
+        }
+        if (!Objects.equals(this.dias, other.dias)) {
+            return false;
+        }
+        return true;
+    }
+    
+
+    
 }

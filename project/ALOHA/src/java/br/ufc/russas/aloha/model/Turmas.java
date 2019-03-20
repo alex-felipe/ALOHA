@@ -1,10 +1,9 @@
-
 package br.ufc.russas.aloha.model;
 
 import java.util.Objects;
 
+public class Turmas implements Comparable<Turmas> {
 
-public class Turmas {
     private Disciplina disciplina;
     private int qntTurmas;
 
@@ -17,8 +16,6 @@ public class Turmas {
         this.disciplina = new Disciplina();
     }
 
-    
-    
     public Disciplina getDisciplina() {
         return disciplina;
     }
@@ -38,9 +35,9 @@ public class Turmas {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + Objects.hashCode(this.disciplina);
-        hash = 59 * hash + this.qntTurmas;
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.disciplina);
+
         return hash;
     }
 
@@ -56,15 +53,21 @@ public class Turmas {
             return false;
         }
         final Turmas other = (Turmas) obj;
-        if (this.qntTurmas != other.qntTurmas) {
-            return false;
-        }
+        
         if (!Objects.equals(this.disciplina, other.disciplina)) {
             return false;
         }
         return true;
     }
-    
-    
-    
+
+    @Override
+    public int compareTo(Turmas o) {
+        if (o == this || o.equals(this)) {
+            return 1;    
+        }else{
+            return 0;
+        }
+        
+    }
+
 }

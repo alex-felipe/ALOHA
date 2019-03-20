@@ -32,7 +32,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive" >
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                            <a class="nav-link js-scroll-trigger" href="index.xhtml">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -79,54 +79,70 @@
             <br/><br/><br/>
             <div style="margin-left: 100px">
                 <h:form id="frm">
+                    <p:growl id="feedback" showDetail="true" sticky="true" />  
                     <div class="form-group row">
                         <p:outputLabel class="col-form-label">Nome: &nbsp;</p:outputLabel>
-                        <p:inputText class="form-control" style="font-size: 12px; width: 450px;" value="#{docenteMB.docente.nome}" placeholder="Digite o nome do docente..." ></p:inputText>
+                        <p:inputText class="form-control" id="nome" style="font-size: 12px; width: 450px;" value="#{docenteMB.docente.nome}" placeholder="Digite o nome do docente..." required="true" label="Nome do docente">
+                            <f:validateLength minimum="5" maximum="100" />
+                            <p:clientValidator />
+                        </p:inputText>
+                        <p:message for="nome" />
                     </div>                        
                     <div class="form-group row" >  
-                        <p:outputLabel>Quantidade de Créditos Mínimo: &nbsp;</p:outputLabel>
-                        <p:selectOneMenu value="#{docenteMB.docente.crMin}">
-                            <f:selectItem itemLabel="0" itemValue="0" />
-                            <f:selectItem itemLabel="2" itemValue="2" />
-                            <f:selectItem itemLabel="4" itemValue="4" />
-                            <f:selectItem itemLabel="6" itemValue="6" />
-                            <f:selectItem itemLabel="8" itemValue="8" />
-                            <f:selectItem itemLabel="10" itemValue="10" />
-                            <f:selectItem itemLabel="12" itemValue="12" />
-                            <f:selectItem itemLabel="14" itemValue="14" />
-                            <f:selectItem itemLabel="16" itemValue="16" />
-                            <f:selectItem itemLabel="18" itemValue="18" />
-                            <f:selectItem itemLabel="20" itemValue="20" />
-                        </p:selectOneMenu>
+                        <p:outputLabel>Quantidade Mínima de Créditos: &nbsp;</p:outputLabel>
+                        <p:inputText type="number" id="crMin" value="#{docenteMB.docente.crMin}" label="Créditos Mínimos" required='true'>
+                            <f:validateLongRange minimum="0" maximum="20" />
+                            <p:clientValidator />
+                        </p:inputText>
+                        <p:message for="crMin" />
                     </div>
 
                     <div class="form-group row" >  
-                        <p:outputLabel>Quantidade de Créditos Máxima &nbsp;</p:outputLabel>
-                        <p:selectOneMenu value="#{docenteMB.docente.crMax}">
-                            <f:selectItem itemLabel="0" itemValue="0" />
-                            <f:selectItem itemLabel="2" itemValue="2" />
-                            <f:selectItem itemLabel="4" itemValue="4" />
-                            <f:selectItem itemLabel="6" itemValue="6" />
-                            <f:selectItem itemLabel="8" itemValue="8" />
-                            <f:selectItem itemLabel="10" itemValue="10" />
-                            <f:selectItem itemLabel="12" itemValue="12" />
-                            <f:selectItem itemLabel="14" itemValue="14" />
-                            <f:selectItem itemLabel="16" itemValue="16" />
-                            <f:selectItem itemLabel="18" itemValue="18" />
-                            <f:selectItem itemLabel="20" itemValue="20" />
-                        </p:selectOneMenu>
+                        <p:outputLabel>Quantidade Máxima de Créditos &nbsp;</p:outputLabel>
+                        <p:inputText type="number" id="crMax" value="#{docenteMB.docente.crMax}" label="Créditos Máximos" required='true'>
+                            <f:validateLongRange minimum="0" maximum="20" />
+                            <p:clientValidator />
+                        </p:inputText>
+                        <p:message for="crMax" />
                     </div>
-                 
+                    
+                    <p:separator/>
+                    
+                    <div class="" >
+                        <p:outputLabel>Selecione os dias da semana na qual o docente estará disponível para realizar suas atividades: </p:outputLabel>
+
+                        <p:selectManyCheckbox id="grid" value="#{docenteMB.horariosSelecionados}" layout="grid" columns="2">
+                            <f:selectItem itemLabel="Domingo (Manhã)" itemValue="0"/>
+                            <f:selectItem itemLabel="Domingo (Tarde)" itemValue="1"/>
+                            <f:selectItem itemLabel="Segunda (Manhã)" itemValue="2"/>
+                            <f:selectItem itemLabel="Segunda (Tarde)" itemValue="3"/>
+                            <f:selectItem itemLabel="Terça (Manhã)" itemValue="4"/>
+                            <f:selectItem itemLabel="Terça (Tarde)" itemValue="5"/>
+                            <f:selectItem itemLabel="Quarta (Manhã)" itemValue="6"/>
+                            <f:selectItem itemLabel="Quarta (Tarde)" itemValue="7"/>
+                            <f:selectItem itemLabel="Quinta (Manhã)" itemValue="8"/>
+                            <f:selectItem itemLabel="Quinta (Tarde)" itemValue="9"/>
+                            <f:selectItem itemLabel="Sexta (Manhã)" itemValue="10"/>
+                            <f:selectItem itemLabel="Sexta (Tarde)" itemValue="11"/>
+                            <f:selectItem itemLabel="Sábado (Manhã)" itemValue="12"/>
+                            <f:selectItem itemLabel="Sábado (Tarde)" itemValue="13"/>
+                        </p:selectManyCheckbox>
+                    </div>
+                    
+                    <p:separator/>
+                    
                     <div class="form-group row" >
-                        <p:dataTable var="preferencia" value="#{docenteMB.preferencias}">
-                            <p:column headerText="Cód. da Disciplina"  width="60">
+                            <p:dataTable value="#{docenteMB.docente.preferencias}" var="preferencia" paginator="true" rows="10"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15">
+                                <p:column headerText="Cód. da Disciplina"  width="60" filterBy="#{preferencia.disciplina.codigo}" sortBy="#{preferencia.disciplina.codigo}">
                                 <h:outputText value="#{preferencia.disciplina.codigo}" />
                             </p:column>
-                            <p:column headerText="Nome" width="120">
+                            <p:column headerText="Nome" width="120" filterBy="#{preferencia.disciplina.nome}" sortBy="#{preferencia.disciplina.nome}">
                                 <h:outputText value="#{preferencia.disciplina.nome}" />
                             </p:column>
                             <p:column headerText="Preferência" width="60">
-                                <p:inputText id="txt5" value="0"/>
+                                <p:inputText id="txt5" value="#{preferencia.preferencia}"/>
                                 <p:slider for="txt5">
                                     <p:ajax event="slideEnd" listener="#{preferencia.onSlideEnd}" />
                                 </p:slider>
@@ -134,8 +150,8 @@
                         </p:dataTable>
 
                     </div>
-                    
-                    <p:commandButton value="Salvar" actionListener="#{docenteMB.adiciona()}"  update=":frm"> </p:commandButton>
+                    <a href="docentes.xhtml" class="btn " style="border-radius: 0.5em; left: 80%; position: absolute;">Cancelar</a>
+                    <p:commandButton value="Salvar" action="#{docenteMB.adiciona()}"  update="feedback" validateClient="true" style=" left: 90%; position: absolute;"> </p:commandButton>
                 </h:form>
             </div>
         </div>

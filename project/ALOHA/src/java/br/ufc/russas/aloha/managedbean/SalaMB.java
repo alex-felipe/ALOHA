@@ -2,10 +2,12 @@ package br.ufc.russas.aloha.managedbean;
 
 import br.ufc.russas.aloha.dao.SalaDAO;
 import br.ufc.russas.aloha.model.Sala;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -32,9 +34,11 @@ public class SalaMB {
                         FacesContext.getCurrentInstance().getExternalContext().redirect("salas.xhtml");
                         sala = new Sala();
                         this.salas = salaEntidy.selectALL();
-                    } catch (Exception e) {
+                    } catch (IOException e) {
                         e.getMessage();
                     }
+                }else{
+                    enviaFeedBack("Cadastro de salas", "Não foi possível realizar o cadastro a sala. Verifique os dados do formulário e tente reenviar", 'e');
                 }
             } else {
                 if (salaEntidy.update(sala)) {
@@ -42,7 +46,7 @@ public class SalaMB {
                         FacesContext.getCurrentInstance().getExternalContext().redirect("salas.xhtml");
                         sala = new Sala();
                         this.salas = salaEntidy.selectALL();
-                    } catch (Exception e) {
+                    } catch (IOException e) {
                         e.getMessage();
                     }
                 }
@@ -73,7 +77,7 @@ public class SalaMB {
             }else{
                 System.out.println("Deu erro");
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
                 e.getMessage();
         }
     }
@@ -83,7 +87,7 @@ public class SalaMB {
             sala = new Sala();
             FacesContext.getCurrentInstance().getExternalContext().redirect("add_sala.xhtml");
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.getMessage();
         }
     }
@@ -105,4 +109,26 @@ public class SalaMB {
         this.salas = salas;
     }
 
+    public void enviaFeedBack(String titulo, String msg, char severidade) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        FacesMessage.Severity s = null;
+        switch (severidade) {
+            case 'i':
+                s = FacesMessage.SEVERITY_INFO;
+                break;
+            case 'a':
+                s = FacesMessage.SEVERITY_WARN;
+                break;
+            case 'e':
+                s = FacesMessage.SEVERITY_ERROR;
+                break;
+            case 'f':
+                s = FacesMessage.SEVERITY_FATAL;
+                break;
+            default:
+                s = FacesMessage.SEVERITY_INFO;
+                break;
+        }
+        context.addMessage(null, new FacesMessage(s, titulo, msg));
+    }
 }

@@ -76,45 +76,54 @@
             </div>
         </div>
 
-        <div class="container col-lg-9">
+        <div class="container col-lg-9" >
             <h2 class="section-heading float-left" style="font-size: 22px;">ADICIONAR SALA</h2>
             <br/><br/><br/>
-            <div style="margin-left: 100px">
+            <div style="margin: auto">
                 <h:form id="frm">
+                    <p:growl id="feedback" showDetail="false" sticky="false" autoUpdate="true" globalOnly="true"/>  
                     <div class="form-group row" >
-                        <p:outputLabel class="col-form-label">Nome: &nbsp;</p:outputLabel>
-                        <p:inputText value="#{salaMB.sala.nome}" placeholder="Digite o nome da sala"></p:inputText>
+                        <p:outputLabel class="col-form-label" style="width: 7%">Nome:</p:outputLabel>
+                        <p:inputText value="#{salaMB.sala.nome}" id="nome" placeholder="Digite o nome da sala" style="width: 20%" required="true" requiredMessage="Por favor, informe o nome da sala">
+                            <f:validateLength minimum="5" maximum="50" />
+                            <p:clientValidator />
+                        </p:inputText>
+                        <p:message for="nome" />
                     </div>
                     
                     <div class="form-group row" >
-                        <p:outputLabel class="col-form-label">Tipo: &nbsp;</p:outputLabel>
-                        <h:selectOneMenu class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.tipo}">
-                            <f:selectItem itemLabel="Selecione tipo" itemValue="" />
-                            <f:selectItem itemLabel="Sala" itemValue="Sala" />
-                            <f:selectItem itemLabel="Laboratório" itemValue="Laboratorio" />
+                        <p:outputLabel class="col-form-label"  style="width: 7%">Tipo de sala: </p:outputLabel>
+                        <h:selectOneMenu id="tipoSala" class="custom-select" style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.tipo}" required="true" requiredMessage="Informe o tipo de sala">
+                            <f:selectItem itemLabel="Selecione o tipo" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Sala comum" itemValue="SALA" />
+                            <f:selectItem itemLabel="Laboratório" itemValue="LABORATÓRIO" />
                         </h:selectOneMenu>
+                        <p:message for="tipoSala" />
                     </div>
                     
                     <div class="form-group row" >
-                        <p:outputLabel class="col-form-label">Bloco: &nbsp;</p:outputLabel>
-                        <h:selectOneMenu class="custom-select"  style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.bloco}">
-                            <f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+                        <p:outputLabel class="col-form-label" style="width: 7%">Bloco: </p:outputLabel>
+                        <h:selectOneMenu id="bloco" class="custom-select"  style="font-size: 12px; width: 200px; height: 30px;" value="#{salaMB.sala.bloco}" required="true" requiredMessage="Informe o bloco onde a sala está contida">
+                            <f:selectItem itemLabel="Selecione uma opção" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Bloco A" itemValue="Bloco A" />
                             <f:selectItem itemLabel="Bloco B" itemValue="Bloco B" />
-                            <f:selectItem itemLabel="Bloco C" itemValue="Bloco C" />
-                            <f:selectItem itemLabel="Bloco D" itemValue="Bloco D" />
                         </h:selectOneMenu>
+                        <p:message for="bloco" />
                     </div>
                     <div class="form-group row" >
-                        <p:outputLabel class="col-form-label">Capacidade: &nbsp;</p:outputLabel>
-                        <p:inputText type="number" class="form-control" style="font-size: 12px; width: 70px;"  value="#{salaMB.sala.capacidade}"/>
+                        <p:outputLabel class="col-form-label"  style="width: 7%">Capacidade: </p:outputLabel>
+                        <p:inputText id="capacidade" type="number" class="form-control" style="font-size: 12px; width: 10%;"  value="#{salaMB.sala.capacidade}" required="true" requiredMessage="A capacidade da sala deve estar entre os valores 1 e 100">
+                            <f:validateDoubleRange minimum="1" maximum="100" />
+                        </p:inputText>
+                        <p:message for="capacidade" showSummary="false"/>
                     </div>
-                   
+                    <br/>
+                    <div class="form-group row" >
+                        <a href="salas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 66%; position: relative;">Cancelar</a>
+                        <p:commandButton  style="left: 66%; position: relative; border-radius: 0.5em; width: 7%"  value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>
+                    </div>
                 </h:form>
-                
-                     <a href="salas.xhtml" class="btn btn-secodary" style="border-radius: 0.5em; left: 80%; position: absolute;">Cancelar</a>
-                    <p:commandButton  style="left: 90%; position: absolute;"  value="Salvar" actionListener="#{salaMB.adicionar()}"  update=":frm"> </p:commandButton>
-                
+
             </div>
         </div>
 

@@ -145,7 +145,7 @@
                                 <b>Nome: &nbsp; </b> <h:outputText value="#{disciplinaMB.disciplina.nome}" />
                             </div>
                             <div class="row" >
-                                <b>Cursos / Sesmestre: &nbsp; </b>
+                                <b>Cursos / Sesmestre: &nbsp;  </b>
                                 <p:dataList value="#{disciplinaMB.disciplina.cursosSemestres}" var="cs" type="ordered">
                                     #{cs.curso} - #{cs.semestre}º Semestre &nbsp;&nbsp;&nbsp;&nbsp;
                                 </p:dataList>
@@ -161,7 +161,13 @@
                             </div>
                             <div class="row" >
                                 <b>Vagas: &nbsp; </b> <h:outputText value="#{disciplinaMB.disciplina.vagas}" />
-                            </div>                               
+                            </div> 
+                            <div class="row" >
+                                <b>Optativa: &nbsp; </b> 
+                                <h:outputText value="Sim" rendered="#{disciplinaMB.disciplina.optativa}" />
+                                <h:outputText value="Não" rendered="#{!disciplinaMB.disciplina.optativa}" />
+                               
+                            </div>  
                         </div>
                         <div class="modal-footer">
                             <p:commandButton onclick="dialog.hide()" process="@none" value="Cancelar" />

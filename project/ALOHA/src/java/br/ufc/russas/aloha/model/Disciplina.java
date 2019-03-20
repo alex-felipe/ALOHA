@@ -16,6 +16,7 @@ public class Disciplina {
     private int crTeoricos;
     private int vagas;
     private String tipoSala;
+    private boolean optativa;
     private List<CursoSemestre> cursosSemestres;
     
 
@@ -36,7 +37,7 @@ public class Disciplina {
         setVagas(vagas);
     }
 
-    public Disciplina(int id, String codigoModelo, String codigo, String nome, int crPraticos, int crTeoricos, int vagas, String tipoSala) {
+    public Disciplina(int id, String codigoModelo, String codigo, String nome, int crPraticos, int crTeoricos, int vagas, String tipoSala,boolean optativa) {
         this.id = id;
         this.codigoModelo = codigoModelo;
         this.codigo = codigo;
@@ -45,10 +46,13 @@ public class Disciplina {
         this.crTeoricos = crTeoricos;
         this.vagas = vagas;
         this.tipoSala = tipoSala;
+        this.optativa = optativa;
         
     }
     
-    public String geraCodigo( int id) {
+    
+    
+    public String geraCodigo() {
         String cod;
         if (id < 10) {
             cod = "DISC" + "0000" + id;
@@ -139,13 +143,32 @@ public class Disciplina {
         if (vagas >0) this.vagas = vagas;
     }
 
+    public boolean isOptativa() {
+        return optativa;
+    }
+
+    public void setOptativa(boolean optativa) {
+        this.optativa = optativa;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 67 * hash + Objects.hashCode(this.codigoModelo);
-        hash = 67 * hash + Objects.hashCode(this.nome);
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + Objects.hashCode(this.codigoModelo);
+        hash = 97 * hash + Objects.hashCode(this.codigo);
+        hash = 97 * hash + Objects.hashCode(this.nome);
+        hash = 97 * hash + this.crPraticos;
+        hash = 97 * hash + this.crTeoricos;
+        hash = 97 * hash + this.vagas;
+        hash = 97 * hash + Objects.hashCode(this.tipoSala);
+        hash = 97 * hash + Objects.hashCode(this.cursosSemestres);
         return hash;
     }
+
+
 
 
 

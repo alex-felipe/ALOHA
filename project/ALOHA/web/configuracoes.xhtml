@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>ALOHA - Sistema de Alocação de Horários Acadêmicos</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Custom fonts for this template 
+        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'/>
+         -->
+        <!-- Plugin CSS -->
+        <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+        <link href="css/creative.css" rel="stylesheet"/>
+        <link href="css/style.css" rel="stylesheet"/>
+    </h:head>
+    <h:body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-shrink" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">ALOHA UFC</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gerenciamento
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="salas.xhtml">Salas</a>
+                                <a class="dropdown-item" href="combos.xhtml">Combos</a>
+                                <a class="dropdown-item" href="disciplinas.xhtml">Disciplinas</a>
+                                <a class="dropdown-item" href="docentes.xhtml">Docentes</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="configuracoes.html">Configurações</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br/>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <center>
+                    <nav aria-label="breadcrumb" style="width: 75%;">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Configurações</li>
+                        </ol>
+                    </nav>
+                </center>
+
+            </div>
+        </div>
+        <div class="container col-lg-9">
+            <form class="form-inline my-2 my-lg-0">
+                <h2 class="section-heading float-left" style="font-size: 22px;">CONFIGURAÇÕES</h2>
+                <hr class="my-4"/>
+            </form>
+            <br/>
+            <p:tabView>
+                <p:tab title="Atualizar Perfil">
+                    <h:outputText value="Nesta página você pode realizar alterações nos seus dados."/><br/><br/>
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputText value="Nome: " />
+                        <p:inputText id="nome" value="#{configuracoesMB.user.nome}" />
+                        <br/>
+
+                        <h:outputText value="Login: " />
+                        <p:inputText id="loginUser" value="#{configuracoesMB.user.login}"  disabled="true"/>
+                        <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
+
+
+                        <h:outputText value="Senha: " />
+                        <p:inputText id="senhaUser" value="**********" disabled="true"/>
+                        <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
+                    </h:panelGrid>
+                    <br/>
+                    <p:commandButton value="Cancelar" validateClient="true"> </p:commandButton> &nbsp;
+                    <p:commandButton value="Salvar alterações" validateClient="true"> </p:commandButton>
+                </p:tab>
+                <p:tab title="Configurações do Planejamento">
+                    <h:outputText value="Nesta página você pode realizar alterações nas configurações de planejamento da alocação de horários."/><br/><br/>
+                    <div style="position: absolute; width: 50%; ">
+                        <div style="width: 450px;">
+                            <h:form>
+                                <p:dataList value="#{configuracoesMB.cursos}" var="curso" type="none" >
+                                    <f:facet name="header">
+                                        Curso
+                                    </f:facet>
+                                    <h:panelGrid columns="3" cellpadding="5">
+                                        &nbsp; #{curso.nome} 
+                                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{configuracoesMB.removeCurso()}" style="left: 40%;position: relative;">
+                                            <f:setPropertyActionListener value="#{curso}" target="#{configuracoesMB.cursoSelecionado}"/>
+                                            <p:confirm header="Confirmação" message="Deseja realmente excluir este curso?" icon="ui-icon-trash"/>
+                                        </p:commandLink>
+                                    </h:panelGrid>
+                                </p:dataList>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="margin-left: 200px"/>
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 5px"/>
+                                </p:confirmDialog>
+                            </h:form>
+                        </div>
+                        <br/>
+                        <h:form>
+                            <h:outputText value="Nome do curso: " /> &nbsp;
+                            <p:inputText value="#{configuracoesMB.nomeNovoCurso}"  /> &nbsp;
+                            <p:commandButton value="Adicionar novo curso" actionListener="#{configuracoesMB.adicionaCurso()}"/>                              
+                        </h:form>
+
+                    </div>
+                    <div style="position: absolute; width: 50%; left: 50%;">
+                        <div style="width: 450px;">
+                            <h:form>
+                                <p:dataList value="#{configuracoesMB.horarios}" var="horario" type="none" >
+
+                                    <f:facet name="header">
+                                        Horários
+                                    </f:facet>
+                                    <h:panelGrid columns="3" cellpadding="5">
+                                        &nbsp; #{horario.descricao} 
+                                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{configuracoesMB.removeHorario()}" style="left: 40%;position: relative;">
+                                            <f:setPropertyActionListener value="#{horario}" target="#{configuracoesMB.horarioSelecionado}"/>
+                                            <p:confirm header="Confirmação" message="Deseja realmente excluir este horário?" icon="ui-icon-trash"/>
+                                        </p:commandLink>
+                                    </h:panelGrid>
+                                </p:dataList>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="margin-left: 200px"/>
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 5px"/>
+                                </p:confirmDialog>
+                            </h:form>
+                        </div>
+                        <br/>
+                        <h:form id="form">
+                            <h:outputText value="Horário: " /> &nbsp;
+                            <p:inputMask  mask="99:99" style="width: 60px;" value="#{configuracoesMB.novoHorario1}"/> &nbsp; às &nbsp;<p:inputMask  mask="99:99" style="width: 60px;" value="#{configuracoesMB.novoHorario2}"/> &nbsp;
+                            <p:commandButton value="Adicionar novo horário" actionListener="#{configuracoesMB.adicionaHorario()}"/>                        
+                        </h:form>
+
+                    </div>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+                </p:tab>
+                <p:tab title="Configurações do Servidor">
+                    <h:form>
+                        <h:outputText value="Nesta página você pode realizar alterações nas configurações do servidor."/><br/><br/>
+                        <h:outputText value="URL do Servidor: "/><p:inputText value="#{configuracoesMB.urlDoServidor}" disabled="true"/>  &nbsp; &nbsp;<p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
+                        <br/><br/>
+                        <p:commandButton value="Cancelar" validateClient="true"> </p:commandButton> &nbsp;
+                        <p:commandButton value="Salvar alterações" validateClient="true"> </p:commandButton>                        
+                    </h:form>
+                </p:tab>
+                <p:tab title="Configurações do Banco de Dados">
+                    <h:outputText value="Nesta página você pode realizar alterações nas configurações do banco de dados."/><br/><br/>
+                    <h:panelGrid columns="3" cellpadding="10">
+                        <h:outputText value="Nome do BD: " />
+                        <p:inputText id="nomeBD" value="#{configuracoesMB.nomeDoBD}" disabled="true"/>
+                        <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
+                        
+                        <h:outputText value="Login: " />
+                        <p:inputText id="login" value="#{configuracoesMB.login}" disabled="#{configuracoesMB.habCampoLogin}" >
+                            
+                        </p:inputText>
+                        <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil">
+                            <p:ajax event="click" update="login" listener="#{configuracoesMB.alternaLogin()}" />
+                        </p:commandButton>
+
+
+                        <h:outputText value="Senha: " />
+                        <p:inputText id="senha" value="#{configuracoesMB.senha}" disabled="true"/>
+                        <p:commandButton value="editar"  icon="ui-icon ui-icon-pencil" />
+                        
+                    </h:panelGrid>
+                    <br/>
+                    <p:commandButton value="Cancelar" validateClient="true"> </p:commandButton> &nbsp;
+                    <p:commandButton value="Salvar alterações" validateClient="true"> </p:commandButton>
+                </p:tab>
+            </p:tabView>
+            
+            <br/>
+            
+        </div>
+        <br/>
+        
+    </h:body>
+</html>
+

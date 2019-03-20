@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                            <a class="nav-link js-scroll-trigger" href="index.xhtml">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,13 +50,13 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.xhtml">Planejamentos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="configuracoes.html">Configurações</a>
+                            <a class="nav-link js-scroll-trigger" href="configuracoes.xhtml">Configurações</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+                            <a class="nav-link js-scroll-trigger" href="sobre.xhtml">Sobre</a>
                         </li>
                     </ul>
                 </div>
@@ -68,7 +68,7 @@
                 <center>
                     <nav aria-label="breadcrumb" style="width: 75%;">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                            <li class="breadcrumb-item"><a href="index.xhtml">Inicio</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Planejamento</li>
                         </ol>
                     </nav>
@@ -76,155 +76,41 @@
 
             </div>
         </div>
-        <div class="container col-lg-9">
-            <form class="form-inline my-2 my-lg-0">
-                <h2 class="section-heading float-left" style="font-size: 22px;">PLANEJAMENTO</h2>
-                <hr class="my-4"/>
-            </form>
-            <br/>
-
-            <h:form id="form" prependId="false">
-                <p:growl id="growl" sticky="true" showDetail="true"/>
-
-                <p:wizard>
-                    <p:tab id="disciplinas" title="Disciplinas">
-                        <p:panel header="Disciplinas">
-                            <p:messages />
-                            
-                                <div class="form-group row" > 
-                                    <p:dataTable value="#{planejamentoMB.turmasCadastro}" var="disciplina" paginator="true" rows="5" style="width: 50%; margin: 5px"
-                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 rowsPerPageTemplate="5,10,15" >
-
-                                       
-                                        <p:column headerText="Cod. Disciplina" width="100" >
-                                            <h:outputText value="#{disciplina.disciplina.codigo}" />
-                                        </p:column>
-
-                                        <p:column headerText="Nome" width="180">
-                                            <h:outputText value="#{disciplina.disciplina.nome}" />
-                                        </p:column>
-
-                                        <p:column headerText="" style="text-align: center" width="35">
-                                            <p:commandLink  styleClass="ui-icon ui-icon-plus"  action="#{planejamentoMB.addDisciplina()}" update=":form" style="float: left;" >
-                                                <f:setPropertyActionListener value="#{disciplina}" target="#{planejamentoMB.turmasTmp}"/>
-                                            </p:commandLink>
-                                        </p:column>
-                                    </p:dataTable>
-                                    <p:dataTable var="turma" value="#{planejamentoMB.turmasOfertadas}" style="width: 48%;">
-                                        <p:column headerText="Disciplina">
-                                            <h:outputText value="#{turma.disciplina.nome}" />
-                                        </p:column>
-                                        <p:column headerText="Nº de Turmas">
-                                            <h:outputText value="#{turma.qntTurmas}" />
-                                        </p:column>
-                                    </p:dataTable>
-                                </div>
-                        </p:panel>
-                    </p:tab>
-
-                    <p:tab id="address" title="Address">
-                        <p:panel header="Address Details">
-                            <p:messages />
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Street: " />
 
 
-                                <h:outputText value="Postal Code: " />
+        <section id="opcoes">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">Planejamentos Acadêmicos</h2>
+                        <hr class="my-4"/>
+                    </div>
+                </div>
+            </div>
+            <div class="container" >
+                <div class="row" style="align-content: center;justify-content: center; ">
+
+                    <a href="novo_planejamento.xhtml" class="col-lg-3 col-md-6 text-center opcoes">
+                        <div class="service-box mt-5 mx-auto">
+                            <i class="fa fa-4x fa-map-marker text-primary mb-3 sr-icons"></i>
+                            <h3 class="mb-3">Novo planejamento</h3>
+                            <p class="text-muted mb-0">Realize um novo planejamento da instituição</p>
+                        </div>
+                    </a>
+                    <a href="planejamentos_old.xhtml" class="col-lg-3 col-md-6 text-center opcoes">
+                        <div class="service-box mt-5 mx-auto">
+                            <i class="fa fa-4x fa-table text-primary mb-3 sr-icons"></i>
+                            <h2 class="mb-3">Planejamentos anteriores</h2>
+                            <p class="text-muted mb-0">Continue, ou vizualize um planejamento anterior</p>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
 
 
-                                <h:outputText value="City: " />
 
-
-                                <h:outputText value="Skip to last: " />
-
-                            </h:panelGrid>
-                        </p:panel>
-                    </p:tab>
-
-                    <p:tab id="contact" title="Contact">
-                        <p:panel header="Contact Information">
-                            <p:messages />
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Email: *" />
-
-
-                                <h:outputText value="Phone: " />
-
-
-                                <h:outputText value="Additional Info: " />
-
-                            </h:panelGrid>
-                        </p:panel>
-                    </p:tab>
-
-                    <p:tab id="confirm" title="Confirmation">
-                        <p:panel header="Confirmation">
-                            <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Firstname: " />
-
-
-                                    <h:outputText value="Lastname: " />
-
-
-                                    <h:outputText value="Age: " />
-
-                                </h:panelGrid>
-
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Street: " />
-
-
-                                    <h:outputText value="Postal: " />
-
-
-                                    <h:outputText value="City: " />
-
-                                </h:panelGrid>
-
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Email: " />
-
-
-                                    <h:outputText value="Phone " />
-
-
-                                    <h:outputText value="Info: " />
-
-
-                                    <h:outputText />
-                                    <h:outputText />
-                                </h:panelGrid>
-                            </h:panelGrid>
-
-                            <p:commandButton value="Submit" actionListener="#" update="growl" process="@this"/>
-                        </p:panel>
-                    </p:tab>
-                </p:wizard>
-            </h:form>  
-
-
-            <br/>
-
-        </div>
-        <br/>
-
-
-        <!-- Bootstrap core JavaScript -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-
-        <!-- Plugin JavaScript -->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-        <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="js/creative.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
     </h:body>
 </html>

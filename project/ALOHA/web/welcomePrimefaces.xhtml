@@ -38,21 +38,7 @@
                     </p:menu>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="center">
-                    <h:form>
-  
-                        <p:dataTable var="cliente" value="#{salaMB.salas}">
-                            <p:column headerText="Nome" sortBy="#{cliente.nome}" filterBy="#{cliente.nome}">
-                                <h:outputText value="#{cliente.nome}" />
-                            </p:column>
-  
-                            <p:column headerText="Endereço" sortBy="#{cliente.codigo}" filterBy="#{cliente.codigo}">
-                                <h:outputText value="#{cliente.codigo}" />
-                            </p:column>
-
-                        </p:dataTable>
-                    </h:form>
-                </p:layoutUnit>
+                
 
             </p:layout>
 

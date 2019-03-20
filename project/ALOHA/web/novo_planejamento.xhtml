@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>ALOHA - Sistema de Alocação de Horários Acadêmicos</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Custom fonts for this template -->
+        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Plugin CSS -->
+        <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+        <link href="css/creative.css" rel="stylesheet"/>
+        <link href="css/style.css" rel="stylesheet"/>
+    </h:head>
+    <h:body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-shrink" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">ALOHA UFC</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="index.xhtml">Inicio</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gerenciamento
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="salas.xhtml">Salas</a>
+                                <a class="dropdown-item" href="combos.xhtml">Combos</a>
+                                <a class="dropdown-item" href="disciplinas.xhtml">Disciplinas</a>
+                                <a class="dropdown-item" href="docentes.xhtml">Docentes</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.xhtml">Planejamentos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="configuracoes.xhtml">Configurações</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="sobre.xhtml">Sobre</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br/>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <center>
+                    <nav aria-label="breadcrumb" style="width: 75%;">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.xhtml">Inicio</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Planejamento</li>
+                        </ol>
+                    </nav>
+                </center>
+
+            </div>
+        </div>
+        <div class="container col-lg-9">
+            <form class="form-inline my-2 my-lg-0">
+                <h2 class="section-heading float-left" style="font-size: 22px;">PLANEJAMENTO</h2>
+                <hr class="my-4"/>
+            </form>
+            <br/>
+            <h:form id="parcial"><p:commandButton style="position: absolute; left: 95%"  icon="ui-icon-disk" actionListener="#{planejamentoMB.salvar()}"></p:commandButton></h:form>
+            <h:form id="form">
+                
+                <p:growl id="growl" sticky="true" showDetail="true"/>
+                
+                <p:wizard  nextLabel="Próximo" backLabel="Anterior">
+                   
+                    <br/>
+                    <p:tab id="nome" title="Titulo" titleStyleClass="firstTab"  >
+
+                        <p:panel >
+                            <div>
+                               
+                            </div>
+                            <hr></hr>
+                            
+                            <div class="form-group row" >
+                                <h2 style="font-size: 22px; margin-left: 5%">Nome do planejamento:&nbsp;</h2>
+                                <p:inputText value="#{planejamentoMB.nome}" placeholder="Insira o nome do planejamento" immediate="true" style="width:50%"></p:inputText> 
+                            </div>
+                            
+                        </p:panel>
+                    </p:tab>
+                    <p:tab id="docentes" title="Docentes" titleStyleClass="middleTab">
+
+                        <p:panel>
+                            <hr></hr>
+                            <h2 style="font-size: 22px;">Docentes disponíveis</h2>
+                            <p:messages />
+                            <p:dataTable value="#{planejamentoMB.docentesDisponiveis}" 
+                                         var="docente" style="width: 95%; margin: 5px; margin: 0 auto" 
+                                         rows="10" paginator="true" rowsPerPageTemplate="5,10,15" paginatorPosition="top"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                                <p:column headerText="Nome" style="width:90%">
+                                    <h:outputText value="#{docente.nome}" />
+                                </p:column>
+
+                                <p:column headerText="" style="width:10%; " >
+                                    <p:commandLink  styleClass="ui-icon ui-icon-circle-close"  action="#{planejamentoMB.removeDocente()}" update=":form" style="float: left; margin-left: 30px"  >
+                                        <f:setPropertyActionListener value="#{docente}" target="#{planejamentoMB.docenteTemp}"/>
+                                    </p:commandLink>
+
+                                </p:column>
+                            </p:dataTable>
+                            <br/>
+                            <hr></hr>
+                            <h2 style="font-size: 22px;">Docentes não disponíveis</h2>
+
+                            <p:dataTable value="#{planejamentoMB.docentesOut}" 
+                                         var="docenteOut" style="width: 95%; margin: 5px; margin: 0 auto" 
+                                         rows="10" paginator="true" rowsPerPageTemplate="5,10,15" paginatorPosition="top"
+                                         paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink}  {RowsPerPageDropdown}">
+
+                                <p:column headerText="Nome" style="width:85%">
+                                    <h:outputText value="#{docenteOut.nome}" />
+                                </p:column>
+
+                                <p:column headerText="" style="width:15%; " >
+                                    <p:commandLink  styleClass="ui-icon ui-icon-circle-plus"  action="#{planejamentoMB.addDocente()}" update=":form" style="float: left; margin-left: 30px"  >
+                                        <f:setPropertyActionListener value="#{docenteOut}" target="#{planejamentoMB.docenteTemp}"/>
+                                    </p:commandLink>
+
+                                </p:column>
+                            </p:dataTable>
+
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="disciplinas" title="Disciplinas" titleStyleClass="middleTab">
+                        <p:panel>
+                            <hr></hr>
+                            <h2 style="font-size: 22px;">Disciplinas ofertadas</h2>
+                            <p:messages />
+
+                            <div class="form-group row" > 
+                                <p:dataTable value="#{planejamentoMB.turmasOfertadas}" var="disciplina" style="width: 95%; margin: 0 auto;" 
+                                             rows="10" paginator="true" rowsPerPageTemplate="5,10,15" paginatorPosition="top"
+                                             paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}">
+
+                                    <p:column headerText="Cod. Disciplina" style="width:15%">
+                                        <h:outputText value="#{disciplina.disciplina.codigo}" />
+                                    </p:column>
+
+                                    <p:column  headerText="Nome">
+                                        <h:outputText value="#{disciplina.disciplina.nome}" />
+                                    </p:column>
+
+                                    <p:column headerText="Nº de Turmas" style="width:12%">
+                                        <h:outputText value="#{disciplina.qntTurmas}" />
+                                    </p:column>
+
+                                    <p:column headerText="Ações" style="width:10%;" >
+                                        <p:commandLink  styleClass="ui-icon ui-icon-circle-plus"  action="#{planejamentoMB.addDisciplina()}" update=":form" style="float: left; margin: 0px 10px 0px 15px" >
+                                            <f:setPropertyActionListener value="#{disciplina}" target="#{planejamentoMB.turmasTmp}"/>
+                                        </p:commandLink>
+
+                                        <p:commandLink  styleClass="ui-icon ui-icon-circle-minus"  action="#{planejamentoMB.removeDisciplina()}" update=":form" >
+                                            <f:setPropertyActionListener value="#{disciplina}" target="#{planejamentoMB.turmasTmp}"/>
+                                        </p:commandLink>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                            <br/>
+                            <hr></hr>
+                            <h2 style="font-size: 22px;">Disciplinas não ofertadas</h2>
+                            <div class="form-group row" >
+                                <p:dataTable value="#{planejamentoMB.disciplinasOut}" var="disciplinaOut" style="width: 95%; margin: 0 auto" 
+                                             rows="10" paginator="true" rowsPerPageTemplate="5,10,15" paginatorPosition="top"
+                                             paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}">
+
+                                    <p:column headerText="Cod. Disciplina" style="width:15%">
+                                        <h:outputText value="#{disciplinaOut.disciplina.codigo}" />
+                                    </p:column>
+
+                                    <p:column  headerText="Nome">
+                                        <h:outputText value="#{disciplinaOut.disciplina.nome}" />
+                                    </p:column>
+
+                                    <p:column headerText="Nº de Turmas" style="width:12%">
+                                        <h:outputText value="#{disciplinaOut.qntTurmas}" />
+                                    </p:column>
+
+                                    <p:column headerText="Ações" style="width:10%; margin: 0 auto" >
+                                        <p:commandLink  styleClass="ui-icon ui-icon-circle-plus"  action="#{planejamentoMB.addDisciplina()}" update=":form" style="float: left;margin-left: 30px"  >
+                                            <f:setPropertyActionListener value="#{disciplinaOut}" target="#{planejamentoMB.turmasTmp}"/>
+                                        </p:commandLink>
+
+
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+
+
+
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="salas" title="Salas" titleStyleClass="middleTab">
+                        <p:panel>
+                            <hr></hr>
+                            <h2 style="font-size: 22px;">Salas disponíveis para alocação</h2>
+                            <p:messages />
+
+                            <div class="form-group row" >
+                                <p:dataTable id="tableSala" var="sala" value="#{planejamentoMB.salasAlocadas}" style="width: 95%; margin: 0 auto" 
+                                             rows="10" paginator="true" rowsPerPageTemplate="5,10,15" paginatorPosition="top"
+                                             paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}">
+                                    <p:column headerText="Cod. Sala" width="30%">
+                                        <h:outputText value="#{sala.codigoModelo}" />
+                                    </p:column>
+                                    <p:column headerText="Nome">
+                                        <h:outputText value="#{sala.nome}" />
+                                    </p:column>
+                                    <p:column headerText="" style="text-align: center" width="35">
+                                        <p:commandLink  styleClass="ui-icon ui-icon-circle-close"  action="#{planejamentoMB.removeSala()}" update=":form:tableSala :form:tableSalaOut "  style="float: left;" >
+                                            <f:setPropertyActionListener value="#{sala}" target="#{planejamentoMB.salaTmp}"/>
+                                        </p:commandLink>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                            <hr></hr>
+                            <h2 style="font-size: 22px;">Salas não disponíveis para alocação</h2>
+                            <div class="form-group row" >
+                                <p:dataTable id="tableSalaOut" var="salaOut" value="#{planejamentoMB.salasOut}" style="width: 95%; margin: 0 auto" 
+                                             rows="10" paginator="true" rowsPerPageTemplate="5,10,15" paginatorPosition="top"
+                                             paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}">
+                                    <p:column headerText="Cod. Sala" width="30%">
+                                        <h:outputText value="#{salaOut.codigoModelo}" />
+                                    </p:column>
+                                    <p:column headerText="Nome">
+                                        <h:outputText value="#{salaOut.nome}" />
+                                    </p:column>
+                                    <p:column headerText="" style="text-align: center" width="35">
+                                        <p:commandLink  styleClass="ui-icon ui-icon-circle-plus"  action="#{planejamentoMB.addSala()}" update=":form:tableSalaOut :form:tableSala"  style="float: left;" >
+                                            <f:setPropertyActionListener value="#{salaOut}" target="#{planejamentoMB.salaTmp}"/>
+                                        </p:commandLink>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </p:panel>
+
+                    </p:tab>
+
+                    <p:tab id="varFixas" title="Variáveis fixas" titleStyleClass="middleTab">
+
+                        <p:panel header="Variáveis fixas" >
+                            <hr></hr>
+                            <h2 style="font-size: 22px;">Cadastro variáveis fixas</h2>
+                            <br/><br/>
+                            <div style="width: 95%; margin: 0 auto;"  >
+
+                                <div class="form-group row" >
+                                    <p:outputLabel class="col-form-label" style="width: 7%;">Docente: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu value="#{planejamentoMB.varFix.docente}" effect="fade" converter="docenteConverter"
+                                                     filter="true" filterMatchMode="startsWith" style="width:30%">     
+                                        <f:selectItem itemLabel="Selecione um docente" itemValue=""/>
+                                        <f:selectItems value="#{planejamentoMB.docentesDisponiveis}" var="item" itemLabel="#{item.nome}" itemValue="#{item}" />
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="form-group row" >
+                                    <p:outputLabel class="col-form-label" style="width: 7%;">Disciplina: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu value="#{planejamentoMB.varFix.disciplina}" effect="fade" converter="disciplinaConverter"
+                                                     filter="true" filterMatchMode="startsWith" style="width:30%">     
+                                        <f:selectItem itemLabel="Selecione uma disciplina" itemValue=""/>
+                                        <f:selectItems value="#{planejamentoMB.turmasOfertadas}" var="disc" itemLabel="#{disc.disciplina.nome}" itemValue="#{disc.disciplina}" />
+                                    </p:selectOneMenu>
+                                </div>
+
+                                <div class="form-group row" >
+                                    <p:outputLabel class="col-form-label" style="width: 7%;">Sala: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu value="#{planejamentoMB.varFix.sala}" effect="fade" converter="salaConverter"
+                                                     filter="true" filterMatchMode="startsWith" style="width:20%">     
+                                        <f:selectItem itemLabel="Selecione uma sala" itemValue=""/>
+                                        <f:selectItems value="#{planejamentoMB.salasAlocadas}" var="sl" itemLabel="#{sl.nome}" itemValue="#{sl}" />
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="form-group row" >
+                                    <p:outputLabel class="col-form-label" style="width: 7%;">Horário: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu value="#{planejamentoMB.varFix.horario}" effect="fade" converter="horarioConverter"
+                                                     filter="true" filterMatchMode="startsWith" style="width:20%">     
+                                        <f:selectItem itemLabel="Selecione um horario" itemValue=""/>
+                                        <f:selectItems value="#{planejamentoMB.horarios}" var="hr" itemLabel="#{hr.descricao}" itemValue="#{hr}" />
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="form-group row" >
+                                    <p:outputLabel class="col-form-label" style="width: 7%;">Horário: &nbsp;</p:outputLabel>
+                                    <p:selectOneMenu value="#{planejamentoMB.varFix.combo}" effect="fade" converter="comboConverter"
+                                                     filter="true" filterMatchMode="startsWith" style="width:20%">     
+                                        <f:selectItem itemLabel="Selecione um combo" itemValue=""/>
+                                        <f:selectItems value="#{planejamentoMB.combos}" var="cb" itemLabel="#{cb.diasEstendido}" itemValue="#{cb}" />
+                                    </p:selectOneMenu>
+                                </div>
+                                <p:commandButton value="Adiconar" actionListener="#{planejamentoMB.addVarFixa()}" update=":form:tableVarFixa" ></p:commandButton>
+
+                            </div>
+
+                            <hr></hr>
+                            <h2 style="font-size: 22px;">Variáveis fixas</h2>
+                            <div class="form-group row" >
+                                <p:dataTable id="tableVarFixa" var="varFixa" value="#{planejamentoMB.variaveisFixas}" style="width: 95%; margin: 0 auto" 
+                                             rows="10" paginator="true" rowsPerPageTemplate="5,10,15" paginatorPosition="top"
+                                             paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" emptyMessage="Nenhuma variável fixa no planejamento">
+                                    <p:column headerText="Docente" width="30%">
+                                        <h:outputText value="#{varFixa.docente.nome}" />
+                                    </p:column>
+                                    <p:column headerText="Disciplina">
+                                        <h:outputText value="#{varFixa.disciplina.nome}" />
+
+                                    </p:column>
+                                    <p:column headerText="Sala">
+                                        <h:outputText value="#{varFixa.sala.nome}" />
+                                    </p:column>
+
+                                    <p:column headerText="Combo">
+                                        <h:outputText value="#{varFixa.combo.diasEstendido}" />
+                                    </p:column>
+                                    <p:column headerText="Horário" width="10%">
+                                        <h:outputText value="#{varFixa.horario.descricao}" />
+                                    </p:column>
+                                    <p:column headerText="" style="text-align: center" width="3%">
+                                        <p:commandLink  styleClass="ui-icon ui-icon-trash"  action="#{planejamentoMB.removeVarFixa()}" update=":form:tableVarFixa" >
+                                            <f:setPropertyActionListener value="#{varFixa}" target="#{planejamentoMB.varFix}"/>
+                                        </p:commandLink>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+
+                        </p:panel>
+
+                    </p:tab>
+
+
+                    <p:tab id="confirm" title="Confirmação" titleStyleClass="lastTab">
+                        <p:panel header="Arquivos para o solver" >
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                            </h:panelGrid>
+                            <p:commandButton value="Baixar arquivo de dados (.dat)" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                <p:fileDownload value="#{planejamentoMB.baixaArquivos()}" />
+                            </p:commandButton>
+                            
+                            
+                        </p:panel>
+                    </p:tab>
+                </p:wizard>
+            </h:form>  
+
+
+            <br/>
+
+        </div>
+        <br/>
+
+
+    </h:body>
+</html>
+

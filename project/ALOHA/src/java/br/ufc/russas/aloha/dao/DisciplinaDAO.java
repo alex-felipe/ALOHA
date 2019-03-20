@@ -13,24 +13,33 @@ import java.util.List;
 public class DisciplinaDAO implements Serializable{
 
     public boolean insert(Disciplina disciplina) {
-        int id = this.gerarIdDisciplina();
-        disciplina.setCodigoModelo(disciplina.geraCodigo(id));
         Connection con = null;
         int tmp;
         try {
             
             con = ConexaoFactory.getConnection();
-            String sql = "INSERT INTO disciplina (codigo_modelo, codigo_disciplina, nome, cr_praticos, cr_teoricos, vagas, tipo_sala) VALUES (?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO disciplina (codigo_modelo, codigo_disciplina, nome, cr_praticos, cr_teoricos, vagas, tipo_sala, is_optativa) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, disciplina.getCodigoModelo());
+            ps.setString(1, "NULL");
             ps.setString(2, disciplina.getCodigo());
             ps.setString(3, disciplina.getNome());
             ps.setInt(4, disciplina.getCrPraticos());
             ps.setInt(5, disciplina.getCrTeoricos());
             ps.setInt(6, disciplina.getVagas());
             ps.setString(7, disciplina.getTipoSala());
+            ps.setBoolean(8, disciplina.isOptativa());
            
             tmp = ps.executeUpdate();
+            
+            disciplina.setId(findCodigoDisc(disciplina.getCodigo()).getId());
+            disciplina.setCodigoModelo(disciplina.geraCodigo());
+            
+            sql = "UPDATE `disciplina` SET `codigo_modelo` = ? WHERE id = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, disciplina.getCodigoModelo());
+            ps.setInt(2, disciplina.getId());
+            ps.executeUpdate();
+            
             for (CursoSemestre cs : disciplina.getCursosSemestres()) {
                 sql = "INSERT INTO `disciplina_curso_semestre` (`id_disciplina`, `curso`, `semestre`) "
                         + "VALUES ((SELECT id FROM disciplina WHERE codigo_modelo =?), ?, ?)";
@@ -80,7 +89,52 @@ public class DisciplinaDAO implements Serializable{
 
         return s;
     }
+        public Disciplina find(String nome) throws SQLException {
+        Connection con = null;
+        Disciplina s = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT * from disciplina where nome = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nome);
 
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                s = map(rs);
+            }
+            pst.close();
+            con.close();
+        } catch (SQLException e1) {
+            System.out.println(e1.getMessage());
+        }
+
+        return s;
+    }
+
+        public Disciplina findCodigoDisc(String cod) throws SQLException {
+        Connection con = null;
+        Disciplina s = null;
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = "SELECT * from disciplina where codigo_disciplina = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, cod);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                s = map(rs);
+            }
+            pst.close();
+            con.close();
+        } catch (SQLException e1) {
+            System.out.println(e1.getMessage());
+        }
+
+        return s;
+    }
+        
     public boolean update(Disciplina disciplina) {
         Connection con = null;
         
@@ -94,7 +148,7 @@ public class DisciplinaDAO implements Serializable{
             ps.setInt(1, disciplina.getId());
             tmp = ps.executeUpdate();
             
-            sql = "UPDATE `disciplina` SET `codigo_modelo` = ?, `codigo_disciplina` = ?, `nome` = ?, `cr_praticos` = ?, `cr_teoricos` = ?, `vagas` = ?, `tipo_sala` = ? WHERE `disciplina`.`id` = ?";
+            sql = "UPDATE `disciplina` SET `codigo_modelo` = ?, `codigo_disciplina` = ?, `nome` = ?, `cr_praticos` = ?, `cr_teoricos` = ?, `vagas` = ?, `tipo_sala` = ?, `is_opitativa` = ?  WHERE `disciplina`.`id` = ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, disciplina.getCodigoModelo());
             ps.setString(2, disciplina.getCodigo());
@@ -104,6 +158,7 @@ public class DisciplinaDAO implements Serializable{
             ps.setInt(6, disciplina.getVagas());
             ps.setString(7, disciplina.getTipoSala());
             ps.setInt(8, disciplina.getId());
+            ps.setBoolean(9, disciplina.isOptativa());
            
             tmp = ps.executeUpdate();
 //            System.out.println("Alterou");
@@ -192,7 +247,7 @@ public class DisciplinaDAO implements Serializable{
     //(`codigo_modelo`, `codigo_disciplina`, `nome`, `cr_praticos`, `cr_teoricos`, `vagas`, `tipo_sala`
     private Disciplina map(ResultSet rs) throws SQLException {
         Disciplina d = new Disciplina(rs.getInt("id"), rs.getString("codigo_modelo"), rs.getString("codigo_disciplina"),
-                rs.getString("nome"), rs.getInt("cr_praticos"), rs.getInt("cr_teoricos"), rs.getInt("vagas"), rs.getString("tipo_sala"));
+                rs.getString("nome"), rs.getInt("cr_praticos"), rs.getInt("cr_teoricos"), rs.getInt("vagas"), rs.getString("tipo_sala"), rs.getBoolean("is_optativa"));
 
         return d;
     }

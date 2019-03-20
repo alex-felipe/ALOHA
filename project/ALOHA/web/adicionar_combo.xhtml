@@ -29,6 +29,7 @@
         <link href="css/style.css" rel="stylesheet"/>
     </h:head>
     <h:body>
+        <p:tooltip />
         <nav class="navbar navbar-expand-lg navbar-light navbar-shrink" id="mainNav">
             <div class="container">
                 <a class="navbar-brand js-scroll-trigger" href="#page-top">ALOHA UFC</a>
@@ -38,27 +39,27 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="index.html">Inicio</a>
+                            <a class="nav-link js-scroll-trigger" href="index.xhtml">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Gerenciamento
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="salas.html">Salas</a>
-                                <a class="dropdown-item" href="combos.html">Combos</a>
-                                <a class="dropdown-item" href="disciplinas.html">Disciplinas</a>
-                                <a class="dropdown-item" href="docentes.html">Docentes</a>
+                                <a class="dropdown-item" href="salas.xhtml">Salas</a>
+                                <a class="dropdown-item" href="combos.xhtml">Combos</a>
+                                <a class="dropdown-item" href="disciplinas.xhtml">Disciplinas</a>
+                                <a class="dropdown-item" href="docentes.xhtml">Docentes</a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="planejamentos.html">Planejamentos</a>
+                            <a class="nav-link js-scroll-trigger" href="planejamentos.xhtml">Planejamentos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="configuracoes.html">Configurações</a>
+                            <a class="nav-link js-scroll-trigger" href="configuracoes.xhtml">Configurações</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="sobre.html">Sobre</a>
+                            <a class="nav-link js-scroll-trigger" href="sobre.xhtml">Sobre</a>
                         </li>
                     </ul>
                 </div>
@@ -70,8 +71,8 @@
                 <center>
                     <nav aria-label="breadcrumb" style="width: 75%;">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="combos.html">Gerenciamento de Combos</a></li>
+                            <li class="breadcrumb-item"><a href="index.xhtml">Inicio</a></li>
+                            <li class="breadcrumb-item"><a href="combos.xhtml">Gerenciamento de Combos</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Adicionar combos</li>
                         </ol>
                     </nav>
@@ -131,16 +132,30 @@
                 </li>
             </div> -->
         <h:form id="frm">
-            <p:selectManyCheckbox id="dias_da_semana" value="#{comboMB.combo.dias}">
-                <f:selectItem itemLabel="Domingo" itemValue="0"/>
-                <f:selectItem itemLabel="Segunda" itemValue="1"/>
-                <f:selectItem itemLabel="Terça" itemValue="2"/>
-                <f:selectItem itemLabel="Quarta" itemValue="3"/>
-                <f:selectItem itemLabel="Quinta" itemValue="4"/>
-                <f:selectItem itemLabel="Sexta" itemValue="5"/>
-                <f:selectItem itemLabel="Sábado" itemValue="6"/>
+            <p:messages id="messages" showDetail="true" closable="true">
+            </p:messages>
+            <p:selectManyCheckbox id="dias_da_semana" value="#{comboMB.combo.dias}" layout="grid" columns="2"> 
+                <f:selectItem itemLabel="Domingo (Manhã)" itemValue="0"/>
+                <f:selectItem itemLabel="Domingo (Tarde)" itemValue="1"/>
+                <f:selectItem itemLabel="Segunda (Manhã)" itemValue="2"/>
+                <f:selectItem itemLabel="Segunda (Tarde)" itemValue="3"/>
+                <f:selectItem itemLabel="Terça (Manhã)" itemValue="4"/>
+                <f:selectItem itemLabel="Terça (Tarde)" itemValue="5"/>
+                <f:selectItem itemLabel="Quarta (Manhã)" itemValue="6"/>
+                <f:selectItem itemLabel="Quarta (Tarde)" itemValue="7"/>
+                <f:selectItem itemLabel="Quinta (Manhã)" itemValue="8"/>
+                <f:selectItem itemLabel="Quinta (Tarde)" itemValue="9"/>
+                <f:selectItem itemLabel="Sexta (Manhã)" itemValue="10"/>
+                <f:selectItem itemLabel="Sexta (Tarde)" itemValue="11"/>
+                <f:selectItem itemLabel="Sábado (Manhã)" itemValue="12"/>
+                <f:selectItem itemLabel="Sábado (Tarde)" itemValue="13"/>
             </p:selectManyCheckbox>
-            <p:commandButton value="Salvar" actionListener="#{comboMB.adiciona()}"  update=":frm"></p:commandButton>
+            <br/>
+            <div style="float: right;">
+                <a href="combos.xhtml" class="btn btn-secodary" >Cancelar</a>
+                <p:commandButton value="Salvar" actionListener="#{comboMB.adiciona()}" update=":frm"></p:commandButton>                
+            </div>
+
         </h:form>
         </div>
         <!-- Bootstrap core JavaScript -->

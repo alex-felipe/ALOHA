@@ -84,8 +84,9 @@
                 <button class="btn btn-outline-primary my-2 my-sm-0" style="border-radius: 0.5em;" type="submit">Pesquisar</button>
             </form>
             <br/>
+            
             <h:form id="form" prependId="false">
-                <p:dataTable value="#{salaMB.salas}" rows="5" var="sala" paginator="true"
+                <p:dataTable value="#{salaMB.salas}" rows="15" var="sala" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
                     <p:column headerText="Código" width="90">
@@ -152,7 +153,7 @@
                         </div>
                     </p:outputPanel>
                 </p:dialog>
-                <p:commandButton style="position: absolute; left: 86%" value="Adicionar Sala" icon="ui-icon-plus" actionListener="#{salaMB.novaSala()}"></p:commandButton>
+                <p:commandButton style="position: relative; left: 91%" value="Adicionar Sala" icon="ui-icon-plus" actionListener="#{salaMB.novaSala()}"></p:commandButton>
             </h:form>  
 
             <br/>
